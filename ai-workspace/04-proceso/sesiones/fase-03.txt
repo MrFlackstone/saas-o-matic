@@ -1,0 +1,660 @@
+ ▐▛███▜▌   Claude Code v2.1.211
+▝▜█████▛▘  Fable 5 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:clear says: [saas-o-matic] recent context, 2026-07-16 1:20pm 
+     GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (17.132 tokens to read)
+       Work investment: 108.748 tokens spent on research, building, and 
+     decisions
+       Your savings: 84% reduction from reuse
+
+     Jul 16, 2026
+
+     #S447 nueva-fase 01 — Implement Fase-01: Prisma DB setup, migration, and
+     idempotent seed for saas-o-matic backend (Jul 16, 12:35 PM)
+
+     #S446 nueva-fase 01 — Evaluating Prisma 6 vs Prisma 7 upgrade decision for
+     saas-o-matic (Jul 16, 12:35 PM)
+
+     General
+       #5919  12:50 PM  🟣  Fase-01 Seed Data Verified Against All Acceptance
+     Criteria via Live DB Query  
+       #5920            🟣  Fase-01 Full Quality Check Passed: Lint, Tests, and
+     Build All Green  
+       #5922            🟣  NestJS App Boots Successfully with PrismaModule at
+     Runtime  
+       #5924  12:51 PM  🟣  Fase-01 Complete File Set Staged for Commit with
+     Correct .gitignore Coverage  
+     #S448 Auditoría Fase 01 — revisión de calidad del diff de Prisma en
+     saas-o-matic backend (Jul 16, 12:51 PM)
+
+     General
+       #5926  12:52 PM  ⚖️  Git staging without commit — entrada registrada,
+     commit diferido  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5927            🔵  saas-o-matic project: decision log contents and
+     architecture ADRs  
+     backend/prisma/seed.ts
+       #5928  12:53 PM  🔵  Prisma Files Code Hygiene Audit in saas-o-matic
+     Backend  
+     #S449 Implement pricing engine domain layer (Fase 02) for saas-o-matic
+     backend with tiered user pricing, VAT calculation, and full test coverage 
+     (Jul 16, 12:54 PM)
+
+     General
+       #5929  12:57 PM  ✅  Phase 2 Deferred Code Review Findings Applied
+     Immediately  
+     backend/package.json
+       #5930  12:58 PM  ✅  Backend Tooling Config Extended for Prisma and
+     Generated File Exclusions  
+     backend/src/domain/pricing/types.ts
+       #5931            🟣  TierLine Domain Type Created for Tiered Pricing
+     backend/prisma/seed.ts
+       #5932            🔄  TierLine Interface Deduplicated: seed.ts Now Imports
+     from Domain Types  
+     General
+       #5933  12:59 PM  🔵  Full Backend CI Chain Passes After Phase 2 Fixes
+     ai-workspace/04-proceso/auditorias.md
+       #5934            🔵  auditorias.md Structure and Phase 0 Findings
+     Revealed  
+       #5935            ✅  Phase 1 Audit Entry Written to auditorias.md
+     backend/prisma/schema.prisma
+       #5936  1:00 PM  ✅  Git commit staged for saas-o-matic Phase 1 (DB +
+     Seed)  
+       #5937           🟣  Prisma schema, initial migration, and demo seed
+     committed to saas-o-matic  
+     ai-workspace/03-prompts/fase-02-motor-pricing.md
+       #5939  1:03 PM  🔵  Phase 02 Prompt File Located in saas-o-matic Project
+      
+       #5940           🔵  Phase 02 Focuses on Tiered Pricing Engine as Pure
+     Domain Logic  
+     backend/src/domain/pricing/types.ts
+       #5941           🟣  Phase 02: Tiered Pricing Engine Implementation Plan
+     Defined  
+     ai-workspace/01-specs/reglas-de-negocio.md
+       #5942  1:04 PM  🔵  Business Rules: Full Tiered Pricing Golden Cases and
+     Country VAT Table Defined  
+     ai-workspace/02-arquitectura/decisiones.md
+       #5943           ⚖️  Architecture Decisions: 9 ADRs Define saas-o-matic
+     Technical Stack and Design Patterns  
+     backend/src/domain/pricing/types.ts
+       #5944           🔵  Domain Layer Partially Started: Only types.ts Exists
+     Before Phase 02  
+     ai-workspace/01-specs/contratos-api.md
+       #5945  1:05 PM  🔵  Contratos API Simulation Input Field Names and
+     Constraints  
+     backend/src/domain/pricing/types.ts
+       #5946  1:06 PM  🔵  Pricing Domain TierLine Interface Structure
+       #5947  1:07 PM  🟣  Expanded Pricing Domain Types with Full Calculation
+     Pipeline Interfaces  
+     backend/src/domain/pricing/pricing-engine.spec.ts
+       #5948           🟣  Pricing Engine Test Suite Created with Golden Cases
+     and Business Rules  
+     General
+       #5949  1:08 PM  🔵  Pricing Engine Tests Not Collected Due to Missing
+     Implementation File  
+       #5950           🔵  Confirmed TDD Red Phase: pricing-engine.ts Module Not
+     Found  
+     backend/src/domain/pricing/tiers.ts
+       #5951           🟣  Pricing Tiers Configuration Extracted to Dedicated
+     Module  
+     backend/src/domain/pricing/pricing-engine.ts
+       #5952           🟣  Pricing Engine Implementation Created
+     General
+       #5953           🟣  Pricing Engine Achieves 100% Test Coverage — All 18
+     Tests Green  
+       #5954           🔵  pnpm test -- Flags Syntax Broken for Jest Pattern
+     Arguments  
+       #5955  1:09 PM  🔵  Domain Layer Confirmed Pure — No Framework
+     Dependencies  
+       #5956           🟣  Pricing Engine Passes Full Quality Chain: Lint,
+     Tests, Build  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5957  1:10 PM  🔵  Registro de decisiones del proyecto saas-o-matic
+     (Fases 0 y 1)  
+     General
+       #5958           🔵  Audit Task Initiated ("auditoria")
+     backend/src/domain/pricing/types.ts
+       #5959  1:11 PM  🟣  Pricing Engine Domain Module Added to saas-o-matic
+     Backend  
+     ai-workspace/04-proceso/auditorias.md
+       #5960           🔵  saas-o-matic Has a Formal Per-Phase AI Code Audit
+     Process  
+     backend/eslint.config.mjs
+       #5961           🔴  Phase 0 Scaffold Audit: ESLint and oxlint Rules
+     Hardened  
+     backend/package.json
+       #5962           🔴  Phase 1 Database Audit: Lint Coverage Gap, Type
+     Duplication, and Coverage Noise Fixed  
+     General
+       #5963  1:14 PM  ⚖️  Code Review Triage: Invariant Test Fix Approved,
+     Medium Finding Deferred  
+     backend/src/domain/pricing/tiers.spec.ts
+       #5964  1:15 PM  🟣  Invariant Tests Added for PRICING_TIERS Structure
+     (RN-01)  
+     backend/src/domain/pricing/pricing-engine.ts
+       #5965           🔵  PRICING_TIERS Invariant Tests Pass with 100% Coverage
+      
+     #S450 Code review triage on saas-o-matic pricing domain: apply low-severity
+     invariant test fix and analyze medium-severity activeUsers non-integer bug
+     (Jul 16, 1:15 PM)
+
+     src/domain/pricing/pricing-engine.ts
+       #5966  1:17 PM  🔴  Input validation guard added to computeUserTierLines
+      
+     src/domain/pricing/pricing-engine.spec.ts
+       #5967           🟣  Test coverage added for non-integer and NaN
+     activeUsers in pricing engine  
+     General
+       #5968           🔵  Pricing domain achieves 100% test coverage with all
+     checks green  
+     ai-workspace/04-proceso/auditorias.md
+       #5969  1:18 PM  ✅  Phase 2 audit entry logged in auditorias.md for
+     pricing engine  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5970           ⚖️  Fail-fast integer guard placement rationale logged in
+     decision registry  
+     General
+       #5971  1:19 PM  ✅  Git Commit Performed
+     backend/src/domain/pricing/pricing-engine.ts
+       #5972           ✅  Pricing Domain + Process Docs Staged for Commit
+
+
+     Access 109k tokens of past research & decisions for just 17.132t. Use the 
+     claude-mem skill to access memories by ID.
+
+     View Observations Live @ http://localhost:37777
+
+❯ /clear                                                                        
+
+❯ /nueva-fase 03                                                                
+
+● Reading fase-03 prompt.
+
+  Searched for 3 patterns, read 2 files (ctrl+o to expand)
+
+● Fase 03 — Validador fiscal español (dominio puro)
+
+  Objetivo: backend/src/domain/tax-id/ — normalización + validación algorítmica
+  DNI/NIE/CIF/NIF especial (K/L/M). Función nunca lanza; devuelve { valid, 
+  kind?, reason? }. TDD con tabla fixtures de spec.
+
+  Plan:
+  1. Tests primero — spanish-tax-id.spec.ts: 17 fixtures de la spec (3 válidos
+  DNI, 3 NIE, 3 CIF, inválidos, variantes de normalización b58818501 /
+  B-5881850-1 / B58818501) + fuzz básico: "", espacios, 300 chars, 😀,
+  minúsculas con guiones, strings raros. Verificar rojo (módulo inexistente).
+  2. normalize.ts — normalizeTaxId(raw): trim → mayúsculas → sin
+  espacios/puntos/guiones.
+  3. spanish-tax-id.ts — constantes DNI_LETTERS/CIF_LETTERS, regex de
+  clasificación, validadores por tipo (DNI mod 23; NIE X→0/Y→1/Z→2; K/L/M mod 23
+  sobre 7 dígitos; CIF suma impares×2-con-suma-de-dígitos + pares, control
+  (10−suma%10)%10, política PQRSW=letra / ABEH=dígito / resto ambos).
+  4. validate-spanish-tax-id.ts — función pública: normaliza → clasifica →
+  valida → reason legible (para error 400).
+  5. Estructura espejo de domain/pricing/ (TS puro, cero imports de framework,
+  ≤250 líneas/archivo).
+
+  Criterios de aceptación:
+  - Fixtures completos en verde con kind correcto.
+  - Variantes normalizables validan.
+  - Cobertura 100% ramas en domain/tax-id.
+  - Sin excepciones para entrada arbitraria.
+
+  Verificación: cd backend && pnpm test -- --coverage 
+  --testPathPattern=domain/tax-id (nota: flag syntax con pnpm dio problemas en
+  fase 02 — usaré pnpm jest directo si falla).
+
+  Confirmas?
+
+✻ Brewed for 57s
+
+❯ Confirmo                                                                      
+
+● Writing tests first (TDD red).
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(backend\src\domain\tax-id\spanish-tax-id.spec.ts)
+  ⎿  Wrote 149 lines to backend\src\domain\tax-id\spanish-tax-id.spec.ts
+       1 import { normalizeTaxId } from './normalize';
+       2 import { validateSpanishTaxId } from './validate-spanish-tax-id'
+         ;
+       3 
+       4 describe('normalizeTaxId', () => {
+       6     ['b58818501', 'B58818501'],
+       7     ['B-5881850-1', 'B58818501'],
+       8     ['  B58818501 ', 'B58818501'],
+       9     ['12.345.678-z', '12345678Z'],
+      10     ['', ''],
+     … +143 lines (ctrl+o to expand)
+
+● Update(backend\src\domain\tax-id\spanish-tax-id.spec.ts)
+  ⎿  Added 4 lines, removed 4 lines
+      58  });
+      59  
+      60  describe('validateSpanishTaxId — NIF especiales (K, L, M)', () 
+          => {
+      61 -  // Regla mod 23 sobre los 7 dígitos: 1234567 mod 23 = 20 → C 
+      61 +  // Regla mod 23 sobre los 7 dígitos: 1234567 mod 23 = 19 → L 
+      62    it.each([
+      63 -    ['K1234567C'],                                             
+      64 -    ['L1234567C'],                                             
+      65 -    ['M1234567C'],                                             
+      63 +    ['K1234567L'],                                             
+      64 +    ['L1234567L'],                                             
+      65 +    ['M1234567L'],                                             
+      66      ['M0000000T'],
+      67    ])('%s es válido con kind NIF_ESPECIAL', (input) => {
+      68      const result = validateSpanishTaxId(input);
+
+● Edit applied (file created this session, so registered). Running red-phase
+  check.
+
+● Bash(cd /c/Users/dpastorhe/Coding/personal/saas-o-matic/backend && pnpm jest
+      --testPathPattern='domain/tax-id' 2>&1 | tail -20)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     testPathPattern:
+     … +8 lines (ctrl+o to expand)
+
+● Bash(pnpm jest --testPathPatterns='domain/tax-id' 2>&1 | tail -15)
+  ⎿      > 1 | import { normalizeTaxId } from './normalize';
+             | ^
+           2 | import { validateSpanishTaxId } from './validate-spanish-tax
+     … +13 lines (ctrl+o to expand)
+
+● Red confirmed. Implementing.
+
+● Write(backend\src\domain\tax-id\normalize.ts)
+  ⎿  Wrote 3 lines to backend\src\domain\tax-id\normalize.ts
+      1 export function normalizeTaxId(raw: string): string {
+      2   return raw.trim().toUpperCase().replace(/[\s.-]/g, '');
+      3 }
+
+● Write(backend\src\domain\tax-id\types.ts)
+  ⎿  Wrote 7 lines to backend\src\domain\tax-id\types.ts
+      1 export type SpanishTaxIdKind = 'DNI' | 'NIE' | 'CIF' | 'NIF_ESPEC
+        IAL';
+      2 
+      3 export interface TaxIdValidationResult {
+      4   valid: boolean;
+      5   kind?: SpanishTaxIdKind;
+      6   reason?: string;
+      7 }
+
+● Write(backend\src\domain\tax-id\spanish-tax-id.ts)
+  ⎿  Wrote 60 lines to backend\src\domain\tax-id\spanish-tax-id.ts
+       1 export const DNI_LETTERS = 'TRWAGMYFPDXBNJZSQVHLCKE';
+       2 export const CIF_LETTERS = 'JABCDEFGHI';
+       3 
+       4 export const DNI_PATTERN = /^\d{8}[A-Z]$/;
+       5 export const NIE_PATTERN = /^[XYZ]\d{7}[A-Z]$/;
+       7 export const CIF_PATTERN = /^[ABCDEFGHJNPQRSUVW]\d{7}[0-9A-J]$/;
+       8 
+       9 const NIE_PREFIX_DIGIT: Record<string, string> = { X: '0', Y: '1
+         ', Z: '2' };
+      10 const CIF_LETTER_ONLY_PREFIXES = 'PQRSW';
+     … +54 lines (ctrl+o to expand)
+
+● Write(backend\src\domain\tax-id\validate-spanish-tax-id.ts)
+  ⎿  Wrote 65 lines to backend\src\domain\tax-id\validate-spanish-tax-id.ts
+       1 import { normalizeTaxId } from './normalize';
+       2 import {
+       3   CIF_PATTERN,
+       4   DNI_PATTERN,
+       5   NIE_PATTERN,
+       6   SPECIAL_NIF_PATTERN,
+       7   isValidCif,
+       8   isValidDni,
+       9   isValidNie,
+      10   isValidSpecialNif,
+     … +58 lines (ctrl+o to expand)
+● Bash(pnpm jest --testPathPatterns='domain/tax-id' --coverage
+      --collectCoverageFrom='src/domain/tax-id/**/*.ts' 2>&1 | tail -30)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ----------|---------|----------|---------|---------|------------------
+     … +14 lines (ctrl+o to expand)
+
+● Tests green (52). Coverage path wrong — rootDir is src.
+
+● Bash(pnpm jest --testPathPatterns='domain/tax-id' --coverage
+      --collectCoverageFrom='domain/tax-id/**/*.ts' 2>&1 | tail -15)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ----------------------------|---------|----------|---------|---------|
+     … +17 lines (ctrl+o to expand)
+
+● 100% branches. Full quality chain now.
+
+● Bash(pnpm lint 2>&1 | tail -5 && pnpm test 2>&1 | tail -6 && pnpm build 2>&1 |
+      tail -3)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +13 lines (ctrl+o to expand)
+
+● Verificación (Jest 30 renombró flag → --testPathPatterns):
+
+  Tests:       52 passed (tax-id) · 76 passed total
+  Coverage domain/tax-id: 100% stmts/branch/funcs/lines
+  lint ✔ · build ✔
+
+  Criterios de aceptación: todos cumplidos — 17 fixtures spec en verde con kind
+  correcto, variantes normalizables validan, 100% ramas, fuzz 500 strings + 17
+  entradas basura sin excepción.
+
+  Archivos:
+  - backend/src/domain/tax-id/normalize.ts — normalización
+  - backend/src/domain/tax-id/types.ts — SpanishTaxIdKind, TaxIdValidationResult
+  - backend/src/domain/tax-id/spanish-tax-id.ts — constantes, regex, validadores
+  por tipo
+  - backend/src/domain/tax-id/validate-spanish-tax-id.ts — función pública con
+  reason legible
+  - backend/src/domain/tax-id/spanish-tax-id.spec.ts — 52 tests
+
+  Decisiones dignas de registro (propuesta para registro-decisiones.md):
+
+  ▎ Fase 03 — Validador fiscal: tabla de reglas declarativa y fixtures ampliados
+  ▎ - La clasificación DNI/NIE/NIF especial/CIF se implementa como array 
+  ▎ TAX_ID_RULES (patrón + validador + reason) recorrido en orden, en vez de 
+  ▎ if-else encadenados: añadir un tipo nuevo = añadir una entrada, y cada 
+  ▎ reason queda junto a su regla (se usará en el mensaje del error 400 
+  ▎ TAX_ID_INVALID).
+  ▎ - La spec no incluye fixtures de NIF especial (K/L/M) ni de CIF con inicial 
+  ▎ de política "ambos" (N) o "solo letra" distinta de Q (P); se derivaron a 
+  ▎ mano casos verificados (K1234567L, N0032484H/N00324848, P2818002D, 
+  ▎ A58818501) para cubrir el 100% de ramas sin inventar reglas: son aplicación 
+  ▎ directa de los algoritmos ya cerrados en la spec.
+  ▎ - Fuzz determinista (LCG con semilla fija) en lugar de Math.random(): 
+  ▎ reproducible en CI.
+
+  Commit sugerido (spec de fase): feat(tax-id): validación algorítmica de DNI, 
+  NIE y CIF con normalización
+
+  Procedo con registro + commit, o antes /auditoria?
+
+✻ Crunched for 3m 6s
+
+❯ Registra la entrada solo                                                      
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 3 lines
+      28  | 2026-07-16 | 2 | `CostComponent` modelado como tipo función p
+          ura `(input: PricingInput) => TierLine[]`; el motor recibe `com
+          ponents: readonly CostComponent[]` con default `[userTiersCompo
+          nent]` y `baseCents` = suma de `amountCents` de todas las línea
+          s | Interfaz/clase con método `compute()` | Una función basta e
+          n TS puro (ADR-05/07); añadir `StorageComponent` = añadir una f
+          unción al array (OCP), y derivar el total de las líneas hace im
+          posible desincronizar desglose y base. Test dedicado prueba la 
+          extensión con un componente sintético |
+      29  | 2026-07-16 | 2 | Verificación con `--testPathPatterns` (plura
+          l) en lugar del `--testPathPattern` que indica la fase | Downgr
+          ade a Jest 29 | Jest 30 renombró el flag (breaking change); con
+           el flag viejo no encuentra tests. La sección Verificación de `
+          fase-02-motor-pricing.md` queda desactualizada a propósito de r
+          egistro |
+      30  | 2026-07-16 | 2 | Guard fail-fast en `computeUserTierLines`: `
+          activeUsers` no entero lanza `Error` de dominio (hallazgo de au
+          ditoría; caso no cubierto por spec, decidido en revisión) | `Ma
+          th.trunc` defensivo; confiar solo en el DTO | La invariante "di
+          nero solo enteros" se defiende donde vive el dinero (ADR-05); t
+          runc ocultaría el bug y persistiría un snapshot corrupto e inmu
+          table (RN-05). El DTO sigue siendo la validación de usuario (40
+          0); el guard detecta bugs internos |
+      31 +| 2026-07-16 | 3 | Clasificación fiscal como tabla declarativa 
+         +`TAX_ID_RULES` (patrón + validador + `reason` por regla) recorr
+         +ida en orden | Cadena if-else por tipo | Añadir un tipo = añadi
+         +r una entrada; cada `reason` vive junto a su regla y se reutili
+         +zará en el mensaje del 400 `TAX_ID_INVALID` |                  
+      32 +| 2026-07-16 | 3 | Fixtures adicionales derivados a mano para r
+         +amas sin cobertura en la tabla de la spec: NIF especial (`K1234
+         +567L`, `M0000000T`, `K1234567A`), CIF con inicial "ambos" (`N00
+         +32484H`/`N00324848`), "solo letra" P (`P2818002D`) y "solo dígi
+         +to" A válido (`A58818501`) | Limitarse a los 17 fixtures de la 
+         +spec (dejando ramas sin test) | 100 % de ramas exige ejercitar 
+         +K/L/M y las tres políticas de control del CIF; los casos son ap
+         +licación directa de los algoritmos cerrados en la spec, no regl
+         +as nuevas |                                                    
+      33 +| 2026-07-16 | 3 | Fuzz determinista con LCG de semilla fija (5
+         +00 strings) en vez de `Math.random()` | Fuzz aleatorio por ejec
+         +ución | Reproducible en CI: un fallo siempre se puede reproduci
+         +r con la misma semilla |                                       
+      34  
+      35  ## Checklist final contra la rúbrica (completar en fase 9)
+      36  
+
+● 3 entradas fase 3 registradas en registro-decisiones.md: tabla declarativa
+  TAX_ID_RULES, fixtures derivados a mano para 100% ramas, fuzz determinista
+  LCG.
+
+✻ Cooked for 38s
+
+❯ /auditoria                                                                    
+
+● Bash(git status --short && git diff --stat HEAD)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+      M ../ai-workspace/04-proceso/registro-decisiones.md
+     … +4 lines (ctrl+o to expand)
+
+● Auditoría fase 3 — alcance: backend/src/domain/tax-id/ (5 archivos nuevos) +
+  registro-decisiones.md.
+
+  Checklist: capas ✔ (dominio TS puro, cero imports externos) · tamaño ✔ (máx.
+  ~65 líneas) · tipado ✔ (sin any/@ts-ignore) · dinero N/A · seguridad N/A
+  (funciones puras) · higiene ✔ (sin console.log, sin código muerto).
+
+  Hallazgos:
+
+  Sev: Media
+  Ubicación: validate-spanish-tax-id.ts:48
+  Descripción: La política de tests de validaciones.md exige basura "null-safe",
+
+  y la fase dice "nunca lanza para cualquier entrada". Firma actual (value: 
+  string): un null/undefined en runtime (bug del servicio antes del DTO) lanza
+  TypeError en raw.trim()
+  Fix propuesto: Firma (value: unknown) + guard typeof value !== 'string' → { 
+  valid: false, reason: 'identificador fiscal no es texto' }; tests con null,
+  undefined, 123, {}
+  ────────────────────────────────────────
+  Sev: Baja
+  Ubicación: types.ts:5
+  Descripción: kind? opcional vs. firma de la spec que lo muestra sin ?.
+  Deliberado: la basura no clasificable no tiene kind
+  Fix propuesto: Ninguno; registrar como desviación consciente
+  ────────────────────────────────────────
+  Sev: Baja
+  Ubicación: validate-spanish-tax-id.ts:58
+  Descripción: Se devuelve kind también cuando valid: false (control
+  incorrecto).
+  La spec no lo prohíbe y es útil para el mensaje del 400
+  Fix propuesto: Ninguno; nota informativa
+
+  Entrada propuesta para auditorias.md:
+
+  ▎ Fase 3 — Validador fiscal (2026-07-16)
+  ▎
+  ▎ Alcance: backend/src/domain/tax-id/ (normalize, types, spanish-tax-id, 
+  ▎ validate-spanish-tax-id, spec — 52 tests, 100 % ramas).
+  ▎
+  ▎ | Sev   | Hallazgo                                                          
+  ▎                                      | Resolución                          
+  ▎                 |
+  ▎ |-------|-------------------------------------------------------------------
+  ▎ --------------------------------------|-------------------------------------
+  ▎ -----------------|
+  ▎ | Media | validateSpanishTaxId tipada string pero la spec exige basura 
+  ▎ null-safe: null runtime lanzaría en trim() | (pendiente de decisión)        
+  ▎                      |
+  ▎ | Baja  | kind? opcional frente a la firma literal de la spec — basura sin 
+  ▎ clasificar no tiene tipo               | Aceptado como desviación consciente
+  ▎                  |
+  ▎ | Baja  | kind presente en resultados inválidos con formato reconocido      
+  ▎                                      | Aceptado: alimenta el mensaje del 
+  ▎ 400 TAX_ID_INVALID |
+  ▎
+  ▎ Propuestas rechazadas: — (según tu decisión sobre el hallazgo medio)
+
+  Aplico fix del hallazgo medio?
+
+✻ Cooked for 1m 4s
+
+❯ Si                                                                            
+
+● Update(backend\src\domain\tax-id\validate-spanish-tax-id.ts)
+  ⎿  Added 4 lines, removed 1 line
+      45    },
+      46  ];
+      47  
+      48 -export function validateSpanishTaxId(value: string): TaxIdValid
+         -ationResult {                                                  
+      48 +export function validateSpanishTaxId(value: unknown): TaxIdVali
+         +dationResult {                                                 
+      49 +  if (typeof value !== 'string') {                             
+      50 +    return { valid: false, reason: 'identificador fiscal no es 
+         +texto' };                                                      
+      51 +  }                                                            
+      52    const normalized = normalizeTaxId(value);
+      53    if (normalized === '') {
+      54      return { valid: false, reason: 'identificador fiscal vacío'
+           };
+
+● Update(backend\src\domain\tax-id\spanish-tax-id.spec.ts)
+  ⎿  Added 13 lines
+      130      },
+      131    );
+      132  
+      133 +  it.each([                                                   
+      134 +    [null],                                                   
+      135 +    [undefined],                                              
+      136 +    [123],                                                    
+      137 +    [{}],                                                     
+      138 +    [['B58818501']],                                          
+      139 +  ])('entrada no-string %p no lanza y es inválida', (input) =>
+          + {                                                            
+      140 +    const result = validateSpanishTaxId(input);               
+      141 +    expect(result.valid).toBe(false);                         
+      142 +    expect(result.kind).toBeUndefined();                      
+      143 +    expect(result.reason).toBe('identificador fiscal no es tex
+          +to');                                                         
+      144 +  });                                                         
+      145 +                                                              
+      146    it('fuzz de strings aleatorios reproducibles nunca lanza', (
+           ) => {
+      147      const charset =
+      148        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
+           3456789 .-_😀ñÑ*#';
+
+● Bash(pnpm jest --testPathPatterns='domain/tax-id' --coverage
+      --collectCoverageFrom='domain/tax-id/**/*.ts' 2>&1 | tail -12 && pnpm lint
+      2>&1 | tail -2 && pnpm build…)
+  ⎿  File                        | % Stmts | % Branch | % Funcs | % Lines |
+      Uncovered Line #s
+     ----------------------------|---------|----------|---------|---------|
+     … +19 lines (ctrl+o to expand)
+● Fix aplicado y verde (57 tests, 100% ramas, lint+build ✔). Registrando
+  auditoría.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\auditorias.md)
+  ⎿  Added 16 lines
+      79  
+      80  ### Propuestas de la IA rechazadas o corregidas
+      81  - Ninguna en esta fase: los tres hallazgos se resolvieron según
+           lo propuesto (guard A elegido entre 3 opciones analizadas: gua
+          rd fail-fast, trunc defensivo, aceptar sin cambio).
+      82 +                                                               
+      83 +## Fase 3 — Validador fiscal  ·  2026-07-16                    
+      84 +                                                               
+      85 +Alcance: diff de la fase (`domain/tax-id/`: normalize, types, s
+         +panish-tax-id, validate-spanish-tax-id + spec con 57 tests). Do
+         +minio 100 % puro (cero imports); tabla de fixtures completa de 
+         +la spec en verde con `kind` correcto; cobertura 100 % de ramas;
+         + archivos < 65 líneas; sin `any`/`@ts-ignore`/`console.log`. Di
+         +nero/seguridad: N/A (funciones puras sobre strings).           
+      86 +                                                               
+      87 +### Hallazgos                                                  
+      88 +| Severidad | Archivo | Hallazgo | Acción |                    
+      89 +|---|---|---|---|                                              
+      90 +| media | validate-spanish-tax-id.ts | Firma `(value: string)` 
+         +no cumplía la política "basura `null`-safe" de `validaciones.md
+         +`: un `null` runtime (bug del servicio antes del DTO) lanzaría 
+         +`TypeError` en `trim()`, rompiendo el contrato "nunca lanza" | 
+         +corregido: firma `(value: unknown)` + guard `typeof !== 'string
+         +'` → `{ valid: false, reason }` (+5 tests: `null`, `undefined`,
+         + `123`, `{}`, array) |                                         
+      91 +| baja | types.ts | `kind?` opcional frente a la firma literal 
+         +de la spec (sin `?`) | aceptado: desviación consciente — la bas
+         +ura no clasificable no tiene tipo asignable |                  
+      92 +| baja | validate-spanish-tax-id.ts | Se devuelve `kind` tambié
+         +n con `valid: false` cuando el formato se reconoce pero falla e
+         +l control | aceptado: la spec no lo prohíbe y alimenta el mensa
+         +je del 400 `TAX_ID_INVALID` |                                  
+      93 +                                                               
+      94 +`jest --coverage` re-ejecutado tras el fix: 57/57 en verde, 100
+         + % ramas se mantiene; lint y build en verde. Fixtures extra der
+         +ivados a mano (K/L/M, políticas de control del CIF) registrados
+         + en `registro-decisiones.md`.                                  
+      95 +                                                               
+      96 +### Propuestas de la IA rechazadas o corregidas                
+      97 +- Ninguna en esta fase: el hallazgo medio se corrigió según lo 
+         +propuesto; los dos bajos se aceptaron con justificación.       
+
+● Auditoría fase 3 cerrada:
+  - Fix medio aplicado: validateSpanishTaxId(value: unknown) + guard no-string
+  (+5 tests).
+  - Verde: 57/57 tests, 100% ramas, lint, build.
+  - Entrada registrada en auditorias.md (1 media corregida, 2 bajas aceptadas).
+
+  Pendiente commit: feat(tax-id): validación algorítmica de DNI, NIE y CIF con 
+  normalización. Lo hago?
+
+✻ Cooked for 1m 11s
+
+❯ Si                                                                            
+
+● Bash(cd /c/Users/dpastorhe/Coding/personal/saas-o-matic && git add
+      backend/src/domain/tax-id ai-workspace/04-proceso/registro-decisiones.md
+      ai-workspace/04-proceso/a…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 7 files changed, 320 insertions(+)
+     … +9 lines (ctrl+o to expand)
+
+● Bash(git commit -m "feat(tax-id): validación algorítmica de DNI, NIE y CIF con
+      normalización…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok
+     … +4 lines (ctrl+o to expand)
+
+● Commit cb60443 hecho (7 archivos, 320 inserciones). Fase 3 cerrada.
+
+✻ Baked for 37s
