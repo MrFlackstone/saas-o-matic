@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+*.db
+*.db-journal
+.env
+.env.*
+.remember/
+.claude/settings.local.json
+README.template.md
+.DS_Store
