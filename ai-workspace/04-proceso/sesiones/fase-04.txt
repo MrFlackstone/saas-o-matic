@@ -1,0 +1,1653 @@
+ ▐▛███▜▌   Claude Code v2.1.211
+▝▜█████▛▘  Fable 5 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:clear says: [saas-o-matic] recent context, 2026-07-16 1:31pm 
+     GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (16.604 tokens to read)
+       Work investment: 92.286 tokens spent on research, building, and decisions
+       Your savings: 82% reduction from reuse
+
+     Jul 16, 2026
+
+     #S447 nueva-fase 01 — Implement Fase-01: Prisma DB setup, migration, and
+     idempotent seed for saas-o-matic backend (Jul 16, 12:35 PM)
+
+     #S446 nueva-fase 01 — Evaluating Prisma 6 vs Prisma 7 upgrade decision for
+     saas-o-matic (Jul 16, 12:35 PM)
+
+     #S448 Auditoría Fase 01 — revisión de calidad del diff de Prisma en
+     saas-o-matic backend (Jul 16, 12:51 PM)
+
+     #S449 Implement pricing engine domain layer (Fase 02) for saas-o-matic
+     backend with tiered user pricing, VAT calculation, and full test coverage 
+     (Jul 16, 12:54 PM)
+
+     ai-workspace/01-specs/contratos-api.md
+       #5945  1:05 PM  🔵  Contratos API Simulation Input Field Names and
+     Constraints  
+     backend/src/domain/pricing/types.ts
+       #5946  1:06 PM  🔵  Pricing Domain TierLine Interface Structure
+       #5947  1:07 PM  🟣  Expanded Pricing Domain Types with Full Calculation
+     Pipeline Interfaces  
+     backend/src/domain/pricing/pricing-engine.spec.ts
+       #5948           🟣  Pricing Engine Test Suite Created with Golden Cases
+     and Business Rules  
+     General
+       #5949  1:08 PM  🔵  Pricing Engine Tests Not Collected Due to Missing
+     Implementation File  
+       #5950           🔵  Confirmed TDD Red Phase: pricing-engine.ts Module Not
+     Found  
+     backend/src/domain/pricing/tiers.ts
+       #5951           🟣  Pricing Tiers Configuration Extracted to Dedicated
+     Module  
+     backend/src/domain/pricing/pricing-engine.ts
+       #5952           🟣  Pricing Engine Implementation Created
+     General
+       #5953           🟣  Pricing Engine Achieves 100% Test Coverage — All 18
+     Tests Green  
+       #5954           🔵  pnpm test -- Flags Syntax Broken for Jest Pattern
+     Arguments  
+       #5955  1:09 PM  🔵  Domain Layer Confirmed Pure — No Framework
+     Dependencies  
+       #5956           🟣  Pricing Engine Passes Full Quality Chain: Lint,
+     Tests, Build  
+     #S450 Code review triage on saas-o-matic pricing domain: apply low-severity
+     invariant test fix and analyze medium-severity activeUsers non-integer bug
+     (Jul 16, 1:09 PM)
+
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5957  1:10 PM  🔵  Registro de decisiones del proyecto saas-o-matic
+     (Fases 0 y 1)  
+     General
+       #5958           🔵  Audit Task Initiated ("auditoria")
+     backend/src/domain/pricing/types.ts
+       #5959  1:11 PM  🟣  Pricing Engine Domain Module Added to saas-o-matic
+     Backend  
+     ai-workspace/04-proceso/auditorias.md
+       #5960           🔵  saas-o-matic Has a Formal Per-Phase AI Code Audit
+     Process  
+     backend/eslint.config.mjs
+       #5961           🔴  Phase 0 Scaffold Audit: ESLint and oxlint Rules
+     Hardened  
+     backend/package.json
+       #5962           🔴  Phase 1 Database Audit: Lint Coverage Gap, Type
+     Duplication, and Coverage Noise Fixed  
+     General
+       #5963  1:14 PM  ⚖️  Code Review Triage: Invariant Test Fix Approved,
+     Medium Finding Deferred  
+     backend/src/domain/pricing/tiers.spec.ts
+       #5964  1:15 PM  🟣  Invariant Tests Added for PRICING_TIERS Structure
+     (RN-01)  
+     backend/src/domain/pricing/pricing-engine.ts
+       #5965           🔵  PRICING_TIERS Invariant Tests Pass with 100% Coverage
+      
+     #S451 Implement Spanish tax ID validation module (DNI/NIE/CIF/NIF especial)
+     with full TDD cycle in saas-o-matic backend (Jul 16, 1:15 PM)
+
+     src/domain/pricing/pricing-engine.ts
+       #5966  1:17 PM  🔴  Input validation guard added to computeUserTierLines
+      
+     src/domain/pricing/pricing-engine.spec.ts
+       #5967           🟣  Test coverage added for non-integer and NaN
+     activeUsers in pricing engine  
+     General
+       #5968           🔵  Pricing domain achieves 100% test coverage with all
+     checks green  
+     ai-workspace/04-proceso/auditorias.md
+       #5969  1:18 PM  ✅  Phase 2 audit entry logged in auditorias.md for
+     pricing engine  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5970           ⚖️  Fail-fast integer guard placement rationale logged in
+     decision registry  
+     General
+       #5971  1:19 PM  ✅  Git Commit Performed
+     backend/src/domain/pricing/pricing-engine.ts
+       #5972           ✅  Pricing Domain + Process Docs Staged for Commit
+     ai-workspace/03-prompts/fase-03-validador-fiscal.md
+       #5973  1:21 PM  🔵  Fase 03 Prompt: Spanish Tax ID Validator (Domain
+     Pure)  
+     ai-workspace/01-specs/validaciones.md
+       #5978  1:22 PM  🔵  Full Validation Spec: Spanish Tax ID Fixtures and
+     Field Rules  
+     backend/src/domain/pricing/types.ts
+       #5979  1:23 PM  🔵  Pricing Domain Type System in saas-o-matic
+     backend/src/domain/tax-id/spanish-tax-id.spec.ts
+       #5980           🟣  Spanish Tax ID Validation Test Suite Created
+       #5981           🔴  NIF Especial Mod-23 Control Letter Corrected in Tests
+      
+     General
+       #5982  1:24 PM  🔵  Jest CLI Flag Changed: --testPathPattern Deprecated
+       #5983           🔵  Tax-ID Tests Failing Red — Implementation Modules
+     Missing  
+     backend/src/domain/tax-id/normalize.ts
+       #5984           🟣  Tax ID Normalization Function Implemented
+     backend/src/domain/tax-id/types.ts
+       #5985           🟣  Tax ID Domain Types File Created
+     backend/src/domain/tax-id/spanish-tax-id.ts
+       #5986           🟣  Spanish Tax ID Core Validation Algorithms Implemented
+      
+     backend/src/domain/tax-id/validate-spanish-tax-id.ts
+       #5987  1:25 PM  🟣  Spanish Tax ID Validator Dispatcher Implemented
+     General
+       #5988           🟣  Spanish Tax ID Validation Module — All 52 Tests Green
+      
+       #5989           🔵  Jest Coverage Path Must Be rootDir-Relative in
+     saas-o-matic Backend  
+       #5990           🟣  Spanish Tax ID Module Passes Full CI Pipeline
+       #5991  1:26 PM  ✅  Registro de entrada individual solicitado
+     ai-workspace/04-proceso/registro-decisiones.md
+       #5992  1:27 PM  🔵  saas-o-matic backend working tree state for audit
+     #S452 Auditoría fase 3 — dominio tax-id del backend de saas-o-matic (Jul
+     16, 1:27 PM)
+
+     backend/src/domain/tax-id/validate-spanish-tax-id.ts
+       #5993  1:29 PM  🔴  validateSpanishTaxId hardened to accept unknown input
+     type  
+     backend/src/domain/tax-id/spanish-tax-id.spec.ts
+       #5994           🟣  Non-string input tests added to Spanish tax ID
+     validation spec  
+     General
+       #5995           🔵  Spanish tax ID domain achieves 100% coverage across
+     all metrics after changes  
+     ai-workspace/04-proceso/auditorias.md
+       #5996           🔵  saas-o-matic uses structured AI-generated code audit
+     process with per-phase findings log  
+     backend/src/domain/tax-id/normalize.ts
+       #5997  1:30 PM  🟣  Spanish Tax ID Domain Module Implemented
+       #5998           🟣  Tax-ID Domain Committed: DNI, NIE, CIF Algorithmic
+     Validation  
+
+
+     Access 92k tokens of past research & decisions for just 16.604t. Use the 
+     claude-mem skill to access memories by ID.
+
+     View Observations Live @ http://localhost:37777
+
+❯ /clear                                                                        
+
+❯ /nueva-fase 04                                                                
+
+● Reading fase 04 prompt.
+
+  Searched for 1 pattern, read 4 files (ctrl+o to expand)
+
+● Hook truncated specs. Phase rule: specs = source of truth. Reading full.
+
+  Read 3 files (ctrl+o to expand)
+
+● Read hook blocks full content. Using shell to get specs (Read tool
+  intercepted).
+
+  Read 3 files (ctrl+o to expand)
+
+● Checking existing backend state.
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && ls src
+      src/domain src/domain/tax-id src/prisma src/common 2>/dev/null; echo ---;
+      cat src/main.ts…)
+  ⎿  (empty)
+     ---
+     import { ValidationPipe } from '@nestjs/common';
+     … +96 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && find src
+      test -type f | sort; echo ---; cat src/domain/tax-id/*.ts 2>/dev/null |
+      head -5; echo -…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +56 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && cat
+      src/domain/tax-id/types.ts src/domain/tax-id/validate-spanish-tax-id.ts;
+      echo ===; cat src/p…)
+  ⎿  export type SpanishTaxIdKind = 'DNI' | 'NIE' | 'CIF' | 'NIF_ESPECIAL';
+
+     export interface TaxIdValidationResult {
+     … +459 lines (ctrl+o to expand)
+
+● Specs read. Backend state inspected. Plan below — awaiting your OK before 
+  touching files.
+
+  ---
+  Fase 04 — API de clientes
+
+  Objetivo: módulo customers completo — POST /customers (alta con validación
+  fiscal), GET /customers (búsqueda paginada), GET /customers/:id (detalle +
+  404), filtro global de errores según contrato, Swagger.
+
+  Plan de acción
+
+  1. common/
+    - HttpExceptionFilter global → shape exacto: { statusCode, error, message, 
+  details?, timestamp, path }; details solo en 400.
+    - exceptionFactory para ValidationPipe → transforma errores class-validator
+  en details[{ field, code, message }]. Códigos via context: { code } en cada
+  decorador del DTO.
+    - Registrar filtro + pipe en main.ts (pipe global existente se amplía con
+  exceptionFactory).
+  2. customers/dto/
+    - create-customer.dto.ts: companyName (trim, 2–120 → COMPANY_NAME_LENGTH),
+  taxId (string), email (@IsEmail, ≤254 → EMAIL_INVALID), countryCode, planCode.
+  @ApiProperty con ejemplos.
+    - search-customers.dto.ts: search?, page? (≥1, def 1), limit? (1–50,
+  def 10).
+    - Tipos de respuesta (CustomerResponse con country {code,name,vatRateBps} y
+  plan {code,name}).
+  3. customers.service.ts
+    - Normaliza taxId (normalizeTaxId de dominio) antes de todo.
+    - countryCode existe → si no 400 COUNTRY_UNKNOWN; planCode → 400
+  PLAN_UNKNOWN.
+    - País ES → validateSpanishTaxId; inválido → 400 TAX_ID_INVALID con reason
+  de dominio en message.
+    - País ≠ES → ^[A-Z0-9]{4,20}$ tras normalizar → si no, 400 TAX_ID_FORMAT.
+    - Create directo; captura P2002 → 409 TAX_ID_TAKEN (sin pre-consulta, evita
+  carrera).
+    - Búsqueda: contains sobre companyName OR taxId (término normalizado en
+  mayúsculas para taxId); paginación con total.
+    - findById → 404 si no existe.
+    - Unit tests del servicio (ramas de error) con Prisma mockeado.
+  4. customers.controller.ts — fino, 3 endpoints, decoradores Swagger completos
+  (@ApiResponse con ejemplos, incluido shape de error).
+  5. e2e test/customers.e2e-spec.ts (supertest + SQLite temporal):
+    - PrismaService: URL de BD via process.env.DATABASE_URL ?? 
+  'file:./prisma/dev.db' (cambio mínimo necesario para BD temporal).
+    - Setup: BD temporal + migrate deploy + insertar countries/plans propios (no
+  seed completo — el seed trae B58818501 ya usado, contaminaría los tests).
+    - Casos: alta ES feliz (B58818501), alta US feliz, B58818500 → 400
+  TAX_ID_INVALID, duplicado con guiones/minúsculas → 409, país desconocido →
+  400, búsqueda por nombre, por taxId, paginación, 404 detalle.
+
+  Criterios de aceptación (de la fase)
+
+  - Shapes exactos de contratos-api.md.
+  - B58818501 ES entra; B58818500 → 400 con details[0].code = TAX_ID_INVALID.
+  - Duplicado normalizado → 409.
+  - Swagger /docs con 3 endpoints + ejemplos.
+  - pnpm lint && pnpm test && pnpm test:e2e verde.
+
+  Pregunta abierta (spec no lo cubre)
+
+  Códigos de error para constraints sin código en la spec — ej. taxId
+  ausente/no-string en el DTO, page/limit fuera de rango. Opciones: fallback
+  genérico VALIDATION_ERROR, o derivar (TAX_ID_REQUIRED, PAGE_RANGE…). Spec solo
+  define los 10 códigos de la tabla. ¿Fallback VALIDATION_ERROR para lo no
+  especificado?
+
+  ¿OK para implementar?
+
+✻ Baked for 2m 19s
+
+❯ OK, y si, aplica VALIDATION_ERROR para lo no especificado, ten en cuenta esta 
+  decision para el registro de decisiones                                       
+
+● Skill(superpowers:test-driven-development)
+  ⎿  Successfully loaded skill
+
+● TDD: tests first (red), then impl. Checking generated Prisma client error
+  exports + jest config first.
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && grep -rn
+      "PrismaClientKnownRequestError" src/generated/prisma/client.ts
+      src/generated/prisma/*.t…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     grep: '.map' in .
+     … +56 lines (ctrl+o to expand)
+
+  Searched for 3 patterns (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && cat
+      prisma.config.ts 2>/dev/null; ls *.config.ts *.json 2>/dev/null; echo ===;
+      grep -n "" jest.c…)
+  ⎿  import { defineConfig } from 'prisma/config';
+
+     export default defineConfig({
+     … +12 lines (ctrl+o to expand)
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && grep -A
+      30 '"jest"' package.json)
+  ⎿  Error: Exit code 1
+
+  Read 1 file (ctrl+o to expand)
+
+● Plan approved. TDD: writing failing tests first (unit + e2e), then
+  implementation.
+
+● Write(backend\src\customers\customers.service.spec.ts)
+  ⎿  Wrote 285 lines to backend\src\customers\customers.service.spec.ts
+       1 import {
+       2   BadRequestException,
+       3   ConflictException,
+       4   NotFoundException,
+       5 } from '@nestjs/common';
+       6 import { Prisma } from '../generated/prisma/client';
+       7 import { PrismaService } from '../prisma/prisma.service';
+       8 import { CustomersService } from './customers.service';
+       9 
+      10 interface PrismaMock {
+     … +288 lines (ctrl+o to expand)
+
+● Write(backend\test\customers.e2e-spec.ts)
+  ⎿  Wrote 343 lines to backend\test\customers.e2e-spec.ts
+       1 import { INestApplication } from '@nestjs/common';
+       2 import { Test } from '@nestjs/testing';
+       3 import { execSync } from 'node:child_process';
+       4 import * as fs from 'node:fs';
+       5 import * as os from 'node:os';
+       6 import * as path from 'node:path';
+       7 import * as request from 'supertest';
+       8 import { AppModule } from '../src/app.module';
+       9 import { configureApp } from '../src/common/configure-app';
+      10 import { PrismaService } from '../src/prisma/prisma.service';
+     … +359 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm exec
+      jest customers.service 2>&1 | tail -15)
+  ⎿         7 | import { PrismaService } from '../prisma/prisma.service';
+         >  8 | import { CustomersService } from './customers.service';
+              | ^
+     … +13 lines (ctrl+o to expand)
+
+● Red ✔ (module missing). GREEN phase — implementation.
+
+● Write(backend\src\common\dto\validation-detail.dto.ts)
+  ⎿  Wrote 15 lines to backend\src\common\dto\validation-detail.dto.ts
+       1 import { ApiProperty } from '@nestjs/swagger';
+       2 
+       3 export class ValidationDetailDto {
+       4   @ApiProperty({ example: 'taxId' })
+       5   field!: string;
+       6 
+       7   @ApiProperty({ example: 'TAX_ID_INVALID' })
+       8   code!: string;
+       9 
+      10   @ApiProperty({
+     … +6 lines (ctrl+o to expand)
+
+● Write(backend\src\common\dto\error-response.dto.ts)
+  ⎿  Wrote 25 lines to backend\src\common\dto\error-response.dto.ts
+      1 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger
+        ';
+      2 import { ValidationDetailDto } from './validation-detail.dto';
+      3 
+      4 export class ErrorResponseDto {
+      5   @ApiProperty({ example: 400 })
+      6   statusCode!: number;
+      7 
+      8   @ApiProperty({ example: 'Bad Request' })
+      9   error!: string;
+     … +15 lines (ctrl+o to expand)
+
+● Write(backend\src\common\http-exception.filter.ts)
+  ⎿  Wrote 67 lines to backend\src\common\http-exception.filter.ts
+       1 import {
+       2   ArgumentsHost,
+       3   Catch,
+       4   ExceptionFilter,
+       5   HttpException,
+       7 } from '@nestjs/common';
+       8 import { Request, Response } from 'express';
+       9 import { ErrorResponseDto } from './dto/error-response.dto';
+      10 import { ValidationDetailDto } from './dto/validation-detail.dto
+         ';
+     … +57 lines (ctrl+o to expand)
+
+● Write(backend\src\common\validation-exception.factory.ts)
+  ⎿  Wrote 46 lines to backend\src\common\validation-exception.factory.ts
+       1 import { BadRequestException } from '@nestjs/common';
+       2 import { ValidationError } from 'class-validator';
+       3 import { ValidationDetailDto } from './dto/validation-detail.dto
+         ';
+       4 
+       6 
+       7 export function validationExceptionFactory(
+       8   errors: ValidationError[],
+       9 ): BadRequestException {
+      10   const details = errors.flatMap((error) => toDetails(error));
+     … +40 lines (ctrl+o to expand)
+
+● Write(backend\src\common\configure-app.ts)
+  ⎿  Wrote 14 lines to backend\src\common\configure-app.ts
+       1 import { INestApplication, ValidationPipe } from '@nestjs/common
+         ';
+       2 import { HttpExceptionFilter } from './http-exception.filter';
+         on.factory';
+       4 
+       5 export function configureApp(app: INestApplication): void {
+       6   app.useGlobalPipes(
+       8       whitelist: true,
+       9       transform: true,
+      10       exceptionFactory: validationExceptionFactory,
+     … +5 lines (ctrl+o to expand)
+
+● Now DTOs.
+
+● Write(backend\src\customers\dto\create-customer.dto.ts)
+  ⎿  Wrote 44 lines to backend\src\customers\dto\create-customer.dto.ts
+      1 import { ApiProperty } from '@nestjs/swagger';
+      2 import { Transform, TransformFnParams } from 'class-transformer';
+      3 import {
+      4   IsEmail,
+      5   IsNotEmpty,
+      6   IsString,
+      7   Length,
+      8   MaxLength,
+      9 } from 'class-validator';
+     … +38 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\dto\search-customers.dto.ts)
+  ⎿  Wrote 28 lines to backend\src\customers\dto\search-customers.dto.ts
+       1 import { ApiPropertyOptional } from '@nestjs/swagger';
+       2 import { Type } from 'class-transformer';
+       3 import { IsInt, IsOptional, IsString, Max, Min } from 'class-val
+       4 
+       5 export class SearchCustomersDto {
+       6   @ApiPropertyOptional({
+       7     example: 'acme',
+         nción de mayúsculas',
+       9   })
+      10   @IsOptional()
+     … +20 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\dto\country-response.dto.ts)
+  ⎿  Wrote 12 lines to backend\src\customers\dto\country-response.dto.ts
+       1 import { ApiProperty } from '@nestjs/swagger';
+       2 
+       3 export class CountryResponseDto {
+       4   @ApiProperty({ example: 'ES' })
+       5   code!: string;
+       7   @ApiProperty({ example: 'España' })
+       8   name!: string;
+       9 
+      10   @ApiProperty({ example: 2100, description: 'Tipo de IVA en pun
+         tos básicos' })
+     … +3 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\dto\plan-response.dto.ts)
+  ⎿  Wrote 9 lines to backend\src\customers\dto\plan-response.dto.ts
+      1 import { ApiProperty } from '@nestjs/swagger';
+      2 
+      3 export class PlanResponseDto {
+      4   @ApiProperty({ example: 'PRO' })
+      5   code!: string;
+      6 
+      7   @ApiProperty({ example: 'Pro' })
+      8   name!: string;
+      9 }
+
+● Write(backend\src\customers\dto\customer-response.dto.ts)
+  ⎿  Wrote 26 lines to backend\src\customers\dto\customer-response.dto.ts
+       1 import { ApiProperty } from '@nestjs/swagger';
+       2 import { CountryResponseDto } from './country-response.dto';
+       3 import { PlanResponseDto } from './plan-response.dto';
+       4 
+       5 export class CustomerResponseDto {
+       6   @ApiProperty({ example: 'cm5xa1b2c3d4e5f6g7h8i9j0k' })
+       7   id!: string;
+       8 
+       9   @ApiProperty({ example: 'Acme Ibérica SL' })
+      10   companyName!: string;
+     … +18 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\dto\customer-list-response.dto.ts)
+  ⎿  Wrote 16 lines to
+     backend\src\customers\dto\customer-list-response.dto.ts
+      1 import { ApiProperty } from '@nestjs/swagger';
+      2 import { CustomerResponseDto } from './customer-response.dto';
+      3 
+      4 export class CustomerListResponseDto {
+      5   @ApiProperty({ type: [CustomerResponseDto] })
+      6   items!: CustomerResponseDto[];
+      7 
+      8   @ApiProperty({ example: 42 })
+      9   total!: number;
+     … +6 lines (ctrl+o to expand)
+
+● Service, controller, module.
+
+● Write(backend\src\customers\customers.service.ts)  ⎿  Wrote 163 lines to backend\src\customers\customers.service.ts
+       1 import {
+       2   ConflictException,
+       3   Injectable,
+       5 } from '@nestjs/common';
+       6 import { singleFieldValidationException } from '../common/valida
+         tion-exception.factory';
+       7 import { normalizeTaxId } from '../domain/tax-id/normalize';
+         spanish-tax-id';
+       9 import { Prisma } from '../generated/prisma/client';
+      10 import { PrismaService } from '../prisma/prisma.service';
+     … +161 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\customers.controller.ts)
+  ⎿  Wrote 64 lines to backend\src\customers\customers.controller.ts
+       1 import { Body, Controller, Get, Param, Post, Query } from '@nest
+         js/common';
+       2 import {
+       3   ApiBadRequestResponse,
+       4   ApiConflictResponse,
+       6   ApiNotFoundResponse,
+       7   ApiOkResponse,
+       8   ApiOperation,
+       9   ApiParam,
+      10   ApiTags,
+     … +64 lines (ctrl+o to expand)
+
+● Write(backend\src\customers\customers.module.ts)
+  ⎿  Wrote 9 lines to backend\src\customers\customers.module.ts
+      1 import { Module } from '@nestjs/common';
+      2 import { CustomersController } from './customers.controller';
+      3 import { CustomersService } from './customers.service';
+      4 
+      5 @Module({
+      6   controllers: [CustomersController],
+      7   providers: [CustomersService],
+      8 })
+      9 export class CustomersModule {}
+
+● Wiring: app.module, main.ts, PrismaService + prisma.config env override.
+
+● Update(backend\src\app.module.ts)
+  ⎿  Added 2 lines, removed 1 line
+       1  import { Module } from '@nestjs/common';
+       2  import { AppController } from './app.controller';
+       3  import { AppService } from './app.service';
+       4 +import { CustomersModule } from './customers/customers.module';
+       5  import { PrismaModule } from './prisma/prisma.module';
+       6  
+       7  @Module({
+       7 -  imports: [PrismaModule],                                     
+       8 +  imports: [PrismaModule, CustomersModule],                    
+       9    controllers: [AppController],
+      10    providers: [AppService],
+      11  })
+
+● Update(backend\src\main.ts)
+  ⎿  Added 2 lines, removed 2 lines
+       1 -import { ValidationPipe } from '@nestjs/common';               
+       1  import { NestFactory } from '@nestjs/core';
+       2  import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger
+          ';
+       3  import { AppModule } from './app.module';
+       4 +import { configureApp } from './common/configure-app';         
+       5  
+       6  async function bootstrap(): Promise<void> {
+       7    const app = await NestFactory.create(AppModule);
+       8  
+       9 -  app.useGlobalPipes(new ValidationPipe({ whitelist: true, tran
+         -sform: true }));                                               
+       9 +  configureApp(app);                                           
+      10    app.enableCors({ origin: 'http://localhost:5173' });
+      11  
+      12    const swaggerConfig = new DocumentBuilder()
+
+● Update(backend\src\prisma\prisma.service.ts)
+  ⎿  Added 3 lines, removed 1 line
+       9  {
+      10    constructor() {
+      11      super({
+      12 -      adapter: new PrismaBetterSqlite3({ url: 'file:./prisma/de
+         -v.db' }),                                                      
+      12 +      adapter: new PrismaBetterSqlite3({                       
+      13 +        url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db'
+         +,                                                              
+      14 +      }),                                                      
+      15      });
+      16    }
+      17  
+
+● Update(backend\prisma.config.ts)
+  ⎿  Added 1 line, removed 1 line
+       7      seed: 'ts-node prisma/seed.ts',
+       8    },
+       9    datasource: {
+      10 -    url: 'file:./prisma/dev.db',                               
+      10 +    url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db',   
+      11    },
+      12  });
+
+● Edits applied (tool results confirm). GREEN — run unit tests:
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm exec
+      jest customers.service 2>&1 | tail -20)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     Test Suites: 1 passed, 1 total
+     … +4 lines (ctrl+o to expand)
+
+● Unit 14/14 green. Now e2e:
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm
+      test:e2e 2>&1 | tail -40)
+  ⎿        at Proxy.onModuleInit (../src/prisma/prisma.service.ts:19:5)
+               at async Promise.all (index 0)
+           at callModuleInitHook (../node_modules/.pnpm/@nestjs+core@11.1.2
+     … +48 lines (ctrl+o to expand)
+  ⎿  (timeout 3m)
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(backend\package.json)
+  ⎿  Added 1 line, removed 1 line
+      27      "test:watch": "jest --watch",
+      28      "test:cov": "jest --coverage",
+      29      "test:debug": "node --inspect-brk -r tsconfig-paths/registe
+          r -r ts-node/register node_modules/.bin/jest --runInBand",
+      30 -    "test:e2e": "jest --config ./test/jest-e2e.json"           
+      30 +    "test:e2e": "node --experimental-vm-modules node_modules/je
+         +st/bin/jest.js --config ./test/jest-e2e.json --runInBand"      
+      31    },
+      32    "dependencies": {
+      33      "@nestjs/common": "^11.0.1",
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm
+      test:e2e 2>&1 | tail -40)
+  ⎿        250 |     });
+           251 |
+     … +37 lines (ctrl+o to expand)
+  ⎿  (timeout 3m)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && head -10
+      test/app.e2e-spec.ts)
+  ⎿  import { Test, TestingModule } from '@nestjs/testing';
+     import { INestApplication } from '@nestjs/common';
+     import request from 'supertest';
+     … +7 lines (ctrl+o to expand)
+
+● Update(backend\test\customers.e2e-spec.ts)
+  ⎿  Added 2 lines, removed 1 line
+       4  import * as fs from 'node:fs';
+       5  import * as os from 'node:os';
+       6  import * as path from 'node:path';
+       7 -import * as request from 'supertest';                          
+       7 +import request from 'supertest';                               
+       8 +import { App } from 'supertest/types';                         
+       9  import { AppModule } from '../src/app.module';
+      10  import { configureApp } from '../src/common/configure-app';
+      11  import { PrismaService } from '../src/prisma/prisma.service';
+
+● Update(backend\test\customers.e2e-spec.ts)
+  ⎿  Added 2 lines, removed 2 lines
+      25  };
+      26  
+      27  describe('Customers API (e2e)', () => {
+      28 -  let app: INestApplication;                                   
+      29 -  let http: ReturnType<INestApplication['getHttpServer']>;     
+      28 +  let app: INestApplication<App>;                              
+      29 +  let http: App;                                               
+      30  
+      31    beforeAll(async () => {
+      32      execSync('pnpm exec prisma migrate deploy', {
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm
+      test:e2e 2>&1 | tail -40)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +15 lines (ctrl+o to expand)
+  ⎿  (timeout 3m)
+
+● e2e 19/19 green. Full verification chain:
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm lint
+      2>&1 | tail -15)
+  ⎿    208:28  error  Unsafe member access .details on an `any` value    @t
+     ypescript-eslint/no-unsafe-member-access
+       220:28  error  Unsafe member access .details on an `any` value    @t
+     … +16 lines (ctrl+o to expand)
+
+● 22 lint errors: response.body is any in e2e spec. Rewriting with typed body
+  accessors:
+
+● Write(backend\test\customers.e2e-spec.ts)
+  ⎿  Added 70 lines, removed 31 lines
+      16  
+      17  jest.setTimeout(60000);
+      18  
+      19 +interface CustomerBody {                                       
+      20 +  id: string;                                                  
+      21 +  companyName: string;                                         
+      22 +  taxId: string;                                               
+      23 +  email: string;                                               
+      24 +  country: { code: string; name: string; vatRateBps: number }; 
+      25 +  plan: { code: string; name: string };                        
+      26 +  createdAt: string;                                           
+      27 +}                                                              
+      28 +                                                               
+      29 +interface ListBody {                                           
+      30 +  items: CustomerBody[];                                       
+      31 +  total: number;                                               
+      32 +  page: number;                                                
+      33 +  limit: number;                                               
+      34 +}                                                              
+      35 +                                                               
+      36 +interface ErrorBody {                                          
+      37 +  statusCode: number;                                          
+      38 +  error: string;                                               
+      39 +  message: string;                                             
+      40 +  details?: Array<{ field: string; code: string; message: strin
+         +g }>;                                                          
+      41 +  timestamp: string;                                           
+      42 +  path: string;                                                
+      43 +}                                                              
+      44 +                                                               
+      45 +const customerBody = (response: request.Response): CustomerBody
+         + =>                                                            
+      46 +  response.body as CustomerBody;                               
+      47 +const listBody = (response: request.Response): ListBody =>     
+      48 +  response.body as ListBody;                                   
+      49 +const errorBody = (response: request.Response): ErrorBody =>   
+      50 +  response.body as ErrorBody;                                  
+      51 +                                                               
+      52  const VALID_CUSTOMER = {
+      53    companyName: 'Acme Ibérica SL',
+      54    taxId: 'B58818501',
+     ...
+      106          .send(VALID_CUSTOMER)
+      107          .expect(201);
+      108  
+       76 -      expect(response.body).toMatchObject({                   
+      109 +      const body = customerBody(response);                    
+      110 +      expect(body).toMatchObject({                            
+      111          companyName: 'Acme Ibérica SL',
+      112          taxId: 'B58818501',
+      113          email: 'finanzas@acme.es',
+      114          country: { code: 'ES', name: 'España', vatRateBps: 210
+           0 },
+      115          plan: { code: 'PRO', name: 'Pro' },
+      116        });
+       83 -      expect(typeof response.body.id).toBe('string');         
+       84 -      expect(new Date(response.body.createdAt as string).toISO
+          -String()).toBe(                                               
+       85 -        response.body.createdAt,                              
+       86 -      );                                                      
+      117 +      expect(typeof body.id).toBe('string');                  
+      118 +      expect(new Date(body.createdAt).toISOString()).toBe(body
+          +.createdAt);                                                  
+      119      });
+      120  
+      121      it('registra un cliente no español con taxId genérico (201
+           )', async () => {
+     ...
+      130          })
+      131          .expect(201);
+      132  
+      101 -      expect(response.body.country).toEqual({                 
+      133 +      expect(customerBody(response).country).toEqual({        
+      134          code: 'US',
+      135          name: 'Estados Unidos',
+      136          vatRateBps: 0,
+     ...
+      143          .send({ ...VALID_CUSTOMER, taxId: 'B58818500' })
+      144          .expect(400);
+      145  
+      114 -      expect(response.body).toMatchObject({                   
+      146 +      const body = errorBody(response);                       
+      147 +      expect(body).toMatchObject({                            
+      148          statusCode: 400,
+      149          error: 'Bad Request',
+      150          path: '/customers',
+      151        });
+      119 -      expect(response.body.details[0]).toMatchObject({        
+      152 +      expect(body.details?.[0]).toMatchObject({               
+      153          field: 'taxId',
+      154          code: 'TAX_ID_INVALID',
+      155        });
+      123 -      expect(typeof response.body.timestamp).toBe('string');  
+      156 +      expect(typeof body.timestamp).toBe('string');           
+      157      });
+      158  
+      159      it('devuelve 409 en alta duplicada aunque llegue con guion
+           es y minúsculas', async () => {
+     ...
+      167          })
+      168          .expect(409);
+      169  
+      137 -      expect(response.body).toMatchObject({                   
+      170 +      const body = errorBody(response);                       
+      171 +      expect(body).toMatchObject({                            
+      172          statusCode: 409,
+      173          error: 'Conflict',
+      174          path: '/customers',
+      175        });
+      142 -      expect(response.body.details).toBeUndefined();          
+      176 +      expect(body.details).toBeUndefined();                   
+      177      });
+      178  
+      179      it('rechaza país desconocido: 400 COUNTRY_UNKNOWN', async 
+           () => {
+     ...
+      182          .send({ ...VALID_CUSTOMER, taxId: 'B12345674', country
+           Code: 'XX' })
+      183          .expect(400);
+      184  
+      151 -      expect(response.body.details[0]).toMatchObject({        
+      185 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      186          field: 'countryCode',
+      187          code: 'COUNTRY_UNKNOWN',
+      188        });
+     ...
+      194          .send({ ...VALID_CUSTOMER, taxId: 'B12345674', planCod
+           e: 'NOPE' })
+      195          .expect(400);
+      196  
+      163 -      expect(response.body.details[0]).toMatchObject({        
+      197 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      198          field: 'planCode',
+      199          code: 'PLAN_UNKNOWN',
+      200        });
+     ...
+      211          })
+      212          .expect(400);
+      213  
+      180 -      expect(response.body.details[0]).toMatchObject({        
+      214 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      215          field: 'taxId',
+      216          code: 'TAX_ID_FORMAT',
+      217        });
+     ...
+      223          .send({ ...VALID_CUSTOMER, companyName: 'A', taxId: 'B
+           12345674' })
+      224          .expect(400);
+      225  
+      192 -      expect(response.body.details[0]).toMatchObject({        
+      226 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      227          field: 'companyName',
+      228          code: 'COMPANY_NAME_LENGTH',
+      229        });
+     ...
+      239          })
+      240          .expect(400);
+      241  
+      208 -      expect(response.body.details[0]).toMatchObject({        
+      242 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      243          field: 'email',
+      244          code: 'EMAIL_INVALID',
+      245        });
+     ...
+      251          .send({ ...VALID_CUSTOMER, taxId: 12345 })
+      252          .expect(400);
+      253  
+      220 -      expect(response.body.details[0]).toMatchObject({        
+      254 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      255          field: 'taxId',
+      256          code: 'VALIDATION_ERROR',
+      257        });
+     ...
+      291      it('sin search lista todos con paginación por defecto', as
+           ync () => {
+      292        const response = await request(http).get('/customers').e
+           xpect(200);
+      293  
+      260 -      expect(response.body).toMatchObject({ total: 5, page: 1,
+          - limit: 10 });                                                
+      261 -      expect(response.body.items).toHaveLength(5);            
+      294 +      const body = listBody(response);                        
+      295 +      expect(body).toMatchObject({ total: 5, page: 1, limit: 1
+          +0 });                                                         
+      296 +      expect(body.items).toHaveLength(5);                     
+      297      });
+      298  
+      299      it('busca por nombre sin distinción de mayúsculas', async 
+           () => {
+     ...
+      302          .query({ search: 'ACME' })
+      303          .expect(200);
+      304  
+      270 -      expect(response.body.total).toBe(1);                    
+      271 -      expect(response.body.items[0].companyName).toBe('Acme Ib
+          -érica SL');                                                   
+      305 +      const body = listBody(response);                        
+      306 +      expect(body.total).toBe(1);                             
+      307 +      expect(body.items[0].companyName).toBe('Acme Ibérica SL'
+          +);                                                            
+      308      });
+      309  
+      310      it('busca por taxId con el término normalizado', async () 
+           => {
+     ...
+      313          .query({ search: 'b-1234' })
+      314          .expect(200);
+      315  
+      280 -      expect(response.body.total).toBe(1);                    
+      281 -      expect(response.body.items[0].taxId).toBe('B12345674'); 
+      316 +      const body = listBody(response);                        
+      317 +      expect(body.total).toBe(1);                             
+      318 +      expect(body.items[0].taxId).toBe('B12345674');          
+      319      });
+      320  
+      321      it('pagina con page y limit', async () => {
+     ...
+      324          .query({ page: 2, limit: 2 })
+      325          .expect(200);
+      326  
+      290 -      expect(response.body).toMatchObject({ total: 5, page: 2,
+          - limit: 2 });                                                 
+      291 -      expect(response.body.items).toHaveLength(2);            
+      327 +      const body = listBody(response);                        
+      328 +      expect(body).toMatchObject({ total: 5, page: 2, limit: 2
+          + });                                                          
+      329 +      expect(body.items).toHaveLength(2);                     
+      330      });
+      331  
+      332      it('sin coincidencias devuelve lista vacía con total 0', a
+           sync () => {
+     ...
+      335          .query({ search: 'zzz-no-existe' })
+      336          .expect(200);
+      337  
+      300 -      expect(response.body).toMatchObject({ total: 0, items: [
+          -] });                                                         
+      338 +      expect(listBody(response)).toMatchObject({ total: 0, ite
+          +ms: [] });                                                    
+      339      });
+      340  
+      341      it('rechaza limit fuera de rango: 400 VALIDATION_ERROR', a
+           sync () => {
+     ...
+      344          .query({ limit: 100 })
+      345          .expect(400);
+      346  
+      309 -      expect(response.body.details[0]).toMatchObject({        
+      347 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      348          field: 'limit',
+      349          code: 'VALIDATION_ERROR',
+      350        });
+     ...
+      357          .get('/customers')
+      358          .query({ search: 'acme' })
+      359          .expect(200);
+      322 -      const id = list.body.items[0].id as string;             
+      360 +      const id = listBody(list).items[0].id;                  
+      361  
+      362        const response = await request(http).get(`/customers/${i
+           d}`).expect(200);
+      363  
+      326 -      expect(response.body).toMatchObject({                   
+      364 +      expect(customerBody(response)).toMatchObject({          
+      365          id,
+      366          companyName: 'Acme Ibérica SL',
+      367          taxId: 'B58818501',
+     ...
+      375          .get('/customers/no-existe')
+      376          .expect(404);
+      377  
+      340 -      expect(response.body).toMatchObject({                   
+      378 +      const body = errorBody(response);                       
+      379 +      expect(body).toMatchObject({                            
+      380          statusCode: 404,
+      381          error: 'Not Found',
+      382          path: '/customers/no-existe',
+      383        });
+      345 -      expect(response.body.details).toBeUndefined();          
+      384 +      expect(body.details).toBeUndefined();                   
+      385      });
+      386    });
+      387  });
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm lint
+      2>&1 | tail -8 && pnpm test 2>&1 | tail -6 && pnpm test:e2e 2>&1 | tail
+      -6 && pnpm bui…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +20 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● All green. Swagger criterion check — boot app, inspect /docs-json:
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && (node
+      dist/src/main.js >/dev/null 2>&1 & echo $! > /tmp/api.pid; sleep 3; curl
+      -s http://localho…)
+  ⎿  Error: Exit code 1
+     [eval]:1
+     let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const 
+     s=JSON.parse(d);console.log(Object.keys(s.paths).join('\n'));console.log('-
+     --');console.log(Object.entries(s.paths).flatMap(([p,m])=>Object.keys(m).ma
+     p(v=>v.toUpperCase()+' '+p)).join('\n'))}
+                                                                                
+                                                                               
+                                                                               
+                               ^
+     Expected ',', got '<eof>'
+
+     SyntaxError: missing ) after argument list
+         at makeContextifyScript (node:internal/vm:194:14)
+         at compileScript (node:internal/process/execution:388:10)
+         at evalTypeScript (node:internal/process/execution:260:22)
+
+     … +4 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && ls
+      dist/src/main.js dist/main.js 2>/dev/null; (node dist/src/main.js
+      >/dev/null 2>&1 &) ; sleep…)
+  ⎿  Error: Exit code 7
+     -rw-r--r-- 1 dpastorhe 197608 877 jul. 16 13:47 dist/main.js
+     [rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+     FAILED: curl
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && (node
+      dist/main.js >/dev/null 2>&1 &) ; sleep 4; curl -s
+      http://localhost:3000/docs-json -o /tmp…)
+  ⎿  Error: Exit code 1
+     [rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+
+     node:internal/modules/cjs/loader:1459
+       throw err;
+       ^
+
+     Error: Cannot find module '/tmp/swagger.json'
+     Require stack:
+     - C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend\[eval]
+     … +17 lines (ctrl+o to expand)
+
+● Bash(S="C:/Users/DPASTO~1/AppData/Local/Temp/claude/C--Users-dpastorhe-Coding-
+      personal-saas-o-matic/e221b56f-8705-474b-9925-07a4c29a5f92/scratchpad";
+      curl -s http://…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +6 lines (ctrl+o to expand)
+
+● Bash(powershell -Command "Get-Process node | Where-Object {(Get-CimInstance
+      Win32_Process -Filter \"ProcessId=$($_.Id)\").CommandLine -like
+      '*dist/main.js*'} | Stop-…)
+  ⎿  /usr/bin/bash: line 1: extglob.Id: command not found
+     [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     200
+
+● PowerShell(Get-CimInstance Win32_Process -Filter "Name='node.exe'" |
+            Where-Object { $_.CommandLine -like '*dist?main.js*' } |
+            ForEach-Object { Stop-Process -Id $_.ProcessI…)
+  ⎿  killed 36784
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git status
+      --short)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+      M backend/package.json
+     … +10 lines (ctrl+o to expand)
+
+● Fase 04 completa. Verificación real:
+
+  lint  → 0 errors
+  test  → 5 suites, 95 passed
+  e2e   → 2 suites, 19 passed
+  build → OK
+  Swagger /docs-json → POST /customers (201,400,409) · GET /customers · GET
+  /customers/{id} · ejemplos presentes
+
+  Criterios de aceptación — todos cumplidos: B58818501 ES entra (e2e ✔),
+  B58818500 → 400 details[0].code=TAX_ID_INVALID (e2e ✔), duplicado b-5881850-1
+  → 409 (e2e ✔), shapes del contrato verificados campo a campo, Swagger con 3
+  endpoints.
+
+  Archivos tocados
+
+  Nuevos:
+  - backend/src/common/http-exception.filter.ts — filtro global, contrato de
+  error
+  - backend/src/common/validation-exception.factory.ts — factory + helper de
+  errores de campo
+  - backend/src/common/configure-app.ts — pipe+filtro compartidos entre main y
+  e2e
+  - backend/src/common/dto/{error-response,validation-detail}.dto.ts
+  - backend/src/customers/{customers.module,customers.controller,customers.servi
+  ce,customers.service.spec}.ts
+  - backend/src/customers/dto/ (5 DTOs)
+  - backend/test/customers.e2e-spec.ts (17 casos, BD SQLite temporal)
+
+  Modificados:
+  - backend/src/main.ts (usa configureApp), app.module.ts (+CustomersModule)
+  - backend/src/prisma/prisma.service.ts + prisma.config.ts — DATABASE_URL env
+  override (default intacto)
+  - backend/package.json — test:e2e con node --experimental-vm-modules … 
+  --runInBand
+
+  Decisiones para registro-decisiones.md (propuesta):
+
+  1. VALIDATION_ERROR como código fallback — constraints sin código en la spec
+  (taxId no-string, page/limit fuera de rango) usan VALIDATION_ERROR en
+  details[].code. Aprobado por Diego en esta sesión.
+  2. TAX_ID_TAKEN sin details en el 409 — el contrato restringe details a
+  errores 400; el código se documenta en la descripción Swagger del 409, no
+  viaja en el body.
+  3. test:e2e requiere --experimental-vm-modules — el query compiler WASM de
+  Prisma 7 usa import() dinámico, bloqueado por la VM de Jest sin el flag. Se
+  invoca jest via node directamente (sin dependencia nueva). --runInBand para
+  evitar carreras entre suites.
+  4. DATABASE_URL opcional — PrismaService y prisma.config.ts leen
+  process.env.DATABASE_URL con fallback al valor actual; habilita BD temporal en
+  e2e sin tocar dev.
+  5. Orden createdAt desc en la búsqueda — la spec no fija orden; se eligió para
+  paginación determinista (detalle de implementación, no regla de negocio).
+
+  Commit sugerido
+
+  feat(customers): alta con validación fiscal, búsqueda y detalle
+
+  Módulo customers (POST/GET/GET :id) con filtro global de errores según
+  contrato, códigos de validación por campo y Swagger. e2e con BD temporal.
+
+  Pendiente del flujo: /auditoria sobre el diff antes de commitear.
+
+✻ Cooked for 11m 54s
+
+❯ Registra las decisiones en registro-decisiones.md                             
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 5 lines
+      31  | 2026-07-16 | 3 | Clasificación fiscal como tabla declarativa 
+          `TAX_ID_RULES` (patrón + validador + `reason` por regla) recorr
+          ida en orden | Cadena if-else por tipo | Añadir un tipo = añadi
+          r una entrada; cada `reason` vive junto a su regla y se reutili
+          zará en el mensaje del 400 `TAX_ID_INVALID` |
+      32  | 2026-07-16 | 3 | Fixtures adicionales derivados a mano para r
+          amas sin cobertura en la tabla de la spec: NIF especial (`K1234
+          567L`, `M0000000T`, `K1234567A`), CIF con inicial "ambos" (`N00
+          32484H`/`N00324848`), "solo letra" P (`P2818002D`) y "solo dígi
+          to" A válido (`A58818501`) | Limitarse a los 17 fixtures de la 
+          spec (dejando ramas sin test) | 100 % de ramas exige ejercitar 
+          K/L/M y las tres políticas de control del CIF; los casos son ap
+          licación directa de los algoritmos cerrados en la spec, no regl
+          as nuevas |
+      33  | 2026-07-16 | 3 | Fuzz determinista con LCG de semilla fija (5
+          00 strings) en vez de `Math.random()` | Fuzz aleatorio por ejec
+          ución | Reproducible en CI: un fallo siempre se puede reproduci
+          r con la misma semilla |
+      34 +| 2026-07-16 | 4 | `VALIDATION_ERROR` como código fallback en `
+         +details[].code` para constraints sin código en la spec (`taxId`
+         + no-string, `page`/`limit` fuera de rango) | Derivar códigos nu
+         +evos por campo (`TAX_ID_REQUIRED`, `PAGE_RANGE`…) | La spec sol
+         +o cierra 10 códigos; inventar más viola "prohibido inventar reg
+         +las de negocio". Aprobado por Diego en sesión |                
+      35 +| 2026-07-16 | 4 | El 409 `TAX_ID_TAKEN` viaja sin `details`: e
+         +l código se documenta solo en la descripción Swagger del 409 | 
+         +Incluir `details` con el código también en el 409 | El contrato
+         + global restringe `details` a errores de validación (400); el 4
+         +09 es inequívoco por status en este endpoint |                 
+      36 +| 2026-07-16 | 4 | `test:e2e` invoca jest via `node --experimen
+         +tal-vm-modules` y añade `--runInBand` | Dependencia nueva (cros
+         +s-env) o mock del cliente Prisma en e2e | El query compiler WAS
+         +M de Prisma 7 usa `import()` dinámico, bloqueado por la VM de J
+         +est sin el flag; sin deps nuevas. `--runInBand` evita carreras 
+         +entre suites e2e |                                             
+      37 +| 2026-07-16 | 4 | `PrismaService` y `prisma.config.ts` leen `D
+         +ATABASE_URL` de entorno con fallback a `file:./prisma/dev.db` |
+         + URL hardcodeada (estado previo); inyectar config de Nest | Hab
+         +ilita la BD SQLite temporal de los e2e sin tocar dev ni añadir 
+         +infraestructura de config para un solo valor |                 
+      38 +| 2026-07-16 | 4 | Búsqueda de clientes ordenada por `createdAt
+         + desc` | Sin `orderBy` (orden de inserción no garantizado) | La
+         + spec no fija orden; la paginación exige orden determinista. De
+         +talle de implementación, no regla de negocio |                 
+      39  
+      40  ## Checklist final contra la rúbrica (completar en fase 9)
+      41  
+
+● 5 decisiones fase 4 registradas en registro-decisiones.md: fallback
+  VALIDATION_ERROR, 409 sin details, flag --experimental-vm-modules en test:e2e,
+  override DATABASE_URL, orden createdAt desc.
+
+  Siguiente paso del flujo: /auditoria sobre el diff.
+
+✻ Brewed for 43s
+❯ /auditoria                                                                    
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git diff --stat |
+      tail -3 && tail -30 ai-workspace/04-proceso/auditorias.md)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+      backend/src/main.ts                            | 4 ++--
+     … +48 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && wc -l
+      src/common/*.ts src/common/dto/*.ts src/customers/*.ts
+      src/customers/dto/*.ts test/custome…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     387 test/customers.e2e-spec.ts
+     … +14 lines (ctrl+o to expand)
+
+● Auditoría fase 4 (diff sin commitear)
+
+  Checklist: capas ✔ (controller solo delega; domain/ intacto, el servicio lo
+  consume). Dinero ✔ (sin cálculo monetario; vatRateBps pasa como entero).
+  Tipado ✔ (sin any/@ts-ignore; shapes verificados contra contratos-api.md campo
+  a campo en e2e). Validación ✔ (los 7 códigos de validaciones.md cubiertos +
+  fallback aprobado). Seguridad ✔ (queries parametrizadas via Prisma; execSync
+  con string constante; sin secretos). Higiene ✔ (grep limpio). Tests: fixtures
+  dorados de la spec usados (B58818501, B58818500, B12345674, Q2818002D,
+  12345678Z); todos los tests afirman.
+
+  Hallazgos
+
+  Sev: media
+  Archivo:línea: src/common/http-exception.filter.ts:26
+  Hallazgo: @Catch() captura todo, incluidos errores no-HTTP → 500 con el
+  contrato, pero sin log: se pierde el stack trace del bug (fallo silencioso;
+  antes Nest lo logueaba por defecto)
+  Fix propuesto: private readonly logger = new Logger(HttpExceptionFilter.name)
+  y
+  logger.error(exception) cuando no es HttpException
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: src/common/http-exception.filter.ts:55-66
+  Hallazgo: Ramas del filtro sin test directo: payload string, message array
+  (join('; ')), no-HttpException → 500. Los e2e solo ejercitan 400/404/409 con
+  payload objeto
+  Fix propuesto: http-exception.filter.spec.ts unitario con host mockeado (3-4
+  tests)
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: src/customers/dto/*.dto.ts
+  Hallazgo: Literal 'VALIDATION_ERROR' duplicado 8 veces en los context mientras
+
+  FALLBACK_VALIDATION_CODE ya existe exportada
+  Fix propuesto: Importar la constante en los DTOs (o dejar los literales y
+  quitar el export de la constante — elegir uno)
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: test/customers.e2e-spec.ts
+  Hallazgo: 387 líneas > soft limit 250. Es un spec de un solo endpoint-group,
+  cohesivo
+  Fix propuesto: Aceptar (test, no producción) o partir en customers-create /
+  customers-search con setup compartido
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: src/customers/customers.service.ts:36
+  Hallazgo: countryCode sensible a mayúsculas: "es" → 400 COUNTRY_UNKNOWN. La
+  spec no manda normalizar el país (solo el taxId)
+  Fix propuesto: No tocar sin decisión: normalizar sería inventar regla; si se
+  quiere, va a spec primero
+
+  Propuesta para auditorias.md
+
+  ## Fase 4 — API de clientes  ·  2026-07-16
+
+  Alcance: diff de la fase (`common/` filtro global + exceptionFactory,
+  `customers/` módulo completo con DTOs, servicio y controller, e2e con BD
+  temporal; `test:e2e` con `--experimental-vm-modules` por el compilador WASM de
+  Prisma 7). Capas ✔ (controller fino, dominio consumido desde el servicio);
+  shapes y códigos contra `contratos-api.md`/`validaciones.md` verificados por
+  17 e2e + 14 unit; sin `any`/`console.log`; queries parametrizadas.
+
+  ### Hallazgos
+  | Severidad | Archivo | Hallazgo | Acción |
+  |---|---|---|---|
+  | media | http-exception.filter.ts | El catch-all produce 500 con contrato
+  pero sin log: stack trace del bug perdido (fallo silencioso) | (pendiente de
+  confirmación) |
+  | baja | http-exception.filter.ts | Ramas payload-string / message-array /
+  no-HttpException sin test unitario | (pendiente) |
+  | baja | customers/dto/* | Literal 'VALIDATION_ERROR' duplicado teniendo 
+  FALLBACK_VALIDATION_CODE exportada | (pendiente) |
+  | baja | customers.e2e-spec.ts | 387 líneas > soft limit 250 (archivo de test 
+  cohesivo) | (pendiente) |
+  | baja | customers.service.ts | countryCode sensible a mayúsculas; la spec no 
+  manda normalizar país | aceptado: normalizar sin spec sería inventar regla de 
+  negocio |
+
+  ### Propuestas de la IA rechazadas o corregidas
+  - (completar tras decidir los pendientes)
+
+  No aplico nada sin tu confirmación. Mi recomendación: corregir media + los dos
+  primeros bajos (logger, spec del filtro, constante), aceptar los otros dos
+  con justificación. ¿Cómo procedo?
+
+✻ Brewed for 1m 51s
+
+※ recap: Fase 4 (customers API) is implemented and fully green, and the audit found 1 medium + 4 low findings. I need your OK on which audit fixes to apply (I recommend fixing the filter logging, filter tests, and duplicated constant). (disable recaps in /config)
+
+❯ Aplica el fix en la media, en la del logger, en la del spec del filtro, para  
+  la constante exporta la importa la constante en los dtos y para la de         
+  countryCode añade la regla de normalizacion al spec y despues aplica el fix.  
+  La de test/customers.e2e-spec.ts la Acepto, lo dejamos como esta              
+  ⎿  ⧉ Selected 1 lines from src\common\validation-exception.factory.ts in 
+     Visual Studio Code
+
+● Orden: spec-first para countryCode, luego TDD (tests rojos → fixes),
+  verificación, y cierro auditorías + registro.
+
+  1. Regla de normalización en validaciones.md:
+
+● Update(ai-workspace\01-specs\validaciones.md)
+  ⎿  Added 4 lines
+      11  
+      12  Antes de validar y de persistir: `trim` → mayúsculas → eliminar
+           espacios, puntos y guiones. Se persiste normalizado.
+      13  
+      14 +## Normalización del código de país                            
+      15 +                                                               
+      16 +`trim` → mayúsculas antes de consultar `countries` (`"es"` y `"
+         + ES "` referencian el mismo país ISO-3166). Se persiste el códi
+         +go canónico de la tabla.                                       
+      17 +                                                               
+      18  ## Algoritmo oficial español
+      19  
+      20  La función de dominio clasifica y valida: `validateSpanishTaxId
+          (value) → { valid, kind: 'DNI'|'NIE'|'CIF'|'NIF_ESPECIAL', reas
+          on? }`. Nunca lanza excepción.
+
+● Spec actualizada. 2. RED — tests nuevos (filtro + normalización countryCode):
+
+● Write(backend\src\common\http-exception.filter.spec.ts)
+  ⎿  Wrote 109 lines to backend\src\common\http-exception.filter.spec.ts
+       1 import {
+       2   ArgumentsHost,
+       3   BadRequestException,
+       4   HttpException,
+       5   Logger,
+       6 } from '@nestjs/common';
+       7 import { ErrorResponseDto } from './dto/error-response.dto';
+       8 import { HttpExceptionFilter } from './http-exception.filter';
+       9 
+      10 interface CapturedResponse {
+     … +105 lines (ctrl+o to expand)
+
+● Update(backend\src\customers\customers.service.spec.ts)
+  ⎿  Added 8 lines
+      110      expect(result).toEqual(EXPECTED_RESPONSE);
+      111    });
+      112  
+      113 +  it('normaliza el countryCode antes de consultar countries', 
+          +async () => {                                                 
+      114 +    await service.create({ ...CREATE_DTO, countryCode: ' es ' 
+          +});                                                           
+      115 +                                                              
+      116 +    expect(prisma.country.findUnique).toHaveBeenCalledWith({  
+      117 +      where: { code: 'ES' },                                  
+      118 +    });                                                       
+      119 +  });                                                         
+      120 +                                                              
+      121    it('normaliza el taxId antes de persistir', async () => {
+      122      await service.create({ ...CREATE_DTO, taxId: ' b-5881850-1
+            ' });
+      123  
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm exec
+      jest common/http-exception customers.service 2>&1 | grep -E "✕|✓
+      (normaliza el country…)
+  ⎿  Tests:       2 failed, 17 passed, 19 total
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm exec
+      jest common/http-exception customers.service 2>&1 | grep -B1 -A6 "●.*›" |
+      head -30)
+  ⎿  FAIL src/common/http-exception.filter.spec.ts
+       ● HttpExceptionFilter › convierte errores no-HTTP en 500 con el cont
+     rato y los loguea
+     … +15 lines (ctrl+o to expand)
+
+● Update(backend\src\common\http-exception.filter.ts)
+  ⎿  Added 1 line
+       4    ExceptionFilter,
+       5    HttpException,
+       6    HttpStatus,
+       7 +  Logger,                                                      
+       8  } from '@nestjs/common';
+       9  import { Request, Response } from 'express';
+      10  import { ErrorResponseDto } from './dto/error-response.dto';
+
+● Update(backend\src\common\http-exception.filter.ts)
+  ⎿  Added 6 lines
+      24  
+      25  @Catch()
+      26  export class HttpExceptionFilter implements ExceptionFilter {
+      27 +  private readonly logger = new Logger(HttpExceptionFilter.name
+         +);                                                             
+      28 +                                                               
+      29    catch(exception: unknown, host: ArgumentsHost): void {
+      30      const context = host.switchToHttp();
+      31      const response = context.getResponse<Response>();
+      32      const request = context.getRequest<Request>();
+      33  
+      34 +    if (!(exception instanceof HttpException)) {               
+      35 +      this.logger.error(exception);                            
+      36 +    }                                                          
+      37 +                                                               
+      38      const statusCode =
+      39        exception instanceof HttpException
+      40          ? exception.getStatus()
+
+● Update(backend\src\customers\customers.service.ts)
+  ⎿  Added 3 lines, removed 2 lines
+      31  
+      32    async create(dto: CreateCustomerDto): Promise<CustomerRespons
+          eDto> {
+      33      const taxId = normalizeTaxId(dto.taxId);
+      34 +    const countryCode = dto.countryCode.trim().toUpperCase();  
+      35  
+      36      const country = await this.prisma.country.findUnique({
+      36 -      where: { code: dto.countryCode },                        
+      37 +      where: { code: countryCode },                            
+      38      });
+      39      if (!country) {
+      40        throw singleFieldValidationException(
+      41          'countryCode',
+      42          'COUNTRY_UNKNOWN',
+      42 -        `el país ${dto.countryCode} no está registrado`,       
+      43 +        `el país ${countryCode} no está registrado`,           
+      44        );
+      45      }
+      46  
+
+● Ahora la constante en los DTOs:
+
+● Update(backend\src\customers\dto\create-customer.dto.ts)
+  ⎿  Added 1 line
+       7    Length,
+       8    MaxLength,
+       9  } from 'class-validator';
+      10 +import { FALLBACK_VALIDATION_CODE } from '../../common/validati
+         +on-exception.factory';                                         
+      11  
+      12  const trimIfString = ({ value }: TransformFnParams): unknown =>
+      13    typeof value === 'string' ? value.trim() : (value as unknown)
+          ;
+
+● Update(backend\src\customers\dto\create-customer.dto.ts)  ⎿  Added 7 lines, removed 7 lines
+      15  export class CreateCustomerDto {
+      16    @ApiProperty({ example: 'Acme Ibérica SL', minLength: 2, maxL
+          ength: 120 })
+      17    @Transform(trimIfString)
+      18 -  @IsString({ context: { code: 'VALIDATION_ERROR' } })         
+      18 +  @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })   
+      19    @Length(2, 120, { context: { code: 'COMPANY_NAME_LENGTH' } })
+      20    companyName!: string;
+      21  
+     ...
+      24      description:
+      25        'Se normaliza (mayúsculas, sin espacios/guiones). ES: alg
+          oritmo DNI/NIE/CIF; resto: 4-20 alfanuméricos',
+      26    })
+      27 -  @IsString({ context: { code: 'VALIDATION_ERROR' } })         
+      28 -  @IsNotEmpty({ context: { code: 'VALIDATION_ERROR' } })       
+      27 +  @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })   
+      28 +  @IsNotEmpty({ context: { code: FALLBACK_VALIDATION_CODE } }) 
+      29    taxId!: string;
+      30  
+      31    @ApiProperty({ example: 'finanzas@acme.es', maxLength: 254 })
+     ...
+      34    email!: string;
+      35  
+      36    @ApiProperty({ example: 'ES', description: 'Debe existir en c
+          ountries' })
+      37 -  @IsString({ context: { code: 'VALIDATION_ERROR' } })         
+      38 -  @IsNotEmpty({ context: { code: 'VALIDATION_ERROR' } })       
+      37 +  @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })   
+      38 +  @IsNotEmpty({ context: { code: FALLBACK_VALIDATION_CODE } }) 
+      39    countryCode!: string;
+      40  
+      41    @ApiProperty({ example: 'PRO', description: 'Debe existir en 
+          plans' })
+      42 -  @IsString({ context: { code: 'VALIDATION_ERROR' } })         
+      43 -  @IsNotEmpty({ context: { code: 'VALIDATION_ERROR' } })       
+      42 +  @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })   
+      43 +  @IsNotEmpty({ context: { code: FALLBACK_VALIDATION_CODE } }) 
+      44    planCode!: string;
+      45  }
+
+● Update(backend\src\customers\dto\search-customers.dto.ts)
+  ⎿  Added 1 line
+      1  import { ApiPropertyOptional } from '@nestjs/swagger';
+      2  import { Type } from 'class-transformer';
+      3  import { IsInt, IsOptional, IsString, Max, Min } from 'class-val
+         idator';
+      4 +import { FALLBACK_VALIDATION_CODE } from '../../common/validatio
+        +n-exception.factory';                                           
+      5  
+      6  export class SearchCustomersDto {
+      7    @ApiPropertyOptional({
+
+● Update(backend\src\customers\dto\search-customers.dto.ts)
+  ⎿  Added 6 lines, removed 6 lines
+      10        'Subcadena sobre companyName o taxId, sin distinción de m
+          ayúsculas',
+      11    })
+      12    @IsOptional()
+      13 -  @IsString({ context: { code: 'VALIDATION_ERROR' } })         
+      13 +  @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })   
+      14    search?: string;
+      15  
+      16    @ApiPropertyOptional({ default: 1, minimum: 1 })
+      17    @IsOptional()
+      18    @Type(() => Number)
+      19 -  @IsInt({ context: { code: 'VALIDATION_ERROR' } })            
+      20 -  @Min(1, { context: { code: 'VALIDATION_ERROR' } })           
+      19 +  @IsInt({ context: { code: FALLBACK_VALIDATION_CODE } })      
+      20 +  @Min(1, { context: { code: FALLBACK_VALIDATION_CODE } })     
+      21    page: number = 1;
+      22  
+      23    @ApiPropertyOptional({ default: 10, minimum: 1, maximum: 50 }
+          )
+      24    @IsOptional()
+      25    @Type(() => Number)
+      26 -  @IsInt({ context: { code: 'VALIDATION_ERROR' } })            
+      27 -  @Min(1, { context: { code: 'VALIDATION_ERROR' } })           
+      28 -  @Max(50, { context: { code: 'VALIDATION_ERROR' } })          
+      26 +  @IsInt({ context: { code: FALLBACK_VALIDATION_CODE } })      
+      27 +  @Min(1, { context: { code: FALLBACK_VALIDATION_CODE } })     
+      28 +  @Max(50, { context: { code: FALLBACK_VALIDATION_CODE } })    
+      29    limit: number = 10;
+      30  }
+
+● 4. Verificación completa:
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend" && pnpm lint
+      2>&1 | tail -3 && pnpm test 2>&1 | tail -4 && pnpm test:e2e 2>&1 | tail
+      -4 && pnpm bui…)
+  ⎿  > backend@0.0.1 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\b
+     ackend
+     > eslint "{src,apps,libs,test,prisma}/**/*.ts" --fix
+     … +10 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && tail -3
+      ai-workspace/04-proceso/auditorias.md)
+  ⎿  ### Propuestas de la IA rechazadas o corregidas
+     - Ninguna en esta fase: el hallazgo medio se corrigió según lo propues
+     to; los dos bajos se aceptaron con justificación.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 1 line
+      36  | 2026-07-16 | 4 | `test:e2e` invoca jest via `node --experimen
+          tal-vm-modules` y añade `--runInBand` | Dependencia nueva (cros
+          s-env) o mock del cliente Prisma en e2e | El query compiler WAS
+          M de Prisma 7 usa `import()` dinámico, bloqueado por la VM de J
+          est sin el flag; sin deps nuevas. `--runInBand` evita carreras 
+          entre suites e2e |
+      37  | 2026-07-16 | 4 | `PrismaService` y `prisma.config.ts` leen `D
+          ATABASE_URL` de entorno con fallback a `file:./prisma/dev.db` |
+           URL hardcodeada (estado previo); inyectar config de Nest | Hab
+          ilita la BD SQLite temporal de los e2e sin tocar dev ni añadir 
+          infraestructura de config para un solo valor |
+      38  | 2026-07-16 | 4 | Búsqueda de clientes ordenada por `createdAt
+           desc` | Sin `orderBy` (orden de inserción no garantizado) | La
+           spec no fija orden; la paginación exige orden determinista. De
+          talle de implementación, no regla de negocio |
+      39 +| 2026-07-16 | 4 | Normalización de `countryCode` (trim → mayús
+         +culas) añadida a `validaciones.md` **antes** de aplicarla en el
+         + servicio (hallazgo de auditoría) | Rechazar `"es"` con `COUNTR
+         +Y_UNKNOWN` (comportamiento previo) | `"es"` y `"ES"` son el mis
+         +mo país ISO-3166; rechazarlo sería fricción sin valor. Spec-fir
+         +st: la regla se cierra en la spec y luego se implementa, decidi
+         +do por Diego en la auditoría de fase 4 |                       
+      40  
+      41  ## Checklist final contra la rúbrica (completar en fase 9)
+      42  
+
+● Auditoría cerrada. Aplicado:
+
+  - media — Logger.error en el filtro para excepciones no-HTTP (los 500 ya no
+  son silenciosos).
+  - spec del filtro — http-exception.filter.spec.ts: 4 tests (payload
+  objeto+details, payload string→Error, message array→join('; '),
+  no-HTTP→500+log).
+  - constante — DTOs importan FALLBACK_VALIDATION_CODE; literal eliminado.
+  - countryCode — spec-first: regla de normalización añadida a validaciones.md,
+  luego trim().toUpperCase() en el servicio (+test: " es " consulta ES).
+  - e2e 387 líneas — aceptado, sin cambios.
+
+  Verificación final: lint ✔ · unit 100/100 · e2e 19/19 · build ✔.
+
+  Documentado: entrada Fase 4 en auditorias.md (5 hallazgos con acción) + fila
+  nueva en registro-decisiones.md (normalización countryCode, spec-first).
+
+  Commit sugerido:
+
+  feat(customers): alta con validación fiscal, búsqueda y detalle
+
+  Módulo customers (POST/GET/GET :id) con filtro global de errores según
+  contrato, códigos de validación por campo y Swagger. e2e con BD temporal.
+
+✻ Cooked for 3m 11s
+
+❯ Haz el commit                                                                 
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git add backend
+      ai-workspace/01-specs/validaciones.md
+      ai-workspace/04-proceso/registro-decisiones.md ai-…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 25 files changed, 1374 insertions(+), 6 deletions(-)
+     … +25 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git commit -m
+      "feat(customers): alta con validación fiscal, búsqueda y detalle…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok
+     … +4 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git log -1
+      --format=%B)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     feat(customers): alta con validación fiscal, búsqueda y detalle
+     … +4 lines (ctrl+o to expand)
+
+● Commit aab3a74 hecho: 25 archivos, identidad global (Diego Pastor), sin
+  atribuciones. Fase 4 cerrada.
+
+✻ Baked for 49s
