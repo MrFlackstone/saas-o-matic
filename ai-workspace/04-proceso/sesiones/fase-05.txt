@@ -1,0 +1,953 @@
+ ▐▛███▜▌   Claude Code v2.1.211
+▝▜█████▛▘  Fable 5 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:clear says: <persisted-output>
+     Output too large (10KB). Full output saved to: 
+     C:\Users\dpastorhe\.claude\projects\C--Users-dpastorhe-Coding-personal-saas
+     -o-matic\27fd9a3c-8494-4533-8722-e51688047565\tool-results\hook-5fddbfe7-50
+     07-42c6-a912-ed324b66d0bf-7-systemMessage.txt
+
+     Preview (first 2KB):
+     [saas-o-matic] recent context, 2026-07-16 3:49pm GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (16.472 tokens to read)
+       Work investment: 153.365 tokens spent on research, building, and 
+     decisions
+       Your savings: 89% reduction from reuse
+
+     Jul 16, 2026
+
+     #S447 nueva-fase 01 — Implement Fase-01: Prisma DB setup, migration, and
+     idempotent seed for saas-o-matic backend (Jul 16, 12:35 PM)
+
+     #S446 nueva-fase 01 — Evaluating Prisma 6 vs Prisma 7 upgrade decision for
+     saas-o-matic (Jul 16, 12:35 PM)
+
+     #S448 Auditoría Fase 01 — revisión de calidad del diff de Prisma en
+     saas-o-matic backend (Jul 16, 12:51 PM)
+
+     #S449 Implement pricing engine domain layer (Fase 02) for saas-o-matic
+     backend with tiered user pricing, VAT calculation, and full test coverage 
+     (Jul 16, 12:54 PM)
+
+     #S450 Code review triage on saas-o-matic pricing domain: apply low-severity
+     invariant test fix and analyze medium-severity activeUsers non-integer bug
+     (Jul 16, 1:09 PM)
+
+     ...
+     </persisted-output>
+
+❯ /clear                                                                        
+
+❯ /nueva-fase 05                                                                
+
+● Reading fase-05 prompt.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Read hook blocks full read. Using Grep dump.
+
+  Searched for 8 patterns (ctrl+o to expand)
+
+● Fase 05 — API de simulaciones
+
+  Objetivo: módulo simulations — cálculo autoritativo en servidor con
+  domain/pricing (fase 2), persistencia con snapshot completo (RN-05/ADR-06),
+  histórico por cliente.
+
+  Estado actual: modelo Prisma Simulation ya existe (con breakdown String,
+  índice [customerId, createdAt]). calculateSimulationCost disponible. Infra de
+  validación/errores de fase 4 reutilizable.
+
+  Plan:
+
+  1. TDD rojo: simulations.service.spec.ts (unit) + simulations.e2e-spec.ts:
+    - Caso dorado: cliente ES + 15 users → baseCents 14000, taxCents 2940, 
+  totalCents 16940, breakdown 2 líneas.
+    - Cliente US → taxCents 0.
+    - customerId inexistente → 404 (POST y GET histórico).
+    - activeUsers: 0 → 400; no enteros / fuera de rango → 400.
+    - GET /customers/:id/simulations orden createdAt desc.
+  2. dto/create-simulation.dto.ts: customerId string, activeUsers int 1–100.000,
+  storageGb int 0–1.000.000, apiCallsMonth int 0–1.000.000.000; códigos de
+  error semánticos + @ApiProperty.
+  3. dto/simulation-response.dto.ts + simulation-list-response.dto.ts: shape del
+  contrato, breakdown: TierLine[] parseado.
+  4. simulations.service.ts: carga cliente+país (404 si no existe) →
+  calculateSimulationCost({ activeUsers }, country.vatRateBps) → persiste
+  breakdown: JSON.stringify(lines) → responde parseado. Cero aritmética en
+  servicio. Método findByCustomer (404 si cliente no existe, orden desc).
+  5. simulations.controller.ts: POST /simulations 201, Swagger con ejemplos.
+  6. customers.controller.ts: añadir GET /customers/:id/simulations — inyecta
+  SimulationsService (import de SimulationsModule en CustomersModule).
+  7. Verificación: pnpm lint && pnpm test && pnpm test:e2e + curl manual del
+  caso dorado.
+
+  Criterios de aceptación: 201 idéntico al contrato con desglose · snapshot en
+  BD verificable por histórico · casos dorados e2e verdes · Swagger con
+  ejemplos.
+
+  Punto abierto: spec no define código de error semántico para campos de
+  simulación → usaré fallback VALIDATION_ERROR (D-001) salvo que digas otra
+  cosa.
+
+  ¿OK para implementar?
+
+✻ Sautéed for 1m 51s
+
+❯ OK                                                                            
+
+  Searched for 11 patterns (ctrl+o to expand)
+
+● Patterns clear. Writing tests first (TDD red).
+
+● Write(backend\src\simulations\simulations.service.spec.ts)
+  ⎿  Wrote 163 lines to backend\src\simulations\simulations.service.spec.ts
+       1 import { NotFoundException } from '@nestjs/common';
+       2 import { PrismaService } from '../prisma/prisma.service';
+       3 import { SimulationsService } from './simulations.service';
+       4 
+       5 interface PrismaMock {
+       7   simulation: { create: jest.Mock; findMany: jest.Mock };
+       8 }
+       9 
+      10 const COUNTRY_ES = { code: 'ES', name: 'España', vatRateBps: 210
+         0 };
+     … +165 lines (ctrl+o to expand)
+
+● Write(backend\test\simulations.e2e-spec.ts)
+  ⎿  Wrote 316 lines to backend\test\simulations.e2e-spec.ts
+       1 import { INestApplication } from '@nestjs/common';
+       2 import { Test } from '@nestjs/testing';
+       3 import { execSync } from 'node:child_process';
+       4 import * as fs from 'node:fs';
+       5 import * as os from 'node:os';
+       6 import * as path from 'node:path';
+       7 import request from 'supertest';
+       8 import { App } from 'supertest/types';
+       9 import { AppModule } from '../src/app.module';
+      10 import { configureApp } from '../src/common/configure-app';
+     … +314 lines (ctrl+o to expand)
+
+● Write(backend\src\simulations\dto\create-simulation.dto.ts)
+  ⎿  Wrote 31 lines to backend\src\simulations\dto\create-simulation.dto.ts
+       1 import { ApiProperty } from '@nestjs/swagger';
+       2 import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-val
+         idator';
+         n-exception.factory';
+       4 
+       5 export class CreateSimulationDto {
+       6   @ApiProperty({
+       8     description: 'Debe existir en customers; si no, 404',
+       9   })
+      10   @IsString({ context: { code: FALLBACK_VALIDATION_CODE } })
+     … +24 lines (ctrl+o to expand)
+
+● Write(backend\src\simulations\dto\tier-line.dto.ts)
+  ⎿  Wrote 21 lines to backend\src\simulations\dto\tier-line.dto.ts
+       1 import { ApiProperty } from '@nestjs/swagger';
+       2 
+       3 export class TierLineDto {
+       4   @ApiProperty({ example: 1 })
+       5   tier!: number;
+       6 
+       7   @ApiProperty({ example: 1 })
+       8   fromUser!: number;
+       9 
+      10   @ApiProperty({ example: 10 })
+     … +11 lines (ctrl+o to expand)
+● Write(backend\src\simulations\dto\simulation-response.dto.ts)
+  ⎿  Wrote 40 lines to
+     backend\src\simulations\dto\simulation-response.dto.ts
+      1 import { ApiProperty } from '@nestjs/swagger';
+      2 import { TierLineDto } from './tier-line.dto';
+      3 
+      4 export class SimulationResponseDto {
+      5   @ApiProperty({ example: 'cm5xs1m2u3l4a5c6i7o8n9id0' })
+      6   id!: string;
+      7 
+      8   @ApiProperty({ example: 15 })
+      9   activeUsers!: number;
+     … +34 lines (ctrl+o to expand)
+
+● Write(backend\src\simulations\dto\simulation-list-response.dto.ts)
+  ⎿  Wrote 7 lines to
+     backend\src\simulations\dto\simulation-list-response.dto.ts
+      1 import { ApiProperty } from '@nestjs/swagger';
+      2 import { SimulationResponseDto } from './simulation-response.dto'
+        ;
+      3 
+      4 export class SimulationListResponseDto {
+      5   @ApiProperty({ type: [SimulationResponseDto] })
+      6   items!: SimulationResponseDto[];
+      7 }
+
+● Write(backend\src\simulations\simulations.service.ts)
+  ⎿  Wrote 91 lines to backend\src\simulations\simulations.service.ts
+       1 import { Injectable, NotFoundException } from '@nestjs/common';
+         ng-engine';
+       3 import type { TierLine } from '../domain/pricing/types';
+       4 import { PrismaService } from '../prisma/prisma.service';
+         ';
+       6 import { SimulationListResponseDto } from './dto/simulation-list
+       7 import { SimulationResponseDto } from './dto/simulation-response
+         .dto';
+       8 
+      10   id: string;
+     … +85 lines (ctrl+o to expand)
+
+● Write(backend\src\simulations\simulations.controller.ts)
+  ⎿  Wrote 37 lines to backend\src\simulations\simulations.controller.ts
+       1 import { Body, Controller, Post } from '@nestjs/common';
+       2 import {
+       3   ApiBadRequestResponse,
+       5   ApiNotFoundResponse,
+       6   ApiOperation,
+       7   ApiTags,
+       8 } from '@nestjs/swagger';
+         to';
+      10 import { CreateSimulationDto } from './dto/create-simulation.dto
+         ';
+     … +33 lines (ctrl+o to expand)
+
+● Write(backend\src\simulations\simulations.module.ts)
+  ⎿  Wrote 10 lines to backend\src\simulations\simulations.module.ts
+       1 import { Module } from '@nestjs/common';
+       2 import { SimulationsController } from './simulations.controller'
+         ;
+       3 import { SimulationsService } from './simulations.service';
+       4 
+       6   controllers: [SimulationsController],
+       7   providers: [SimulationsService],
+       8   exports: [SimulationsService],
+       9 })
+      10 export class SimulationsModule {}
+
+● Wiring: customers controller/module + app module.
+
+● Update(backend\src\customers\customers.controller.ts)
+  ⎿  Added 2 lines
+      10    ApiTags,
+      11  } from '@nestjs/swagger';
+      12  import { ErrorResponseDto } from '../common/dto/error-response.
+          dto';
+      13 +import { SimulationListResponseDto } from '../simulations/dto/s
+         +imulation-list-response.dto';                                  
+      14 +import { SimulationsService } from '../simulations/simulations.
+         +service';                                                      
+      15  import { CustomersService } from './customers.service';
+      16  import { CreateCustomerDto } from './dto/create-customer.dto';
+      17  import { CustomerListResponseDto } from './dto/customer-list-re
+          sponse.dto';
+
+● Update(backend\src\customers\customers.controller.ts)
+  ⎿  Added 4 lines, removed 1 line
+      21  @ApiTags('customers')
+      22  @Controller('customers')
+      23  export class CustomersController {
+      24 -  constructor(private readonly customersService: CustomersServi
+         -ce) {}                                                         
+      24 +  constructor(                                                 
+      25 +    private readonly customersService: CustomersService,       
+      26 +    private readonly simulationsService: SimulationsService,   
+      27 +  ) {}                                                         
+      28  
+      29    @Post()
+      30    @ApiOperation({
+
+● Update(backend\src\customers\customers.controller.ts)
+  ⎿  Added 15 lines
+      66    findById(@Param('id') id: string): Promise<CustomerResponseDt
+          o> {
+      67      return this.customersService.findById(id);
+      68    }
+      69 +                                                               
+      70 +  @Get(':id/simulations')                                      
+      71 +  @ApiOperation({                                              
+      72 +    summary: 'Histórico de simulaciones de un cliente',        
+      73 +    description:                                               
+      74 +      'Snapshots inmutables (RN-05) ordenados por createdAt des
+         +cendente.',                                                    
+      75 +  })                                                           
+      76 +  @ApiParam({ name: 'id', example: 'cm5xa1b2c3d4e5f6g7h8i9j0k' 
+         +})                                                             
+      77 +  @ApiOkResponse({ type: SimulationListResponseDto })          
+      78 +  @ApiNotFoundResponse({ type: ErrorResponseDto })             
+      79 +  findSimulations(                                             
+      80 +    @Param('id') id: string,                                   
+      81 +  ): Promise<SimulationListResponseDto> {                      
+      82 +    return this.simulationsService.findByCustomer(id);         
+      83 +  }                                                            
+      84  }
+
+● Update(backend\src\customers\customers.module.ts)
+  ⎿  Added 2 lines
+       1  import { Module } from '@nestjs/common';
+       2 +import { SimulationsModule } from '../simulations/simulations.m
+         +odule';                                                        
+       3  import { CustomersController } from './customers.controller';
+       4  import { CustomersService } from './customers.service';
+       5  
+       6  @Module({
+       7 +  imports: [SimulationsModule],                                
+       8    controllers: [CustomersController],
+       9    providers: [CustomersService],
+      10  })
+
+● Update(backend\src\app.module.ts)
+  ⎿  Added 2 lines, removed 1 line
+       3  import { AppService } from './app.service';
+       4  import { CustomersModule } from './customers/customers.module';
+       5  import { PrismaModule } from './prisma/prisma.module';
+       6 +import { SimulationsModule } from './simulations/simulations.mo
+         +dule';                                                         
+       7  
+       8  @Module({
+       8 -  imports: [PrismaModule, CustomersModule],                    
+       9 +  imports: [PrismaModule, CustomersModule, SimulationsModule], 
+      10    controllers: [AppController],
+      11    providers: [AppService],
+      12  })
+
+● Verification run.
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; rtk
+            lint; if ($?) { rtk pnpm test })
+  ⎿  Error: Exit code 1
+     [rtk] /!\ No hook installed — run `rtk init -g` for automatic token savings
+     ESLint output (JSON parse failed: missing field `line` at line 1 column 
+     451)
+     [{"filePath":"C:\\Users\\dpastorhe\\Coding\\personal\\saas-o-matic\\backend
+     \\coverage\\lcov-report\\block-navigation.js","messages":[{"ruleId":null,"n
+     odeType":null,"fatal":true,"severity":2,"message":"Parsing error: 
+     C:\\Users\\dpastorhe\\Coding\\personal\\saas-o-matic\\backend\\coverage\\lc
+     ov-report\\block-navigation.js was not found by the project service. 
+     Consider either including it in the tsconfig.json or including it in 
+     allowDefaultProject."}],"suppressedMessages":[],"errorCount":1,"fatalErrorC
+     ount":1,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"sou
+     rce":"/* eslint-disable */\nvar jumpToCode = (function init() {\n    // 
+     Classes of code we would like to highlight in the file view\n    var 
+     missingCoverageClasses = ['.cbranch-no', '.cstat-no', '.fstat-no'];\n\n    
+     // Elements to highlight in the file listing view\n    var 
+     fileListingElements = ['td.pct.low'];\n\n    // We don't want to select 
+     elements that are direct descendants of another match\n    var notSelector 
+     = ':not(' + missingCoverageClasses.join('):not(') + ') > '; // becomes 
+     `:not(a):not(b) > `\n\n    // Selector that finds elements on the page to 
+     which we can jump\n    var selector =\n        fileListingElements.join(', 
+     ') +\n        ', ' +\n        notSelector +\n        
+     missingCoverageClasses.join(', ' + notSelector); // becomes `:not(a):not(b)
+     > a, :not(a):not(b) > b`\n\n    // The NodeList of matching elements\n    
+     var missingCoverageElements = document.querySelectorAll(selector);\n\n    
+     var currentIndex;\n\n    function toggleClass(index) {\n        
+     missingCoverageElements\n            .item(currentIndex)\n            
+     .classList.remove('highlighted');\n        
+     missingCoverageElements.item(index).classList.add('highlighted');\n    
+     }\n\n    function makeCurrent(index) {\n        toggleClass(index);\n      
+      currentIndex = index;\n        
+     missingCoverageElements.item(index).scrollIntoView({\n            behavior:
+     'smooth',\n            block: 'center',\n            inline: 'cente...
+     [full output: ~/AppData\Local\rtk\tee\1784210690_lint.log]
+
+● rtk lint scans coverage/. Using project script.
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            lint; if ($?) { pnpm test })
+  ⎿  > backend@0.0.1 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\b
+     ackend
+     > eslint "{src,apps,libs,test,prisma}/**/*.ts" --fix
+     … +12 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Lint ✓, 106 unit ✓ (8 new). E2E now.
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            test:e2e)
+  ⎿  Error: Exit code 1
+     > backend@0.0.1 test:e2e 
+     C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend
+     > node --experimental-vm-modules node_modules/jest/bin/jest.js --config 
+     ./test/jest-e2e.json --runInBand
+
+     (node:22852) ExperimentalWarning: VM Modules is an experimental feature and
+     might change at any time
+     (Use `node --trace-warnings ...` to show where the warning was created)
+     FAIL test/simulations.e2e-spec.ts
+       ● Simulations API (e2e) › POST /simulations › campo desconocido: 400 
+     (whitelist)
+
+         expected 400 "Bad Request", got 201 "Created"
+     … +25 lines (ctrl+o to expand)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Update(backend\test\simulations.e2e-spec.ts)
+  ⎿  Added 5 lines, removed 3 lines
+      250          .expect(400);
+      251      });
+      252  
+      253 -    it('campo desconocido: 400 (whitelist)', async () => {    
+      254 -      await request(http)                                     
+      253 +    it('campo desconocido: se elimina por whitelist y no llega
+          + a la respuesta', async () => {                               
+      254 +      const response = await request(http)                    
+      255          .post('/simulations')
+      256          .send({
+      257            customerId: customerEsId,
+     ...
+      260            apiCallsMonth: 0,
+      261            hacker: true,
+      262          })
+      263 -        .expect(400);                                         
+      263 +        .expect(201);                                         
+      264 +                                                              
+      265 +      expect(response.body).not.toHaveProperty('hacker');     
+      266      });
+      267    });
+      268  
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            test:e2e; if ($?) { pnpm build })  ⎿  > backend@0.0.1 test:e2e C:\Users\dpastorhe\Coding\personal\saas-o-mat
+     ic\backend
+     > node --experimental-vm-modules node_modules/jest/bin/jest.js --confi
+     … +16 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Lint ✓ · 106 unit ✓ · 29 e2e ✓ · build ✓. Manual curl check next.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            db:setup)
+  ⎿  > backend@0.0.1 db:setup C:\Users\dpastorhe\Coding\personal\saas-o-mat
+     ic\backend
+     > prisma generate && prisma migrate deploy && prisma db seed
+     … +21 lines (ctrl+o to expand)
+  ⎿  (timeout 2m)
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            start:dev)
+  ⎿  Running in the background (↓ to manage)
+
+● PowerShell($deadline=(Get-Date).AddSeconds(45); do { try {
+            $h=Invoke-RestMethod http://localhost:3000/health -TimeoutSec 2;
+            break } catch { Start-Sleep -Milliseconds 800 }…)
+  ⎿  {
+       "status": "ok"
+     }
+
+● PowerShell($list = Invoke-RestMethod
+            'http://localhost:3000/customers?search=B58818501'; $id =
+            $list.items[0].id; "customerId: $id"; $sim = Invoke-RestMethod
+            -Method Post…)
+  ⎿  customerId: cmrne1u5x0003k8s71u4d1ha9
+     {
+         "id":  "cmrnl23hm0000cws77msl6zv3",
+     … +27 lines (ctrl+o to expand)
+
+● PowerShell($hist = Invoke-RestMethod 'http://localhost:3000/customers/cmrne1u5
+            x0003k8s71u4d1ha9/simulations'; "items: $($hist.items.Count)";
+            $hist.items | Select-Object -F…)
+  ⎿  items: 3
+
+     activeUsers baseCents taxCents totalCents createdAt
+     … +4 lines (ctrl+o to expand)
+
+● Stop Task
+  ⎿  cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+     start:dev · stopped
+
+● Fase 05 completa. Todos los criterios de aceptación cumplidos.
+
+  Verificación (salida real):
+  - pnpm lint ✓ · pnpm test → 106/106 (8 nuevos de SimulationsService) · pnpm 
+  test:e2e → 29/29 (10 nuevos) · pnpm build ✓
+  - Curl manual contra seed (cliente B58818501): caso dorado exacto → baseCents 
+  14000, taxCents 2940, totalCents 16940, breakdown 2 líneas.
+  - Histórico GET /customers/:id/simulations: 3 items (2 del seed + el nuevo),
+  orden createdAt desc, snapshot completo.
+
+  Único fallo intermedio: mi test e2e asumía 400 para campos desconocidos, pero
+  el pipe global usa whitelist: true sin forbidNonWhitelisted (strip silencioso)
+  y la spec no exige rechazo → corregí el test para verificar el comportamiento
+  real (campo eliminado, 201).
+
+  Archivos:
+  - Nuevos: src/simulations/ (module, controller, service, service.spec,
+  dto/create-simulation, dto/simulation-response, dto/simulation-list-response,
+  dto/tier-line), test/simulations.e2e-spec.ts
+  - Editados: customers.controller.ts (endpoint histórico), customers.module.ts
+  (importa SimulationsModule), app.module.ts
+
+  Decisiones propuestas para registro-decisiones.md:
+
+  ▎ D-00X — Campos desconocidos en body: strip silencioso, no rechazo. El pipe 
+  ▎ global usa whitelist: true sin forbidNonWhitelisted; la spec no define 
+  ▎ comportamiento para propiedades extra. Se mantiene el strip (consistente con
+  ▎ fase 4) y el e2e lo documenta como contrato.
+  ▎
+  ▎ D-00X — Validación de simulaciones sin códigos semánticos propios. 
+  ▎ contratos-api.md no define códigos por campo para POST /simulations; se 
+  ▎ aplica el fallback VALIDATION_ERROR (extiende D-001).
+  ▎
+  ▎ D-00X — Histórico en CustomersController, lógica en SimulationsModule. GET 
+  ▎ /customers/:id/simulations vive en el controller de customers por la ruta, 
+  ▎ pero delega en SimulationsService exportado e importado vía módulo — la 
+  ▎ lógica de simulaciones tiene un solo dueño.
+
+  Commit sugerido: feat(simulations): cálculo por tramos persistido con snapshot
+  e histórico
+
+  Siguiente paso cuando quieras: /auditoria.
+
+✻ Baked for 7m 30s
+
+❯ Registra las decisiones propuestas                                            
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 3 lines
+      37  | 2026-07-16 | 4 | `PrismaService` y `prisma.config.ts` leen `D
+          ATABASE_URL` de entorno con fallback a `file:./prisma/dev.db` |
+           URL hardcodeada (estado previo); inyectar config de Nest | Hab
+          ilita la BD SQLite temporal de los e2e sin tocar dev ni añadir 
+          infraestructura de config para un solo valor |
+      38  | 2026-07-16 | 4 | Búsqueda de clientes ordenada por `createdAt
+           desc` | Sin `orderBy` (orden de inserción no garantizado) | La
+           spec no fija orden; la paginación exige orden determinista. De
+          talle de implementación, no regla de negocio |
+      39  | 2026-07-16 | 4 | Normalización de `countryCode` (trim → mayús
+          culas) añadida a `validaciones.md` **antes** de aplicarla en el
+           servicio (hallazgo de auditoría) | Rechazar `"es"` con `COUNTR
+          Y_UNKNOWN` (comportamiento previo) | `"es"` y `"ES"` son el mis
+          mo país ISO-3166; rechazarlo sería fricción sin valor. Spec-fir
+          st: la regla se cierra en la spec y luego se implementa, decidi
+          do por Diego en la auditoría de fase 4 |
+      40 +| 2026-07-16 | 5 | Campos desconocidos en el body: strip silenc
+         +ioso por `whitelist: true`, sin rechazo | Añadir `forbidNonWhit
+         +elisted: true` (400) | La spec no define comportamiento para pr
+         +opiedades extra y el pipe global de fase 4 ya hace strip; cambi
+         +arlo sería inventar una regla. Un e2e documenta el strip como c
+         +ontrato |                                                      
+      41 +| 2026-07-16 | 5 | Validación de `POST /simulations` sin código
+         +s semánticos propios: fallback `VALIDATION_ERROR` en todos los 
+         +constraints del DTO | Derivar códigos por campo (`ACTIVE_USERS_
+         +RANGE`…) | `contratos-api.md` no cierra códigos para simulacion
+         +es; extiende D-fase-4 (`VALIDATION_ERROR` como fallback), confi
+         +rmado por Diego en sesión |                                    
+      42 +| 2026-07-16 | 5 | `GET /customers/:id/simulations` vive en `Cu
+         +stomersController` pero delega en `SimulationsService` (exporta
+         +do por `SimulationsModule`, importado en `CustomersModule`) | S
+         +ervicio duplicado en customers; controller propio en simulation
+         +s con ruta anidada | La ruta pertenece al recurso customers, pe
+         +ro la lógica de simulaciones tiene un solo dueño; el import de 
+         +módulo es el mecanismo idiomático de Nest para compartirla |   
+      43  
+      44  ## Checklist final contra la rúbrica (completar en fase 9)
+      45  
+
+● 3 decisiones fase 5 registradas en registro-decisiones.md.
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ /auditoria                                                                    
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic; rtk git status;
+            rtk git diff --stat)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     * main...origin/main
+     … +16 lines (ctrl+o to expand)
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend;
+            Get-ChildItem src\simulations -Recurse -Filter *.ts | ForEach-Object
+            { "{0,4} {1}" -f (Get-Content $…)
+  ⎿    35 src\simulations\simulations.controller.ts
+        9 src\simulations\simulations.module.ts
+      152 src\simulations\simulations.service.spec.ts
+     … +6 lines (ctrl+o to expand)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Auditoría fase 5 — alcance: diff sin commitear (módulo simulations, wiring en
+  customers/app, e2e).
+
+  Checklist global: capas ✓ (controller sin lógica/Prisma; servicio sin
+  aritmética — todos los importes salen de calculateSimulationCost; domain/
+  intacto) · tipado ✓ (sin any/@ts-ignore; shapes = contratos-api.md) · dinero ✓
+  (solo enteros del motor) · errores ✓ (404/400 via contrato global) ·
+  seguridad ✓ (sin queries crudas ni secretos) · higiene ✓ (sin
+  console.log/código muerto).
+
+  Hallazgos
+
+  Sev.: media
+  Archivo:línea: test/simulations.e2e-spec.ts:~330
+  Hallazgo: Test 'cliente sin simulaciones: 200 con items vacío' no prueba lo
+  que
+  dice: el cliente US ya tiene una simulación creada por un test anterior de la
+   misma suite; la aserción items.filter(vatRateBps !==  0) pasa vacuamente
+  (todas las sims US tienen vatRateBps 0)
+  Fix propuesto: Tercer cliente sin simulaciones en el seed del test y
+  expect(items).toEqual([])
+  ────────────────────────────────────────
+  Sev.: baja
+  Archivo:línea: test/simulations.e2e-spec.ts:~253
+  Hallazgo: Test 'campo desconocido': la aserción not.toHaveProperty('hacker')
+  es
+  tautológica — la respuesta se construye desde el modelo persistido y nunca
+  eco-aría el campo; el strip del whitelist no es observable ahí
+  Fix propuesto: Afirmar el conjunto exacto de claves de la respuesta
+  (Object.keys(body).sort()) que es lo que el contrato garantiza
+  ────────────────────────────────────────
+  Sev.: baja
+  Archivo:línea: src/simulations/simulations.service.ts:76
+  Hallazgo: JSON.parse(breakdown) as TierLine[] sin validación estructural: fila
+
+  corrupta → SyntaxError no controlada → 500 (con log del filtro)
+  Fix propuesto: Aceptar con justificación: el dato lo escribe solo este
+  servicio
+  (RN-05, snapshot inmutable); un validador duplicaría el tipo sin caso real
+  ────────────────────────────────────────
+  Sev.: baja
+  Archivo:línea: src/simulations/dto/tier-line.dto.ts
+  Hallazgo: TierLineDto duplica estructuralmente domain/pricing/types.TierLine
+  Fix propuesto: Aceptar: los metadatos Swagger no pueden vivir en domain/
+  (ADR-05); el compilador detecta divergencia al asignar TierLine[] →
+  TierLineDto[]
+  ────────────────────────────────────────
+  Sev.: baja
+  Archivo:línea: test/simulations.e2e-spec.ts
+  Hallazgo: 294 líneas > soft limit 250
+  Fix propuesto: Aceptar: mismo criterio que fase 4 (suite cohesiva de un grupo
+  de endpoints; partirla duplica setup)
+  ────────────────────────────────────────
+  Sev.: baja
+  Archivo:línea: test/simulations.e2e-spec.ts
+  Hallazgo: Cotas superiores sin test: activeUsers > 100000 y apiCallsMonth > 
+  10⁹
+  no tienen caso 400 (solo storageGb fuera de rango)
+  Fix propuesto: Añadir un e2e con activeUsers: 100001 → 400 (los tres campos
+  comparten decoradores; un caso por cota superior basta)
+
+  Sin hallazgos de severidad alta. No aplico nada sin tu confirmación — propongo
+  corregir el medio + los dos bajas accionables (aserción de claves y cota
+  superior) y aceptar los otros tres.
+
+  Entrada propuesta para auditorias.md
+
+  ## Fase 5 — API de simulaciones  ·  2026-07-16
+
+  Alcance: diff de la fase (módulo `simulations`: DTOs + service + controller +
+  module, endpoint de histórico en `customers.controller`, e2e con caso dorado).
+  Capas correctas (controller sin lógica; el servicio no contiene aritmética —
+  todo importe sale de `calculateSimulationCost`); snapshot completo persistido
+  (RN-05/ADR-06); sin `any`/`@ts-ignore`/`console.log`; solo enteros; errores
+  por el contrato global.
+
+  ### Hallazgos
+  | Severidad | Archivo | Hallazgo | Acción |
+  |---|---|---|---|
+  | media | simulations.e2e-spec.ts | Test "cliente sin simulaciones" pasaba
+  vacuamente: el cliente US ya tenía una simulación de un test anterior y la
+  aserción por `vatRateBps` no probaba el histórico vacío | corregido: tercer
+  cliente sin simulaciones + `toEqual([])` |
+  | baja | simulations.e2e-spec.ts | Aserción tautológica en el test de
+  whitelist (`not.toHaveProperty` sobre una respuesta que nunca eco-aría el
+  campo) | corregido: se afirma el conjunto exacto de claves de la respuesta |
+  | baja | simulations.e2e-spec.ts | Cotas superiores de
+  `activeUsers`/`apiCallsMonth` sin caso 400 | corregido: e2e añadido para la
+  cota superior |
+  | baja | simulations.service.ts | `JSON.parse(breakdown)` sin validación
+  estructural | aceptado: el snapshot lo escribe solo este servicio (RN-05);
+  fila corrupta = bug interno que debe ser ruidoso (500 con log) |
+  | baja | dto/tier-line.dto.ts | `TierLineDto` duplica estructuralmente el
+  `TierLine` del dominio | aceptado: metadatos Swagger no pueden vivir en
+  `domain/` (ADR-05); el tipado cruzado detecta divergencias |
+  | baja | simulations.e2e-spec.ts | 294 líneas > soft limit 250 | aceptado:
+  mismo criterio que fase 4 (suite cohesiva; partirla duplica setup) |
+
+  Durante la fase (previo a la auditoría): un e2e asumía 400 para campos
+  desconocidos (`forbidNonWhitelisted`); el pipe global solo hace strip y la
+  spec no exige rechazo → test corregido y decisión registrada en
+  `registro-decisiones.md`.
+
+  ### Propuestas de la IA rechazadas o corregidas
+  - (completar tras aplicar los fixes)
+
+  ¿Aplico los 3 fixes propuestos (media + 2 bajas accionables)?
+
+✻ Cooked for 2m 20s
+
+❯ Si                                                                            
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(backend\test\simulations.e2e-spec.ts)
+  ⎿  Added 1 line
+      85    let http: App;
+      86    let customerEsId: string;
+      87    let customerUsId: string;
+      88 +  let customerIdleId: string;                                  
+      89  
+      90    beforeAll(async () => {
+      91      execSync('pnpm exec prisma migrate deploy', {
+
+● Update(backend\test\simulations.e2e-spec.ts)
+  ⎿  Added 10 lines
+      129          planId: plan.id,
+      130        },
+      131      });
+      132 +    const customerIdle = await prisma.customer.create({       
+      133 +      data: {                                                 
+      134 +        companyName: 'Initech GmbH',                          
+      135 +        taxId: 'DE811907980',                                 
+      136 +        email: 'billing@initech.de',                          
+      137 +        countryCode: 'US',                                    
+      138 +        planId: plan.id,                                      
+      139 +      },                                                      
+      140 +    });                                                       
+      141      customerEsId = customerEs.id;
+      142      customerUsId = customerUs.id;
+      143 +    customerIdleId = customerIdle.id;                         
+      144  
+      145      http = app.getHttpServer();
+      146    });
+
+● Update(backend\test\simulations.e2e-spec.ts)
+  ⎿  Added 29 lines, removed 2 lines
+      261          .expect(400);
+      262      });
+      263  
+      264 -    it('campo desconocido: se elimina por whitelist y no llega
+          - a la respuesta', async () => {                               
+      264 +    it('activeUsers por encima de la cota superior: 400', asyn
+          +c () => {                                                     
+      265        const response = await request(http)
+      266          .post('/simulations')
+      267          .send({
+      268            customerId: customerEsId,
+      269 +          activeUsers: 100001,                                
+      270 +          storageGb: 0,                                       
+      271 +          apiCallsMonth: 0,                                   
+      272 +        })                                                    
+      273 +        .expect(400);                                         
+      274 +                                                              
+      275 +      expect(errorBody(response).details?.[0]).toMatchObject({
+      276 +        field: 'activeUsers',                                 
+      277 +      });                                                     
+      278 +    });                                                       
+      279 +                                                              
+      280 +    it('campo desconocido: se elimina por whitelist y la respu
+          +esta expone solo las claves del contrato', async () => {      
+      281 +      const response = await request(http)                    
+      282 +        .post('/simulations')                                 
+      283 +        .send({                                               
+      284 +          customerId: customerEsId,                           
+      285            activeUsers: 1,
+      286            storageGb: 0,
+      287            apiCallsMonth: 0,
+     ...
+      289          })
+      290          .expect(201);
+      291  
+      276 -      expect(response.body).not.toHaveProperty('hacker');     
+      292 +      expect(Object.keys(simulationBody(response)).sort()).toE
+          +qual([                                                        
+      293 +        'activeUsers',                                        
+      294 +        'apiCallsMonth',                                      
+      295 +        'baseCents',                                          
+      296 +        'breakdown',                                          
+      297 +        'createdAt',                                          
+      298 +        'id',                                                 
+      299 +        'storageGb',                                          
+      300 +        'taxCents',                                           
+      301 +        'totalCents',                                         
+      302 +        'vatRateBps',                                         
+      303 +      ]);                                                     
+      304      });
+      305    });
+      306  
+
+● Update(backend\test\simulations.e2e-spec.ts)
+  ⎿  Added 2 lines, removed 4 lines
+      359  
+      360      it('cliente sin simulaciones: 200 con items vacío', async 
+           () => {
+      361        const response = await request(http)
+      362 -        .get(`/customers/${customerUsId}/simulations`)        
+      362 +        .get(`/customers/${customerIdleId}/simulations`)      
+      363          .expect(200);
+      364  
+      365 -      const { items } = listBody(response);                   
+      366 -      const others = items.filter((item) => item.vatRateBps !=
+          -= 0);                                                         
+      367 -      expect(others).toHaveLength(0);                         
+      365 +      expect(listBody(response).items).toEqual([]);           
+      366      });
+      367    });
+      368  });
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            lint; if ($?) { pnpm test:e2e })
+  ⎿  > backend@0.0.1 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\b
+     ackend
+     > eslint "{src,apps,libs,test,prisma}/**/*.ts" --fix
+     … +17 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Fixes aplicados, lint ✓, e2e 30/30 ✓. Registrando entrada en auditorias.md.
+
+● Update(ai-workspace\04-proceso\auditorias.md)
+  ⎿  Added 21 lines
+      113  
+      114  ### Propuestas de la IA rechazadas o corregidas
+      115  - Ninguna en esta fase: los cuatro primeros hallazgos se corri
+           gieron según lo propuesto (el de `countryCode` con actualizaci
+           ón previa de la spec por decisión de Diego); el quinto se acep
+           tó con justificación.
+      116 +                                                              
+      117 +## Fase 5 — API de simulaciones  ·  2026-07-16                
+      118 +                                                              
+      119 +Alcance: diff de la fase (módulo `simulations`: DTOs + service
+          + + controller + module, endpoint de histórico en `customers.co
+          +ntroller`, e2e con caso dorado). Capas correctas (controller s
+          +in lógica; el servicio no contiene aritmética — todo importe s
+          +ale de `calculateSimulationCost`); snapshot completo persistid
+          +o (RN-05/ADR-06); sin `any`/`@ts-ignore`/`console.log`; solo e
+          +nteros; errores por el contrato global.                       
+      120 +                                                              
+      121 +### Hallazgos                                                 
+      122 +| Severidad | Archivo | Hallazgo | Acción |                   
+      123 +|---|---|---|---|                                             
+      124 +| media | simulations.e2e-spec.ts | Test "cliente sin simulaci
+          +ones" pasaba vacuamente: el cliente US ya tenía una simulación
+          + de un test anterior y la aserción por `vatRateBps` no probaba
+          + el histórico vacío | corregido: tercer cliente sin simulacion
+          +es + `toEqual([])` |                                          
+      125 +| baja | simulations.e2e-spec.ts | Aserción tautológica en el 
+          +test de whitelist (`not.toHaveProperty` sobre una respuesta qu
+          +e nunca eco-aría el campo) | corregido: se afirma el conjunto 
+          +exacto de claves de la respuesta |                            
+      126 +| baja | simulations.e2e-spec.ts | Cotas superiores de `active
+          +Users`/`apiCallsMonth` sin caso 400 | corregido: e2e añadido p
+          +ara `activeUsers: 100001` (los tres campos comparten decorador
+          +es; un caso por cota superior basta) |                        
+      127 +| baja | simulations.service.ts | `JSON.parse(breakdown)` sin 
+          +validación estructural | aceptado: el snapshot lo escribe solo
+          + este servicio (RN-05); fila corrupta = bug interno que debe s
+          +er ruidoso (500 con log del filtro) |                         
+      128 +| baja | dto/tier-line.dto.ts | `TierLineDto` duplica estructu
+          +ralmente el `TierLine` del dominio | aceptado: metadatos Swagg
+          +er no pueden vivir en `domain/` (ADR-05); el tipado cruzado (`
+          +TierLine[]` → `TierLineDto[]`) detecta divergencias en compila
+          +ción |                                                        
+      129 +| baja | simulations.e2e-spec.ts | ~300 líneas > soft limit 25
+          +0 | aceptado: mismo criterio que fase 4 (suite cohesiva; parti
+          +rla duplica setup) |                                          
+      130 +                                                              
+      131 +Durante la fase (previo a la auditoría): un e2e asumía 400 par
+          +a campos desconocidos (`forbidNonWhitelisted`); el pipe global
+          + solo hace strip y la spec no exige rechazo → test corregido y
+          + decisión registrada en `registro-decisiones.md`.             
+      132 +                                                              
+      133 +Verificación re-ejecutada tras los fixes: lint ✔ · unit 106/10
+          +6 ✔ · e2e 30/30 ✔ · build ✔. Curl manual del caso dorado contr
+          +a el seed verificado (14000/2940/16940, breakdown 2 líneas, hi
+          +stórico desc).                                                
+      134 +                                                              
+      135 +### Propuestas de la IA rechazadas o corregidas               
+      136 +- Ninguna en esta fase: los tres hallazgos accionables se corr
+          +igieron según lo propuesto; los tres restantes se aceptaron co
+          +n justificación.                                              
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend; pnpm
+            test; if ($?) { pnpm build })
+  ⎿  > backend@0.0.1 test C:\Users\dpastorhe\Coding\personal\saas-o-matic\b
+     ackend
+     > jest
+     … +11 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Auditoría cerrada.
+
+  - Fixes aplicados: histórico vacío con cliente dedicado + toEqual([]),
+  aserción de claves exactas en test de whitelist, e2e de cota superior
+  (activeUsers: 100001 → 400).
+  - Verificación completa: lint ✓ · unit 106/106 ✓ · e2e 30/30 ✓ · build ✓.
+  - Entrada de fase 5 registrada en auditorias.md (3 corregidos, 3 aceptados con
+  justificación).
+
+  Listo para commit: feat(simulations): cálculo por tramos persistido con 
+  snapshot e histórico
+
+✻ Cogitated for 2m 26s
+
+❯ Haz el commit                                                                 
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic; rtk git add
+            backend/src/simulations backend/test/simulations.e2e-spec.ts
+            backend/src/app.module.ts backend/s…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 14 files changed, 844 insertions(+), 2 deletions(-)
+     … +18 lines (ctrl+o to expand)
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic; git commit -m
+            @'
+            feat(simulations): cálculo por tramos persistido con snapshot e
+            histórico…)
+  ⎿  [main d29c251] feat(simulations): cálculo por tramos persistido con sn
+     apshot e histórico
+      15 files changed, 844 insertions(+), 2 deletions(-)
+     … +14 lines (ctrl+o to expand)
+
+● Commit d29c251 incluye una eliminación no intencionada de capturas/.gitkeep.
+  Verificando.
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic; Test-Path
+            ai-workspace/04-proceso/capturas; git log --oneline -2)
+  ⎿  False
+     d29c251 feat(simulations): cálculo por tramos persistido con snapshot
+     e histórico
+     a0222d5 docs(proceso): transcripción de la sesión de la fase 4
+
+● PowerShell(cd C:\Users\dpastorhe\Coding\personal\saas-o-matic; git checkout
+            a0222d5 -- ai-workspace/04-proceso/capturas/.gitkeep; git commit
+            --amend --no-edit; git log --s…)
+  ⎿  Interrupted · What should Claude do instead?
+
+✻ Sautéed for 1m 3s
+
+❯ Mantenlo así, he eliminado yo intencionadamente                               
+
+  Wrote 1 memory (ctrl+o to expand)
+
+● PowerShell(Add-Content -Path C:\Users\dpastorhe\.claude\projects\C--Users-dpas
+            torhe-Coding-personal-saas-o-matic\memory\MEMORY.md -Value "-
+            [capturas/ eliminado a proposit…)
+  ⎿  (No output)
+
+● Commit d29c251 queda como está. Fase 5 cerrada.
+
+✻ Baked for 28s
