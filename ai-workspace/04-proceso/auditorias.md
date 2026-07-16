@@ -134,3 +134,20 @@ Verificación re-ejecutada tras los fixes: lint ✔ · unit 106/106 ✔ · e2e 3
 
 ### Propuestas de la IA rechazadas o corregidas
 - Ninguna en esta fase: los tres hallazgos accionables se corrigieron según lo propuesto; los tres restantes se aceptaron con justificación.
+
+## Fase 6 — Frontend base y divisas  ·  2026-07-16
+
+Alcance: diff completo de la fase (19 archivos en `frontend/`: dominio replicado, `lib/money`, capa `api/`, hook de tasas, providers, `CurrencyPicker`, layout, router y placeholders de páginas). Capas correctas (HTTP solo en `api/`, `domain/pricing` puro); sin `any`/`@ts-ignore`/`console.log`; float solo en `formatMoney` (conversión de presentación permitida por spec); tipos de `api/types.ts` transcritos de `contratos-api.md`; archivos ≤ ~70 líneas.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | api/exchange.ts | `readCachedRates` confiaba en el shape de la caché de localStorage (cast sin validar); caché corrupta → "Invalid Date" en el banner y filtrado de divisas impredecible | corregido: guard `isSnapshot` que degrada a `null` (= sin caché); 6 tests nuevos con stub de localStorage |
+| media | domain/pricing/pricing.spec.ts | La réplica no cubría el redondeo half-up (RN-02): los casos dorados no producen medias unidades y `applyVat` podía divergir del backend sin romper tests | corregido: test espejo (`applyVat(50, 2100) → 11`, `applyVat(25, 2100) → 5`) |
+| baja | lib/money.spec.ts | NBSP literal (U+00A0) invisible en `const NBSP` — trampa de edición | corregido: escape `'\u00a0'` |
+| baja | components/CurrencyPicker.tsx | Spinner de carga solo visual, sin texto accesible | corregido: `role="status"` + `sr-only` "Cargando tipos de cambio…" |
+
+Verificación re-ejecutada tras los fixes: lint ✔ (solo warnings preexistentes de shadcn) · unit 22/22 ✔ · build ✔. Estados live/loading/stale/unavailable verificados en navegador con Playwright (proveedor bloqueado con y sin caché).
+
+### Propuestas de la IA rechazadas o corregidas
+- Unificar `SimulationTierLine` (api) con `TierLine` (dominio): rechazada — duplicación deliberada; el primero transcribe `contratos-api.md` (regla "tipos de la spec, no inferidos"), el segundo pertenece a la réplica de dominio (ADR-08). Unificarlos acoplaría dominio↔API.

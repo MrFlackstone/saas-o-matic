@@ -1,9 +1,15 @@
+import { RouterProvider } from 'react-router-dom'
+import { CurrencyProvider } from '@/providers/CurrencyProvider'
+import { QueryProvider } from '@/providers/QueryProvider'
+import { router } from '@/router'
+
 function App() {
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <header className="border-b" />
-      <main className="mx-auto max-w-5xl px-6 py-8" />
-    </div>
+    <QueryProvider>
+      <CurrencyProvider>
+        <RouterProvider router={router} />
+      </CurrencyProvider>
+    </QueryProvider>
   )
 }
 

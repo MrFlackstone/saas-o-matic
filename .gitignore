@@ -11,3 +11,4 @@ backend/src/generated/
 .claude/settings.local.json
 README.template.md
 .DS_Store
+.playwright-mcp/
