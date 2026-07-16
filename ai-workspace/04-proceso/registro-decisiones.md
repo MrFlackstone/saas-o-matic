@@ -18,7 +18,11 @@ Formato: fecha · fase · decisión · alternativas · por qué.
 
 | Fecha | Fase | Decisión | Alternativas | Por qué |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| 2026-07-16 | 0 | shadcn init con `-b radix -p nova` (CLI 4.x ya no acepta base color); se aceptan las deps que instala el propio CLI (radix-ui, cva, clsx, tailwind-merge, lucide-react, sonner, next-themes, tw-animate-css, @fontsource-variable/geist) | Fijar shadcn a versión anterior con flag `-b neutral` | Interfaz actual del CLI; sus deps son parte integral de shadcn, no deps nuevas del proyecto |
+| 2026-07-16 | 0 | Mantener oxlint + TypeScript 6 del template Vite actual (`pnpm lint` ejecuta oxlint) | Migrar a ESLint | Default del template; se migrará solo si hace falta paridad de reglas con el backend |
+| 2026-07-16 | 0 | `pnpm.onlyBuiltDependencies` (prisma, @prisma/client, @prisma/engines) en `backend/package.json` | Ejecutar `pnpm approve-builds` manualmente en cada clon | pnpm 10 bloquea postinstall por defecto; sin ello el schema-engine no se instala y `prisma migrate` fallaría en fase 1. Verificado con `pnpm prisma --version` |
+| 2026-07-16 | 0 | Sustituir los flags sueltos del scaffold Nest (`strictNullChecks`, `noImplicitAny`…) por `strict: true` | Dejar los flags del scaffold | Criterio de aceptación de la fase; `strict` los engloba y añade el resto |
+| 2026-07-16 | 0 | Tipar `VITE_API_URL` augmentando `ImportMetaEnv` en `src/vite-env.d.ts` | Acceso sin tipar (`any` implícito) | Cumple la prohibición de `any` con TS estricto |
 
 ## Checklist final contra la rúbrica (completar en fase 9)
 
