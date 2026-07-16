@@ -10,6 +10,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { SimulationListResponseDto } from '../simulations/dto/simulation-list-response.dto';
+import { SimulationsService } from '../simulations/simulations.service';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { CustomerListResponseDto } from './dto/customer-list-response.dto';
@@ -19,7 +21,10 @@ import { SearchCustomersDto } from './dto/search-customers.dto';
 @ApiTags('customers')
 @Controller('customers')
 export class CustomersController {
-  constructor(private readonly customersService: CustomersService) {}
+  constructor(
+    private readonly customersService: CustomersService,
+    private readonly simulationsService: SimulationsService,
+  ) {}
 
   @Post()
   @ApiOperation({
@@ -60,5 +65,18 @@ export class CustomersController {
   @ApiNotFoundResponse({ type: ErrorResponseDto })
   findById(@Param('id') id: string): Promise<CustomerResponseDto> {
     return this.customersService.findById(id);
+  }
+
+  @Get(':id/simulations')
+  @ApiOperation({
+    summary: 'Histórico de simulaciones de un cliente',
+    description:
+      'Snapshots inmutables (RN-05) ordenados por createdAt descendente.',
+  })
+  @ApiParam({ name: 'id', example: 'cm5xa1b2c3d4e5f6g7h8i9j0k' })
+  @ApiOkResponse({ type: SimulationListResponseDto })
+  @ApiNotFoundResponse({ type: ErrorResponseDto })
+  findSimulations(@Param('id') id: string): Promise<SimulationListResponseDto> {
+    return this.simulationsService.findByCustomer(id);
   }
 }

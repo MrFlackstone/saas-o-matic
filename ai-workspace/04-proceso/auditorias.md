@@ -113,3 +113,24 @@ Verificación re-ejecutada tras los fixes: lint ✔ · unit 100/100 ✔ · e2e 1
 
 ### Propuestas de la IA rechazadas o corregidas
 - Ninguna en esta fase: los cuatro primeros hallazgos se corrigieron según lo propuesto (el de `countryCode` con actualización previa de la spec por decisión de Diego); el quinto se aceptó con justificación.
+
+## Fase 5 — API de simulaciones  ·  2026-07-16
+
+Alcance: diff de la fase (módulo `simulations`: DTOs + service + controller + module, endpoint de histórico en `customers.controller`, e2e con caso dorado). Capas correctas (controller sin lógica; el servicio no contiene aritmética — todo importe sale de `calculateSimulationCost`); snapshot completo persistido (RN-05/ADR-06); sin `any`/`@ts-ignore`/`console.log`; solo enteros; errores por el contrato global.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | simulations.e2e-spec.ts | Test "cliente sin simulaciones" pasaba vacuamente: el cliente US ya tenía una simulación de un test anterior y la aserción por `vatRateBps` no probaba el histórico vacío | corregido: tercer cliente sin simulaciones + `toEqual([])` |
+| baja | simulations.e2e-spec.ts | Aserción tautológica en el test de whitelist (`not.toHaveProperty` sobre una respuesta que nunca eco-aría el campo) | corregido: se afirma el conjunto exacto de claves de la respuesta |
+| baja | simulations.e2e-spec.ts | Cotas superiores de `activeUsers`/`apiCallsMonth` sin caso 400 | corregido: e2e añadido para `activeUsers: 100001` (los tres campos comparten decoradores; un caso por cota superior basta) |
+| baja | simulations.service.ts | `JSON.parse(breakdown)` sin validación estructural | aceptado: el snapshot lo escribe solo este servicio (RN-05); fila corrupta = bug interno que debe ser ruidoso (500 con log del filtro) |
+| baja | dto/tier-line.dto.ts | `TierLineDto` duplica estructuralmente el `TierLine` del dominio | aceptado: metadatos Swagger no pueden vivir en `domain/` (ADR-05); el tipado cruzado (`TierLine[]` → `TierLineDto[]`) detecta divergencias en compilación |
+| baja | simulations.e2e-spec.ts | ~300 líneas > soft limit 250 | aceptado: mismo criterio que fase 4 (suite cohesiva; partirla duplica setup) |
+
+Durante la fase (previo a la auditoría): un e2e asumía 400 para campos desconocidos (`forbidNonWhitelisted`); el pipe global solo hace strip y la spec no exige rechazo → test corregido y decisión registrada en `registro-decisiones.md`.
+
+Verificación re-ejecutada tras los fixes: lint ✔ · unit 106/106 ✔ · e2e 30/30 ✔ · build ✔. Curl manual del caso dorado contra el seed verificado (14000/2940/16940, breakdown 2 líneas, histórico desc).
+
+### Propuestas de la IA rechazadas o corregidas
+- Ninguna en esta fase: los tres hallazgos accionables se corrigieron según lo propuesto; los tres restantes se aceptaron con justificación.
