@@ -8,11 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { formatDate } from '@/lib/dates'
 import { useCurrency } from '@/providers/currency-context'
-
-function formatUpdatedAt(updatedAt: string): string {
-  return new Date(updatedAt).toLocaleDateString('es-ES')
-}
 
 export function CurrencyPicker() {
   const { currency, setCurrency, currencies, exchange } = useCurrency()
@@ -23,7 +20,7 @@ export function CurrencyPicker() {
       {exchange.status === 'stale' && exchange.updatedAt !== null && (
         <p role="status" className="text-muted-foreground flex items-center gap-1.5 text-xs">
           <TriangleAlert className="size-3.5 text-amber-500" aria-hidden />
-          Tipos de cambio del {formatUpdatedAt(exchange.updatedAt)} (sin conexión con el
+          Tipos de cambio del {formatDate(exchange.updatedAt)} (sin conexión con el
           proveedor)
         </p>
       )}

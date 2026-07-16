@@ -1,5 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import { CurrencyPicker } from '@/components/CurrencyPicker'
+import { Toaster } from '@/components/ui/sonner'
 
 export function AppLayout() {
   return (
@@ -15,6 +16,7 @@ export function AppLayout() {
       <main className="mx-auto max-w-5xl px-6 py-8">
         <Outlet />
       </main>
+      <Toaster />
     </div>
   )
 }

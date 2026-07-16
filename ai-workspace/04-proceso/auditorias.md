@@ -151,3 +151,25 @@ Verificación re-ejecutada tras los fixes: lint ✔ (solo warnings preexistentes
 
 ### Propuestas de la IA rechazadas o corregidas
 - Unificar `SimulationTierLine` (api) con `TierLine` (dominio): rechazada — duplicación deliberada; el primero transcribe `contratos-api.md` (regla "tipos de la spec, no inferidos"), el segundo pertenece a la réplica de dominio (ADR-08). Unificarlos acoplaría dominio↔API.
+
+## Fase 7 — Dashboard, alta y detalle  ·  2026-07-16
+
+Alcance: diff completo de la fase (10 archivos en `frontend/`: `domain/tax-id/` portado, `lib/countries.ts`, `useDebounce`, `CustomerCard`, las tres páginas y `SimulationHistory`). Capas correctas (HTTP solo en `api/`, `domain/tax-id` TypeScript puro sin imports de framework); sin `any`/`@ts-ignore`/`console.log` ni código muerto; importes solo via `lib/money.ts`; archivos ≤ 190 líneas.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | features/customers/customer-form-schema.ts | El espejo zod no tenía tests propios: la rama ES vs ≠ES, la normalización previa y los límites de `companyName`/`email` solo se verificaban a mano; los 57 tests de `domain/tax-id` no cubren el cableado del schema | corregido: `customer-form-schema.spec.ts` con 47 tests (fixture fiscal por rama, normalización, cotas 1/2/120/121 y 254, país/plan fuera de lista) |
+| media | features/customers/SimulationHistory.tsx | Dos componentes en un archivo: `SimulationRow` (~85 líneas, con estado propio) junto a `SimulationHistory` — viola "una clase/componente por archivo" | corregido: `SimulationRow.tsx` extraído |
+| baja | features/customers/NewCustomerPage.tsx | `detail.field as (typeof formFields)[number]` tras el `filter` — seguro pero es cast, no estrechamiento | corregido: type guard `isFormField` |
+| baja | features/customers/NewCustomerPage.tsx | `aria-describedby="X-error"` apuntaba a un id inexistente mientras no hay error (`FieldError` devuelve `null`): referencia colgante, inválida en ARIA | corregido: `aria-describedby` condicional al error (+ `aria-invalid` en los dos `SelectTrigger`, que no lo tenían) |
+| baja | SimulationHistory.tsx + CustomerDetailPage.tsx | Formateo bps→`21 %` duplicado en dos archivos | corregido: `formatVatRate(bps)` centralizado en `lib/money.ts` |
+| baja | CustomerCard.tsx + SimulationHistory.tsx + CurrencyPicker.tsx | Tres formateadores de fecha ad-hoc (`formatDate`, `formatDateTime`, `formatUpdatedAt`) | corregido: `lib/dates.ts` con `formatDate`/`formatDateTime` compartidos |
+| baja | features/customers/CustomerDetailPage.tsx | `const { id = '' } = useParams()` — con `id` vacío haría `GET /customers/` (shape de lista ≠ `CustomerResponse`); inalcanzable con las rutas actuales, pero el fallback silencioso ocultaba el invariante | corregido: `enabled: id !== ''` + render de error explícito |
+
+Aceptado sin cambio: los helpers presentacionales sin estado y de menos de 15 líneas conviven con su página (`ResultsSkeleton` en `DashboardPage`, `FieldError` en `NewCustomerPage`) — el límite "un componente por archivo" se aplica a componentes con estado o lógica; extraerlos sería fragmentación sin valor. Skeleton en cada cambio de búsqueda: la spec pide skeleton en carga y no menciona `placeholderData`.
+
+Verificación re-ejecutada tras los fixes: lint ✔ (solo los 2 warnings preexistentes de fast-refresh en shadcn) · unit 126/126 ✔ · build ✔. Recorrido live con Playwright contra el backend sembrado: histórico de Acme con `SimulationRow` ya extraído (tramo 1: 10 × 11,45 US$ = 114,49 US$; tramo 2: 5 × 9,16 US$ = 45,80 US$; base 160,29 US$, IVA (21 %) 33,66 US$, total 193,95 US$ — idéntico a la verificación previa a la extracción) y formulario de alta sin referencias ARIA colgantes ni en reposo ni con los cinco campos en error.
+
+### Propuestas de la IA rechazadas o corregidas
+- Ninguna en esta fase: los siete hallazgos accionables se corrigieron según lo propuesto.

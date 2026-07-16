@@ -4,3 +4,8 @@ export function formatMoney(cents: number, currency: string, rate: number): stri
   const amount = (cents / 100) * rate
   return new Intl.NumberFormat('es-ES', { style: 'currency', currency }).format(amount)
 }
+
+// El IVA viaja en puntos básicos (Bps); esto es presentación de porcentaje, no un importe.
+export function formatVatRate(vatRateBps: number): string {
+  return `${(vatRateBps / 100).toLocaleString('es-ES')} %`
+}
