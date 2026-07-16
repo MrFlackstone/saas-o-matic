@@ -1,0 +1,56 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "cjs"
+  importFileExtension = ""
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Country {
+  code       String     @id
+  name       String
+  vatRateBps Int
+  customers  Customer[]
+}
+
+model Plan {
+  id        String     @id @default(cuid())
+  code      String     @unique
+  name      String
+  customers Customer[]
+}
+
+model Customer {
+  id          String       @id @default(cuid())
+  companyName String
+  taxId       String       @unique
+  email       String
+  countryCode String
+  planId      String
+  country     Country      @relation(fields: [countryCode], references: [code])
+  plan        Plan         @relation(fields: [planId], references: [id])
+  simulations Simulation[]
+  createdAt   DateTime     @default(now())
+
+  @@index([companyName])
+}
+
+model Simulation {
+  id            String   @id @default(cuid())
+  customerId    String
+  customer      Customer @relation(fields: [customerId], references: [id])
+  activeUsers   Int
+  storageGb     Int
+  apiCallsMonth Int
+  baseCents     Int
+  vatRateBps    Int
+  taxCents      Int
+  totalCents    Int
+  breakdown     String
+  createdAt     DateTime @default(now())
+
+  @@index([customerId, createdAt])
+}

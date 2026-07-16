@@ -1,6 +1,12 @@
 # Estructura de la base de datos
 
-SQLite gestionada con Prisma (migraciones versionadas y commiteadas).
+SQLite gestionada con Prisma 7 (migraciones versionadas y commiteadas).
+
+> **Convenciones Prisma 7** (actualización 2026-07-16): la URL del datasource vive en
+> `prisma.config.ts` (no en `schema.prisma`), el cliente se genera con el provider
+> `prisma-client` (emite TypeScript en `src/generated/prisma/`, carpeta ignorada por git)
+> y `PrismaClient` exige un driver adapter (`@prisma/adapter-better-sqlite3`) en el
+> constructor — sin adapter lanza `P2038`.
 
 ## Diagrama entidad-relación
 
@@ -44,16 +50,38 @@ erDiagram
     }
 ```
 
+## `prisma.config.ts` (raíz de `backend/`)
+
+```ts
+import { defineConfig } from 'prisma/config';
+
+export default defineConfig({
+  schema: 'prisma/schema.prisma',
+  migrations: {
+    path: 'prisma/migrations',
+    seed: 'ts-node prisma/seed.ts',
+  },
+  datasource: {
+    url: 'file:./prisma/dev.db',
+  },
+});
+```
+
+- La URL SQLite se resuelve relativa a `prisma.config.ts` → la BD queda en `backend/prisma/dev.db`.
+- El comando de seed vive aquí (en Prisma 7 ya no se usa el campo `prisma.seed` de `package.json`).
+
 ## `prisma/schema.prisma`
 
 ```prisma
 generator client {
-  provider = "prisma-client-js"
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "cjs"
+  importFileExtension = ""
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
 }
 
 model Country {
@@ -105,6 +133,8 @@ model Simulation {
 
 ## Notas de diseño
 
+- **Driver adapter obligatorio** (Prisma 7): `PrismaService` instancia `new PrismaClient({ adapter: new PrismaBetterSqlite3({ url: 'file:./prisma/dev.db' }) })`. La URL del adapter se resuelve relativa al cwd del proceso (`backend/`).
+- **Cliente generado en `src/generated/prisma/`**: TypeScript emitido por `prisma generate`; ignorado por git, eslint y prettier. Un clon limpio lo regenera (`db:setup` incluye `prisma generate`).
 - **`taxId` único y normalizado** (RN-04): la unicidad se garantiza en BD, no solo en la aplicación.
 - **`breakdown` como `String` JSON**: SQLite no tiene tipo JSON nativo en Prisma; se serializa/deserializa en el servicio con tipo `TierLine[]` del dominio. Es un snapshot inmutable (ADR-06), no se consulta por dentro → no necesita columnas propias.
 - **`vatRateBps` duplicado en `Simulation`**: snapshot intencionado del tipo aplicado (el de `Country` puede cambiar).

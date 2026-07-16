@@ -4,6 +4,7 @@ build/
 coverage/
 *.db
 *.db-journal
+backend/src/generated/
 .env
 .env.*
 .remember/

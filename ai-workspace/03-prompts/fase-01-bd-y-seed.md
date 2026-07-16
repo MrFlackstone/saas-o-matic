@@ -24,7 +24,7 @@ Esquema Prisma completo, migración inicial commiteada y seed idempotente con da
    - 10 países de RN-02 (código, nombre, `vatRateBps`).
    - Planes `STARTER`/`PRO`/`ENTERPRISE`.
    - Demo: 3 clientes — `B58818501` (ES/PRO), uno PT, uno US — y 4 simulaciones con desglose realista (incluida una de 15 usuarios: base 14000, IVA ES 2940, total 16940; `breakdown` JSON con los dos tramos).
-5. Scripts en `package.json`: `db:seed` (`prisma db seed`), `db:setup` (`prisma migrate deploy && prisma db seed`).
+5. Scripts en `package.json`: `db:seed` (`prisma db seed`), `db:setup` (`prisma generate && prisma migrate deploy && prisma db seed` — el `generate` es necesario en Prisma 7 porque el cliente TS generado en `src/generated/prisma/` no se commitea).
 
 ## Criterios de aceptación
 
