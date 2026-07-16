@@ -9,7 +9,9 @@ export class PrismaService
 {
   constructor() {
     super({
-      adapter: new PrismaBetterSqlite3({ url: 'file:./prisma/dev.db' }),
+      adapter: new PrismaBetterSqlite3({
+        url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db',
+      }),
     });
   }
 

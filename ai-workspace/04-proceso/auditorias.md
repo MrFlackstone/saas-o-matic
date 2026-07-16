@@ -95,3 +95,21 @@ Alcance: diff de la fase (`domain/tax-id/`: normalize, types, spanish-tax-id, va
 
 ### Propuestas de la IA rechazadas o corregidas
 - Ninguna en esta fase: el hallazgo medio se corrigió según lo propuesto; los dos bajos se aceptaron con justificación.
+
+## Fase 4 — API de clientes  ·  2026-07-16
+
+Alcance: diff de la fase (`common/` filtro global de excepciones + exceptionFactory con códigos por campo, `customers/` módulo completo con DTOs/servicio/controller/Swagger, e2e con BD SQLite temporal; `test:e2e` con `--experimental-vm-modules` por el compilador WASM de Prisma 7). Capas ✔ (controller fino, dominio consumido desde el servicio, sin Prisma en controllers); shapes y códigos verificados contra `contratos-api.md`/`validaciones.md` por 17 e2e + 15 unit del servicio; fixtures dorados de la spec (`B58818501`, `B58818500`, `B12345674`, `Q2818002D`, `12345678Z`); sin `any`/`@ts-ignore`/`console.log`; queries parametrizadas via Prisma.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | http-exception.filter.ts | El catch-all producía el 500 con contrato pero sin log: stack trace del bug perdido (fallo silencioso) | corregido: `Logger.error` solo para excepciones no-HTTP (+test que verifica que las HTTP no se loguean) |
+| baja | http-exception.filter.ts | Ramas payload-string / message-array / no-HttpException sin test unitario | corregido: `http-exception.filter.spec.ts` con 4 tests (host mockeado, spy sobre `Logger`) |
+| baja | customers/dto/* | Literal `'VALIDATION_ERROR'` duplicado 8 veces teniendo `FALLBACK_VALIDATION_CODE` exportada | corregido: los DTOs importan la constante de `common/` |
+| baja | customers.service.ts | `countryCode` sensible a mayúsculas: `"es"` → 400 `COUNTRY_UNKNOWN`; la spec no cubría la normalización del país | corregido **spec-first**: regla añadida a `validaciones.md` (trim → mayúsculas antes de consultar `countries`) y aplicada en el servicio (+test) |
+| baja | customers.e2e-spec.ts | 387 líneas > soft limit 250 | aceptado: archivo de test cohesivo de un solo grupo de endpoints; partirlo duplicaría el setup sin ganancia |
+
+Verificación re-ejecutada tras los fixes: lint ✔ · unit 100/100 ✔ · e2e 19/19 ✔ · build ✔.
+
+### Propuestas de la IA rechazadas o corregidas
+- Ninguna en esta fase: los cuatro primeros hallazgos se corrigieron según lo propuesto (el de `countryCode` con actualización previa de la spec por decisión de Diego); el quinto se aceptó con justificación.

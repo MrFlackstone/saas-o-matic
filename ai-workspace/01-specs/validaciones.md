@@ -11,6 +11,10 @@
 
 Antes de validar y de persistir: `trim` → mayúsculas → eliminar espacios, puntos y guiones. Se persiste normalizado.
 
+## Normalización del código de país
+
+`trim` → mayúsculas antes de consultar `countries` (`"es"` y `" ES "` referencian el mismo país ISO-3166). Se persiste el código canónico de la tabla.
+
 ## Algoritmo oficial español
 
 La función de dominio clasifica y valida: `validateSpanishTaxId(value) → { valid, kind: 'DNI'|'NIE'|'CIF'|'NIF_ESPECIAL', reason? }`. Nunca lanza excepción.
