@@ -63,3 +63,19 @@ rtk `pnpm lint && pnpm test && pnpm build && pnpm db:seed` re-ejecutados en verd
 - **Propuso**: diferir a fase 2 la exclusión de cobertura y el tipo `TierLine` en `domain/`.
   **Corregido porque**: se prefirió cerrarlos dentro de la propia fase 1 en lugar de arrastrar deuda.
   **Solución final**: ambos aplicados ahora; `src/domain/pricing/types.ts` queda creado y fase 2 lo reutiliza.
+
+## Fase 2 — Motor de pricing  ·  2026-07-16
+
+Alcance: diff de la fase (`domain/pricing/`: types ampliado, `tiers.ts`, `pricing-engine.ts`, suite con 8 casos dorados + IVA + half-up + extensión ADR-07). Dominio 100 % puro (grep sin `@nestjs`/`@prisma`/`express`); solo aritmética entera; cobertura 100 % de ramas; sin `any`/`@ts-ignore`/`console.log`; archivos < 250 líneas. DTOs/seguridad: N/A en esta fase.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | pricing-engine.ts | `activeUsers` no entero produciría céntimos fraccionales; el DTO (fase 3) restringe el rango pero el dominio no defendía su propia invariante | corregido: guard fail-fast `Number.isInteger` → `Error` de dominio (+2 tests: 5.5 y NaN). Descartado `Math.trunc` por corrección silenciosa; con snapshot inmutable (RN-05) un bug ruidoso es preferible a persistir un presupuesto corrupto |
+| baja | tiers.ts | Invariante estructural de `PRICING_TIERS` (contigüidad, último tramo abierto, numeración) sin test propio: una edición futura de tarifas mal hecha solo fallaría vía casos dorados | corregido: `tiers.spec.ts` con 3 tests de invariantes |
+| baja | types.ts | `PricingInput` omite `storageGb`/`apiCallsMonth` del contrato de simulación | aceptado: deliberado (A2/ADR-07), se amplía cuando esos componentes se tarifiquen |
+
+rtk `jest --coverage` re-ejecutado tras los fixes: 23/23 en verde, 100 % ramas se mantiene; lint y build en verde.
+
+### Propuestas de la IA rechazadas o corregidas
+- Ninguna en esta fase: los tres hallazgos se resolvieron según lo propuesto (guard A elegido entre 3 opciones analizadas: guard fail-fast, trunc defensivo, aceptar sin cambio).
