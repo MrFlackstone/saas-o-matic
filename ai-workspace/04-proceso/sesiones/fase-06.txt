@@ -1,0 +1,1285 @@
+ ▐▛███▜▌   Claude Code v2.1.211
+▝▜█████▛▘  Fable 5 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:clear says: [saas-o-matic] recent context, 2026-07-16 4:25pm 
+     GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (16.413 tokens to read)
+       Work investment: 198.926 tokens spent on research, building, and 
+     decisions
+       Your savings: 92% reduction from reuse
+
+     Jul 16, 2026
+
+     #S449 Implement pricing engine domain layer (Fase 02) for saas-o-matic
+     backend with tiered user pricing, VAT calculation, and full test coverage 
+     (Jul 16, 12:54 PM)
+
+     #S450 Code review triage on saas-o-matic pricing domain: apply low-severity
+     invariant test fix and analyze medium-severity activeUsers non-integer bug
+     (Jul 16, 1:09 PM)
+
+     #S451 Implement Spanish tax ID validation module (DNI/NIE/CIF/NIF especial)
+     with full TDD cycle in saas-o-matic backend (Jul 16, 1:15 PM)
+
+     #S452 Auditoría fase 3 — dominio tax-id del backend de saas-o-matic (Jul
+     16, 1:25 PM)
+
+     #S453 Phase 04 (nueva-fase 04) — Customers API implementation planning for
+     saas-o-matic NestJS backend (Jul 16, 1:27 PM)
+
+     #S455 Implementar módulo Customers completo (POST/GET/GET:id) con
+     validación fiscal, códigos de error semánticos y VALIDATION_ERROR como 
+     fallback para casos no especificados — registrar esta decisión formalmente 
+     (Jul 16, 1:33 PM)
+
+     #S456 Fase 05: Implement simulations module (POST /simulations + GET
+     /customers/:id/simulations) with pricing engine integration, tests, and 
+     live verification (Jul 16, 1:49 PM)
+
+     backend/test/simulations.e2e-spec.ts
+       #6069  4:02 PM  🟣  Simulations E2E Tests Created with Full API Contract
+      
+     backend/src/simulations/dto/create-simulation.dto.ts
+       #6070           🟣  CreateSimulationDto Implemented with Validation
+     Ranges  
+     backend/src/simulations/dto/tier-line.dto.ts
+       #6071  4:03 PM  🟣  TierLineDto Created for Simulation Breakdown Response
+      
+     backend/src/simulations/dto/simulation-response.dto.ts
+       #6072           🟣  SimulationResponseDto Created — Full Simulation API
+     Response Contract  
+     backend/src/simulations/dto/simulation-list-response.dto.ts
+       #6073           ⚖️  SimulationListResponseDto Has No Pagination — Only
+     items Array  
+     backend/src/simulations/simulations.service.ts
+       #6074           🟣  SimulationsService Implemented — Pricing Engine
+     Integrated  
+     backend/src/simulations/simulations.controller.ts
+       #6075           🟣  SimulationsController and SimulationsModule Created —
+     GET History Route Missing  
+     backend/src/customers/customers.controller.ts
+       #6077  4:04 PM  🟣  GET /customers/:id/simulations Added to
+     CustomersController  
+     backend/src/customers/customers.module.ts
+       #6078           🟣  SimulationsModule Wired into NestJS Module Graph
+     General
+       #6079  4:05 PM  🟣  Simulations Module Passes Lint and All 106 Unit Tests
+      
+     backend/src/common/configure-app.ts
+       #6080           🔵  Global App Configuration: ValidationPipe with
+     Whitelist and Custom Exception Factory  
+     backend/test/simulations.e2e-spec.ts
+       #6081  4:06 PM  🔴  E2E Test Corrected: whitelist:true Strips Unknown
+     Fields (201), Does Not Reject Them (400)  
+     General
+       #6082           🟣  Simulations Feature Complete — All E2E Tests Pass and
+     Build Succeeds  
+     backend/prisma/seed.ts
+       #6083           🔵  Seed Data Has Multi-Country Customers and Simulations
+     Linked by taxId  
+     General
+       #6084           🔵  db:setup Script and Local Dev Database Location
+       #6086  4:07 PM  🟣  POST /simulations Verified Against Live Dev Server
+     with Seeded Data  
+       #6087           🟣  GET /customers/:id/simulations Verified Live —
+     History Ordered Newest-First with 100-User Tier Data  
+     #S457 Registrar decisiones propuestas de las fases 0–5 del proyecto
+     saas-o-matic en el registro de decisiones (Jul 16, 4:08 PM)
+
+     General
+       #6088  4:08 PM  ⚖️  Registro de decisiones propuestas iniciado
+     backend/package.json
+       #6089  4:09 PM  ⚖️  Fase 0: Decisiones de scaffolding y configuración
+     base (saas-o-matic)  
+     ai-workspace/02-arquitectura/base-de-datos.md
+       #6090           ⚖️  Fase 1: Adopción de Prisma 7 con driver adapter y
+     spec-first update  
+     backend/src/pricing/pricing.engine.ts
+       #6091           ⚖️  Fase 2: Motor de pricing modelado como función pura y
+     compatibilidad con Jest 30  
+     backend/src/customers/tax-id.validator.ts
+       #6092           ⚖️  Fase 3: Clasificación fiscal como tabla declarativa
+     con fuzz determinista  
+     backend/package.json
+       #6093           ⚖️  Fase 4: API de clientes — códigos de error, e2e con
+     WASM y normalización de countryCode  
+     #S458 Auditoría de fase 5 (API de simulaciones) del backend saas-o-matic —
+     hallazgos identificados, pendiente confirmación de fixes (Jul 16, 4:10 PM)
+
+     backend/src/app.module.ts
+       #6094  4:11 PM  🟣  Fase 5: SimulationsModule implementado e integrado en
+     saas-o-matic backend  
+     ai-workspace/04-proceso/auditorias.md
+       #6095           🔵  Archivo auditorias.md existe con 116 líneas en el
+     workspace de saas-o-matic  
+     backend/eslint.config.mjs
+       #6096           🔵  Auditorías fases 0–4: hallazgos y correcciones del
+     código generado por IA en saas-o-matic  
+     backend/src/simulations/simulations.service.ts
+       #6097  4:12 PM  🔵  Fase 5: Estructura y calidad del módulo de
+     simulaciones verificadas  
+     backend/test/simulations.e2e-spec.ts
+       #6098  4:14 PM  🔵  Simulations API E2E Test Setup Architecture
+       #6099           🟣  Added Third Test Customer Variable for Idle State
+     Testing  
+       #6100           🟣  Seeded Third E2E Test Customer: Initech GmbH
+     (Idle/No-Simulations Fixture)  
+       #6101  4:15 PM  🟣  Strengthened POST /simulations E2E Tests: Upper Bound
+     Validation and Strict Contract Shape  
+       #6102           🔴  Fixed "Cliente Sin Simulaciones" Test to Use
+     Dedicated Idle Customer  
+     General
+       #6103           ✅  All E2E Tests Pass After Audit Fixes (30/30)
+     ai-workspace/04-proceso/auditorias.md
+       #6104           ✅  Phase 5 Audit Completed and Logged: Simulations API
+     #S459 Phase 5 audit of Simulations API — fix e2e test defects and close the
+     audit (Jul 16, 4:15 PM)
+
+     General
+       #6105  4:16 PM  ✅  Git Commit Requested
+     backend/src/simulations/simulations.controller.ts
+       #6106           🟣  Simulations Module Staged for Commit (Phase 5)
+       #6107  4:17 PM  🟣  Simulations Feature Committed to main (SHA d29c251)
+     General
+       #6108           🔵  capturas Directory Removed After .gitkeep Deletion
+     ~/.claude/projects/C--Users-dpastorhe-Coding-personal-saas-o-matic/memory/c
+     apturas-dir-removed.md
+       #6109  4:18 PM  ⚖️  capturas/ Directory Intentionally Deleted — Do Not
+     Restore  
+     ~/.claude/projects/C--Users-dpastorhe-Coding-personal-saas-o-matic/memory/M
+     EMORY.md
+       #6110           ✅  MEMORY.md Index Updated with capturas Deletion Entry
+      
+     ai-workspace/03-prompts/
+       #6113  4:21 PM  🔵  saas-o-matic ai-workspace directories are empty or
+     uninitialized  
+     ai-workspace/03-prompts/fase-06-fe-base-y-divisas.md
+       #6114           🔵  saas-o-matic ai-workspace structure mapped — 21
+     markdown files across 5 directories  
+       #6115           🟣  Fase 06 plan defined: frontend base with routing,
+     typed API client, and currency system  
+     frontend/package.json
+       #6116  4:22 PM  🔵  Frontend scaffold exists with shadcn/ui components
+     but all domain directories are empty  
+       #6117           🔵  saas-o-matic frontend tech stack: React 19 + Vite 8 +
+     TypeScript 6 + Tailwind 4 + TanStack Query 5  
+     ai-workspace/01-specs/reglas-de-negocio.md
+       #6118           🔵  saas-o-matic business rules and ADRs fully documented
+     — 5 BRs and 9 ADRs  
+     frontend/src/App.tsx
+       #6119           🔵  Frontend scaffold config: strict TypeScript, no-any
+     enforced by oxlint, @ path alias, App.tsx is empty shell  
+     backend/src/domain/pricing/types.ts
+       #6120  4:23 PM  🔵  Backend domain/pricing/ has 5 files to replicate in
+     frontend for fase-06  
+       #6121           🔵  Backend pricing engine implementation fully read —
+     ready to replicate in frontend/src/domain/pricing/  
+     ai-workspace/02-arquitectura/estructura-carpetas.md
+       #6122           🔵  Canonical frontend folder structure defined in
+     ai-workspace spec — router.tsx at src root  
+
+
+     Access 199k tokens of past research & decisions for just 16.413t. Use the 
+     claude-mem skill to access memories by ID.
+
+     View Observations Live @ http://localhost:37777
+
+❯ /clear                                                                        
+
+❯ /nueva-fase 06                                                                
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Specs read. Plan below — awaiting OK.
+
+  Fase 06 — Frontend base: rutas, cliente API y divisas
+
+  Objetivo: infra del dashboard — routing, cliente HTTP tipado, tasas de cambio
+  (open.er-api.com) y selector de divisa global con degradación.
+
+  Plan:
+  1. src/router.tsx — rutas /, /clientes/nuevo, /clientes/:id; layout común con
+  header (título + CurrencyPicker). Páginas placeholder (vistas reales =
+  fase 7).
+  2. src/api/types.ts — shapes transcritos de contratos-api.md
+  (CustomerResponse, SimulationResponse, breakdown, error contract con details).
+  3. src/api/client.ts — wrapper fetch, base VITE_API_URL, lanza ApiError tipado
+  con details. api/customers.ts + api/simulations.ts.
+  4. src/api/exchange.ts + hooks/useExchangeRates.ts — TanStack Query: staleTime
+  12 h, gcTime 24 h, retry: 2; última respuesta buena → localStorage; expone { 
+  status: loading|live|stale|unavailable, rates, updatedAt }.
+  5. providers/CurrencyProvider.tsx — divisa activa persistida en localStorage,
+  rate derivada; divisas EUR/USD/GBP/CHF/JPY/MXN.
+  6. components/CurrencyPicker.tsx — 4 estados de la tabla de la spec: cargando
+  (deshabilitado+spinner, EUR), OK (activo), error+caché (banner "Tipos de
+  cambio del <fecha>"), error sin caché (forzado EUR + banner + reintentar).
+  7. lib/money.ts — formatMoney(cents, currency, rate) via Intl.NumberFormat;
+  cents/100 solo ahí. Test: EUR + JPY (sin decimales).
+  8. src/domain/pricing/ — réplica de la función pura de tramos del backend
+  (ADR-08) + pricing.spec.ts con casos dorados RN-01 (1→10 €, 10→100 €, 11→108
+  €, 15→140 €, 50→420 €, 51→425 €, 100→670 €, 200→1.170 €; ES 21 %: 15→169,40
+  €).
+
+  Criterios de aceptación:
+  - Cambio de divisa re-renderiza importes (demostrable fase 7).
+  - Sin red + caché previa → banner tasas antiguas; sin caché → forzado EUR +
+  aviso.
+  - Casos dorados cliente en verde.
+  - pnpm lint && pnpm test && pnpm build verdes.
+
+  Verificación: cd frontend && pnpm lint && pnpm test && pnpm build && pnpm dev
+  (+ DevTools offline para degradación).
+
+  ¿OK para implementar?
+
+✻ Sautéed for 1m 10s
+
+❯ OK                                                                            
+
+● Skill(superpowers:test-driven-development)
+  ⎿  Successfully loaded skill
+
+● Bash(cd frontend && ls src && cat package.json && ls src/components
+      2>/dev/null; ls src/lib 2>/dev/null)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     (empty)
+     … +43 lines (ctrl+o to expand)
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Bash(cd /c/Users/dpastorhe/Coding/personal/saas-o-matic && find frontend/src
+      frontend/index.html frontend/vite.config.ts frontend/tsconfig*.json
+      -maxdepth 3 2>/dev/n…)
+  ⎿  14F 3D:
+
+     ./ App.tsx index.css main.tsx vite-env.d.ts
+     … +8 lines (ctrl+o to expand)
+
+  Searched for 2 patterns, read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Bash(sed -n '45,70p' ai-workspace/02-arquitectura/decisiones.md; sed -n
+      '30,75p' ai-workspace/02-arquitectura/estructura-carpetas.md; sed -n
+      '175,200p' frontend/src/…)
+  ⎿  - **Consecuencias**: columna JSON (`breakdown`); auditabilidad de cual
+     quier presupuesto pasado.
+     … +80 lines (ctrl+o to expand)
+
+● Bash(cd frontend && pnpm add -D vitest 2>&1 | tail -3)
+  ⎿  + vitest 4.1.10
+
+     Done in 1.1s using pnpm v10.31.0
+
+● Bash(node -e "const f=(c,cur,r)=>new Intl.NumberFormat('es-ES',{style:'currenc
+      y',currency:cur}).format((c/100)*r);
+      console.log(JSON.stringify([f(16940,'EUR',1), f(14…)
+  ⎿  [
+       "169,40 €",
+       "151,20 US$",
+     … +3 lines (ctrl+o to expand)
+● Bash(node -e "const s=new Intl.NumberFormat('es-ES',{style:'currency',currency
+      :'EUR'}).format(169.4);
+      console.log([...s].map(c=>c.codePointAt(0).toString(16)).join('…)
+  ⎿  31 36 39 2c 34 30 a0 20ac
+
+● RED — writing failing tests.
+
+● Write(frontend\src\domain\pricing\pricing.spec.ts)
+  ⎿  Wrote 44 lines to frontend\src\domain\pricing\pricing.spec.ts
+       1 import { describe, expect, it } from 'vitest'
+       2 import { calculateSimulationCost, computeUserTierLines } from '.
+       3 
+       4 // Casos dorados de RN-01: misma tabla que backend/src/domain/pr
+         icing (ADR-08).
+         eCents: number]> = [
+       6   [1, 1_000],
+       7   [10, 10_000],
+       9   [15, 14_000],
+      10   [50, 42_000],
+     … +40 lines (ctrl+o to expand)
+
+● Write(frontend\src\lib\money.spec.ts)
+  ⎿  Wrote 20 lines to frontend\src\lib\money.spec.ts
+       1 import { describe, expect, it } from 'vitest'
+       2 import { formatMoney } from './money'
+       3 
+       4 describe('formatMoney', () => {
+       5   it('formatea céntimos EUR sin conversión', () => {
+       6     expect(formatMoney(16_940, 'EUR', 1)).toBe('169,40 €')
+       7   })
+       8 
+       9   it('aplica la tasa de cambio antes de formatear', () => {
+      10     expect(formatMoney(14_000, 'USD', 1.08)).toBe('151,20 US$')
+     … +10 lines (ctrl+o to expand)
+
+● Bash(cd frontend && node -p "const f=(c,cur,r)=>new Intl.NumberFormat('es-ES',
+      {style:'currency',currency:cur}).format((c/100)*r);
+      JSON.stringify([f(16940,'EUR',1),f(…)
+  ⎿  Error: Exit code 1
+     /usr/bin/bash: line 1: cd: frontend: No such file or directory
+
+● Bash(node -p "const f=(c,cur,r)=>new Intl.NumberFormat('es-ES',{style:'currenc
+      y',currency:cur}).format((c/100)*r);
+      JSON.stringify([f(16940,'EUR',1),f(14000,'USD',1.0…)
+  ⎿  [
+       "169,40<NBSP>€",
+       "151,20<NBSP>US$",
+     … +3 lines (ctrl+o to expand)
+
+● Update(frontend\src\lib\money.spec.ts)
+  ⎿  Error editing file
+
+● Write(frontend\src\lib\money.spec.ts)
+  ⎿  Added 6 lines, removed 4 lines
+       1  import { describe, expect, it } from 'vitest'
+       2  import { formatMoney } from './money'
+       3  
+       4 +const NBSP = ' '                                               
+       5 +                                                               
+       6  describe('formatMoney', () => {
+       7    it('formatea céntimos EUR sin conversión', () => {
+       6 -    expect(formatMoney(16_940, 'EUR', 1)).toBe('169,40 €')     
+       8 +    expect(formatMoney(16_940, 'EUR', 1)).toBe(`169,40${NBSP}€`
+         +)                                                              
+       9    })
+      10  
+      11    it('aplica la tasa de cambio antes de formatear', () => {
+      10 -    expect(formatMoney(14_000, 'USD', 1.08)).toBe('151,20 US$')
+      12 +    expect(formatMoney(14_000, 'USD', 1.08)).toBe(`151,20${NBSP
+         +}US$`)                                                         
+      13    })
+      14  
+      15    it('formatea JPY sin decimales (via Intl)', () => {
+      14 -    expect(formatMoney(14_000, 'JPY', 162.37)).toBe('22.732 JPY
+         -')                                                             
+      16 +    expect(formatMoney(14_000, 'JPY', 162.37)).toBe(`22.732${NB
+         +SP}JPY`)                                                       
+      17    })
+      18  
+      19    it('formatea cero', () => {
+      18 -    expect(formatMoney(0, 'EUR', 1)).toBe('0,00 €')            
+      20 +    expect(formatMoney(0, 'EUR', 1)).toBe(`0,00${NBSP}€`)      
+      21    })
+      22  })
+
+● Update(frontend\src\lib\money.spec.ts)
+  ⎿  Error editing file
+
+● Bash(grep -n "NBSP = " frontend/src/lib/money.spec.ts | od -c | head -3)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     rtk: Failed to resolve 'rg' via PATH, falling back to direct exec: Bin
+     … +7 lines (ctrl+o to expand)
+
+● Bash(pwd; sed -n "4p" src/lib/money.spec.ts | od -c | head -2)
+  ⎿  /c/Users/dpastorhe/Coding/personal/saas-o-matic/frontend
+     0000000   c   o   n   s   t       N   B   S   P       =       ' 302 24
+     0
+     0000020   '  \n
+
+● NBSP byte correct. Making it explicit escape for maintainability:
+
+● Bash(sed -i "s/const NBSP = .*/const NBSP = '\\\\u00a0'/"
+      src/lib/money.spec.ts && sed -n '4p' src/lib/money.spec.ts)
+  ⎿  const NBSP = '00a0'
+
+● Update(frontend\src\lib\money.spec.ts)
+  ⎿  Added 1 line, removed 1 line
+      1  import { describe, expect, it } from 'vitest'
+      2  import { formatMoney } from './money'
+      3  
+      4 -const NBSP = '00a0'                                             
+      4 +const NBSP = ' '                                                
+      5  
+      6  describe('formatMoney', () => {
+      7    it('formatea céntimos EUR sin conversión', () => {
+
+● Bash(sed -n '4p' src/lib/money.spec.ts | od -c | head -2)
+  ⎿  0000000   c   o   n   s   t       N   B   S   P       =       ' 302 24
+     0
+     0000020   '  \n
+
+● File correct (0xC2 0xA0 = NBSP). Adding test script, running RED:
+
+● Update(frontend\package.json)
+  ⎿  Added 1 line
+       7      "dev": "vite",
+       8      "build": "tsc -b && vite build",
+       9      "lint": "oxlint",
+      10 +    "test": "vitest run",                                      
+      11      "preview": "vite preview"
+      12    },
+      13    "dependencies": {
+● Bash(pnpm test 2>&1 | tail -20)
+  ⎿  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+      FAIL  src/domain/pricing/pricing.spec.ts [ src/domain/pricing/pricing
+     … +23 lines (ctrl+o to expand)
+
+● RED ✓ (modules missing). GREEN — implementing:
+
+● Write(frontend\src\domain\pricing\types.ts)
+  ⎿  Wrote 29 lines to frontend\src\domain\pricing\types.ts
+       1 export interface TierLine {
+       2   tier: number
+       3   fromUser: number
+       4   toUser: number
+       5   users: number
+       6   unitCents: number
+       7   amountCents: number
+       8 }
+       9 
+      10 export interface PricingTier {
+     … +19 lines (ctrl+o to expand)
+
+● Write(frontend\src\domain\pricing\tiers.ts)
+  ⎿  Wrote 7 lines to frontend\src\domain\pricing\tiers.ts
+      1 import type { PricingTier } from './types'
+      2 
+      3 export const PRICING_TIERS: readonly PricingTier[] = [
+      4   { tier: 1, fromUser: 1, toUser: 10, unitCents: 1000 },
+      5   { tier: 2, fromUser: 11, toUser: 50, unitCents: 800 },
+      6   { tier: 3, fromUser: 51, toUser: null, unitCents: 500 },
+      7 ]
+
+● Write(frontend\src\domain\pricing\pricing-engine.ts)
+  ⎿  Wrote 55 lines to frontend\src\domain\pricing\pricing-engine.ts
+       1 // Réplica de backend/src/domain/pricing (ADR-08): el servidor e
+       2 // autoritativa; esta copia solo alimenta la proyección en vivo 
+         del simulador.
+       4 import type { CostComponent, PricingInput, PricingResult, TierLi
+         ne } from './types'
+       6 export function computeUserTierLines(activeUsers: number): TierL
+         ine[] {
+       8     throw new Error(`activeUsers must be an integer, got ${activ
+         eUsers}`)
+      10   const lines: TierLine[] = []
+     … +56 lines (ctrl+o to expand)
+
+● Write(frontend\src\lib\money.ts)
+  ⎿  Wrote 6 lines to frontend\src\lib\money.ts
+      1 // Único punto donde los céntimos se convierten a unidades (spec-
+        frontend):
+      2 // la conversión de divisa es presentación pura (RN-03), nunca se
+         persiste.
+      3 export function formatMoney(cents: number, currency: string, rate
+        : number): string {
+      4   const amount = (cents / 100) * rate
+      5   return new Intl.NumberFormat('es-ES', { style: 'currency', curr
+        ency }).format(amount)
+      6 }
+
+● Bash(pnpm test 2>&1 | tail -8)
+  ⎿   RUN  v4.1.10 C:/Users/dpastorhe/Coding/personal/saas-o-matic/frontend
+     … +5 lines (ctrl+o to expand)
+
+● GREEN ✓ 15/15. Building infra layer now.
+
+● Bash(node -e "const l=require('lucide-react'); console.log(['Loader2','LoaderC
+      ircle','RotateCw','TriangleAlert'].map(n=>n+':'+(n in l)).join(' '))"
+      2>/dev/null || no…)
+  ⎿  Loader2:true LoaderCircle:true RotateCw:true TriangleAlert:true
+
+● Write(frontend\src\api\types.ts)
+  ⎿  Wrote 86 lines to frontend\src\api\types.ts
+       1 // Shapes transcritos de ai-workspace/01-specs/contratos-api.md.
+       2 // Importes en céntimos de EUR (`Cents`); IVA en puntos básicos 
+         (`Bps`).
+       3 
+       4 export interface CountrySummary {
+       6   name: string
+       7   vatRateBps: number
+       8 }
+       9 
+      10 export interface PlanSummary {
+     … +77 lines (ctrl+o to expand)
+
+● Write(frontend\src\api\client.ts)
+  ⎿  Wrote 49 lines to frontend\src\api\client.ts
+       1 import { config } from '@/lib/config'
+       2 import type { ApiErrorBody, ApiErrorDetail } from './types'
+       3 
+       4 export class ApiError extends Error {
+       5   readonly statusCode: number
+       6   readonly details: ApiErrorDetail[]
+       7 
+       8   constructor(body: ApiErrorBody) {
+       9     super(body.message)
+      10     this.name = 'ApiError'
+     … +42 lines (ctrl+o to expand)
+
+● Write(frontend\src\api\customers.ts)
+  ⎿  Wrote 29 lines to frontend\src\api\customers.ts
+       1 import { apiGet, apiPost } from './client'
+       2 import type {
+       3   CreateCustomerRequest,
+       4   CustomerListResponse,
+       5   CustomerResponse,
+       6 } from './types'
+       7 
+       8 export interface CustomerSearchParams {
+       9   search?: string
+      10   page?: number
+     … +23 lines (ctrl+o to expand)
+
+● Write(frontend\src\api\simulations.ts)
+  ⎿  Wrote 14 lines to frontend\src\api\simulations.ts
+       1 import { apiGet, apiPost } from './client'
+       2 import type {
+       3   CreateSimulationRequest,
+       4   SimulationListResponse,
+       5   SimulationResponse,
+       7 
+       8 export function createSimulation(body: CreateSimulationRequest):
+          Promise<SimulationResponse> {
+       9   return apiPost<SimulationResponse>('/simulations', body)
+      10 }
+     … +7 lines (ctrl+o to expand)
+
+● Write(frontend\src\api\exchange.ts)
+  ⎿  Wrote 53 lines to frontend\src\api\exchange.ts
+       1 // API externa de tipos de cambio (contratos-api.md): la convers
+         ión es
+       2 // presentación pura (RN-03); el backend no interviene.
+       4 export const CURATED_CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF', '
+         JPY', 'MXN'] as const
+       5 export type CurrencyCode = (typeof CURATED_CURRENCIES)[number]
+       6 
+       8   rates: Record<string, number>
+       9   updatedAt: string
+      10 }
+     … +48 lines (ctrl+o to expand)
+
+● Write(frontend\src\hooks\useExchangeRates.ts)
+  ⎿  Wrote 38 lines to frontend\src\hooks\useExchangeRates.ts
+       1 import { useQuery } from '@tanstack/react-query'
+       2 import { fetchExchangeRates, readCachedRates } from '@/api/excha
+         nge'
+       4 const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000
+       5 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000
+       6 
+       7 export type ExchangeRatesStatus = 'loading' | 'live' | 'stale' |
+       8 
+       9 export interface ExchangeRatesState {
+      10   status: ExchangeRatesStatus
+     … +32 lines (ctrl+o to expand)
+
+● Write(frontend\src\providers\QueryProvider.tsx)
+  ⎿  Wrote 8 lines to frontend\src\providers\QueryProvider.tsx
+      1 import { QueryClient, QueryClientProvider } from '@tanstack/react
+        -query'
+      2 import type { ReactNode } from 'react'
+      3 
+      4 const queryClient = new QueryClient()
+      6 export function QueryProvider({ children }: { children: ReactNode
+         }) {
+      7   return <QueryClientProvider client={queryClient}>{children}</Qu
+        eryClientProvider>
+      8 }
+     … +1 line (ctrl+o to expand)
+
+● Write(frontend\src\providers\CurrencyProvider.tsx)
+  ⎿  Wrote 68 lines to frontend\src\providers\CurrencyProvider.tsx
+       1 import { createContext, useContext, useState, type ReactNode } f
+         rom 'react'
+         hange'
+       3 import { useExchangeRates, type ExchangeRatesState } from '@/hoo
+         ks/useExchangeRates'
+       5 const STORAGE_KEY = 'saas-o-matic:currency'
+       6 
+       7 export interface CurrencyContextValue {
+       9   setCurrency: (code: CurrencyCode) => void
+      10   rate: number
+     … +70 lines (ctrl+o to expand)
+
+● Write(frontend\src\components\CurrencyPicker.tsx)
+  ⎿  Wrote 65 lines to frontend\src\components\CurrencyPicker.tsx
+       1 import { LoaderCircle, RotateCw, TriangleAlert } from 'lucide-re
+         act'
+       2 import { isCurrencyCode } from '@/api/exchange'
+       3 import { Button } from '@/components/ui/button'
+       4 import {
+       6   SelectContent,
+       7   SelectItem,
+       8   SelectTrigger,
+       9   SelectValue,
+      10 } from '@/components/ui/select'
+     … +65 lines (ctrl+o to expand)
+
+● Write(frontend\src\components\AppLayout.tsx)
+  ⎿  Wrote 20 lines to frontend\src\components\AppLayout.tsx
+       1 import { Link, Outlet } from 'react-router-dom'
+       2 import { CurrencyPicker } from '@/components/CurrencyPicker'
+       3 
+       4 export function AppLayout() {
+       5   return (
+       7       <header className="border-b">
+       8         <div className="mx-auto flex max-w-5xl items-center just
+         ify-between gap-4 px-6 py-4">
+       9           <Link to="/" className="text-lg font-semibold">
+      10             SaaS-O-Matic
+     … +11 lines (ctrl+o to expand)
+
+● Write(frontend\src\features\dashboard\DashboardPage.tsx)  ⎿  Wrote 3 lines to frontend\src\features\dashboard\DashboardPage.tsx
+      1 export function DashboardPage() {
+      2   return <h1 className="text-2xl font-semibold">Dashboard</h1>
+      3 }
+
+● Write(frontend\src\features\customers\NewCustomerPage.tsx)
+  ⎿  Wrote 3 lines to frontend\src\features\customers\NewCustomerPage.tsx
+      1 export function NewCustomerPage() {
+      2   return <h1 className="text-2xl font-semibold">Alta de cliente</
+        h1>
+      3 }
+
+● Write(frontend\src\features\customers\CustomerDetailPage.tsx)
+  ⎿  Wrote 3 lines to
+     frontend\src\features\customers\CustomerDetailPage.tsx
+      1 export function CustomerDetailPage() {
+      2   return <h1 className="text-2xl font-semibold">Detalle de client
+        e</h1>
+      3 }
+
+● Write(frontend\src\router.tsx)
+  ⎿  Wrote 17 lines to frontend\src\router.tsx
+       1 import { createBrowserRouter } from 'react-router-dom'
+       2 import { AppLayout } from '@/components/AppLayout'
+         rDetailPage'
+       4 import { NewCustomerPage } from '@/features/customers/NewCustome
+         rPage'
+         e'
+       6 
+       7 export const router = createBrowserRouter([
+       9     path: '/',
+      10     element: <AppLayout />,
+     … +9 lines (ctrl+o to expand)
+
+● Write(frontend\src\App.tsx)
+  ⎿  Error writing file
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(frontend\src\App.tsx)
+  ⎿  Added 10 lines, removed 4 lines
+       1 +import { RouterProvider } from 'react-router-dom'              
+       2 +import { CurrencyProvider } from '@/providers/CurrencyProvider'
+       3 +import { QueryProvider } from '@/providers/QueryProvider'      
+       4 +import { router } from '@/router'                              
+       5 +                                                               
+       6  function App() {
+       7    return (
+       3 -    <div className="bg-background text-foreground min-h-screen"
+         ->                                                              
+       4 -      <header className="border-b" />                          
+       5 -      <main className="mx-auto max-w-5xl px-6 py-8" />         
+       6 -    </div>                                                     
+       8 +    <QueryProvider>                                            
+       9 +      <CurrencyProvider>                                       
+      10 +        <RouterProvider router={router} />                     
+      11 +      </CurrencyProvider>                                      
+      12 +    </QueryProvider>                                           
+      13    )
+      14  }
+      15  
+
+● Update(frontend\src\api\exchange.ts)
+  ⎿  Added 4 lines
+       4  export const CURATED_CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF', 
+          'JPY', 'MXN'] as const
+       5  export type CurrencyCode = (typeof CURATED_CURRENCIES)[number]
+       6  
+       7 +export function isCurrencyCode(value: string): value is Currenc
+         +yCode {                                                        
+       8 +  return (CURATED_CURRENCIES as readonly string[]).includes(val
+         +ue)                                                            
+       9 +}                                                              
+      10 +                                                               
+      11  export interface ExchangeRatesSnapshot {
+      12    rates: Record<string, number>
+      13    updatedAt: string
+
+● Update(frontend\src\providers\CurrencyProvider.tsx)
+  ⎿  Added 1 line, removed 1 line
+      1  import { createContext, useContext, useState, type ReactNode } f
+         rom 'react'
+      2 -import { CURATED_CURRENCIES, type CurrencyCode } from '@/api/exc
+        -hange'                                                          
+      2 +import { CURATED_CURRENCIES, isCurrencyCode, type CurrencyCode }
+        + from '@/api/exchange'                                          
+      3  import { useExchangeRates, type ExchangeRatesState } from '@/hoo
+         ks/useExchangeRates'
+      4  
+      5  const STORAGE_KEY = 'saas-o-matic:currency'
+
+● Update(frontend\src\providers\CurrencyProvider.tsx)
+  ⎿  Removed 4 lines
+      14  
+      15  const CurrencyContext = createContext<CurrencyContextValue | nu
+          ll>(null)
+      16  
+      17 -function isCurrencyCode(value: string): value is CurrencyCode {
+      18 -  return (CURATED_CURRENCIES as readonly string[]).includes(val
+         -ue)                                                            
+      19 -}                                                              
+      20 -                                                               
+      17  function readStoredCurrency(): CurrencyCode {
+      18    try {
+      19      const raw = localStorage.getItem(STORAGE_KEY)
+
+● All files written. Verification:
+
+● Bash(pnpm lint 2>&1 | tail -15 && pnpm test 2>&1 | tail -5 && pnpm build 2>&1
+      | tail -15)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +25 lines (ctrl+o to expand)
+
+● Write(frontend\src\providers\currency-context.ts)
+  ⎿  Wrote 21 lines to frontend\src\providers\currency-context.ts
+       1 import { createContext, useContext } from 'react'
+       2 import type { CurrencyCode } from '@/api/exchange'
+       3 import type { ExchangeRatesState } from '@/hooks/useExchangeRate
+         s'
+       4 
+       6   currency: CurrencyCode
+       7   setCurrency: (code: CurrencyCode) => void
+       8   rate: number
+       9   currencies: readonly CurrencyCode[]
+      10   exchange: ExchangeRatesState
+     … +13 lines (ctrl+o to expand)
+
+● Write(frontend\src\providers\CurrencyProvider.tsx)
+  ⎿  Added 3 lines, removed 20 lines
+       1 -import { createContext, useContext, useState, type ReactNode } 
+         -from 'react'                                                   
+       1 +import { useState, type ReactNode } from 'react'               
+       2  import { CURATED_CURRENCIES, isCurrencyCode, type CurrencyCode 
+          } from '@/api/exchange'
+       3 -import { useExchangeRates, type ExchangeRatesState } from '@/ho
+         -oks/useExchangeRates'                                          
+       3 +import { useExchangeRates } from '@/hooks/useExchangeRates'    
+       4 +import { CurrencyContext } from './currency-context'           
+       5  
+       6  const STORAGE_KEY = 'saas-o-matic:currency'
+       7  
+       7 -export interface CurrencyContextValue {                        
+       8 -  currency: CurrencyCode                                       
+       9 -  setCurrency: (code: CurrencyCode) => void                    
+      10 -  rate: number                                                 
+      11 -  currencies: readonly CurrencyCode[]                          
+      12 -  exchange: ExchangeRatesState                                 
+      13 -}                                                              
+      14 -                                                               
+      15 -const CurrencyContext = createContext<CurrencyContextValue | nu
+         -ll>(null)                                                      
+      16 -                                                               
+       8  function readStoredCurrency(): CurrencyCode {
+       9    try {
+      10      const raw = localStorage.getItem(STORAGE_KEY)
+     ...
+      45      </CurrencyContext.Provider>
+      46    )
+      47  }
+      57 -                                                               
+      58 -export function useCurrency(): CurrencyContextValue {          
+      59 -  const context = useContext(CurrencyContext)                  
+      60 -  if (context === null) {                                      
+      61 -    throw new Error('useCurrency debe usarse dentro de <Currenc
+         -yProvider>')                                                   
+      62 -  }                                                            
+      63 -  return context                                               
+      64 -}                                                              
+
+● Update(frontend\src\components\CurrencyPicker.tsx)
+  ⎿  Added 1 line, removed 1 line
+       8    SelectTrigger,
+       9    SelectValue,
+      10  } from '@/components/ui/select'
+      11 -import { useCurrency } from '@/providers/CurrencyProvider'     
+      11 +import { useCurrency } from '@/providers/currency-context'     
+      12  
+      13  function formatUpdatedAt(updatedAt: string): string {
+      14    return new Date(updatedAt).toLocaleDateString('es-ES')
+
+● Bash(pnpm lint 2>&1 | grep -v "^\[rtk\]" | tail -8 && pnpm test 2>&1 | grep -E
+      "Test Files|Tests " && pnpm build 2>&1 | tail -3)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     grep: '^\[rtk\]' in .
+     … +17 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Bash(pnpm lint 2>&1 | tail -6)
+  ⎿  > frontend@0.0.0 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\
+     frontend
+     > oxlint
+     … +7 lines (ctrl+o to expand)
+
+● Lint clean (only pre-existing shadcn warnings). Live verification — starting
+  dev server, driving with Playwright:
+
+● Bash(pnpm dev)
+  ⎿  Running in the background (↓ to manage)
+  Called plugin:playwright:playwright 4 times (ctrl+o to expand)
+
+● Live state ✓ — 6 divisas from provider. Selecting USD, then testing
+  degradation:
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Timing issue — retry backoff (~3 s) exceeds my 1.5 s wait. Re-running with
+  proper waits:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● All 4 states verified. Cleaning up:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Stop Task
+  ⎿  rtk pnpm dev · stopped
+
+● Fase 06 complete. All verification green.
+
+  Verificación (salida real):
+  - pnpm test → 15/15 passed (2 files: pricing.spec.ts casos dorados RN-01 +
+  money.spec.ts)
+  - pnpm lint → 0 errores propios (solo 2 warnings preexistentes de shadcn
+  button.tsx/badge.tsx, fast-refresh)
+  - pnpm build → ✓ built in 273ms
+  - Live (Playwright + dev server):
+    - live: selector activo, 6 divisas del proveedor; USD persistido en
+  localStorage ✓
+    - loading: selector deshabilitado durante fetch/retries ✓
+    - stale (proveedor bloqueado + caché): banner "Tipos de cambio del 15/7/2026
+  (sin conexión con el proveedor)", selector activo con última tasa ✓
+    - unavailable (bloqueado sin caché): forzado a EUR, selector deshabilitado,
+  botón Reintentar visible ✓
+
+  Archivos tocados (todos en frontend/):
+  - src/domain/pricing/ — types.ts, tiers.ts, pricing-engine.ts, pricing.spec.ts
+  (réplica ADR-08)
+  - src/lib/money.ts + money.spec.ts
+  - src/api/ — types.ts, client.ts (ApiError + contrato de error), customers.ts,
+  simulations.ts, exchange.ts
+  - src/hooks/useExchangeRates.ts
+  - src/providers/ — QueryProvider.tsx, CurrencyProvider.tsx,
+  currency-context.ts
+  - src/components/ — CurrencyPicker.tsx, AppLayout.tsx
+  - src/features/ — dashboard/DashboardPage.tsx, customers/NewCustomerPage.tsx,
+  customers/CustomerDetailPage.tsx (placeholders, fase 7)
+  - src/router.tsx, src/App.tsx, package.json (+vitest devDep, script test)
+
+  Decisiones — entrada propuesta para registro-decisiones.md:
+
+  ▎ Fase 6 — Frontend base y divisas
+  ▎
+  ▎ - Vitest como runner del frontend: el scaffold no traía runner; se añade 
+  ▎ vitest (devDep) porque la fase y el CLAUDE.md (tabla de comandos) lo fijan 
+  ▎ como pnpm test. Config cero: reutiliza vite.config.ts.
+  ▎ - Estado stale no fuerza EUR: la tabla de la spec solo fuerza EUR en "error 
+  ▎ sin caché"; con caché previa el selector sigue operativo con la última tasa 
+  ▎ conocida y banner con la fecha. La divisa elegida se conserva.
+  ▎ - Degradación por tasa, no por status: CurrencyProvider fuerza EUR cuando no
+  ▎ existe tasa utilizable para la divisa elegida (cubre proveedor caído y 
+  ▎ divisa ausente de la respuesta), en vez de ramificar por el estado de la 
+  ▎ query.
+  ▎ - Contexto de divisa en archivo propio (currency-context.ts): separa 
+  ▎ contexto+hook del componente proveedor para cumplir la regla fast-refresh de
+  ▎ oxlint (mismo criterio que se aceptó como warning en los shadcn generados).
+  ▎ - formatMoney con locale fijo es-ES: salida determinista y testeable (NBSP 
+  ▎ incluido); JPY sin decimales lo resuelve Intl sin lógica propia.
+
+  Commit sugerido:
+  feat(front): base de rutas, cliente API tipado y divisas con degradación
+
+  Router con layout común, capa src/api/ con contrato de error global,
+  tasas de open.er-api.com cacheadas en localStorage con estados
+  live/stale/unavailable, selector global de divisa y réplica del motor
+  de tramos (ADR-08) validada con los casos dorados de RN-01.
+
+  Criterio "cambiar divisa re-renderiza importes" queda demostrable en fase 7
+  (aún no hay importes en pantalla), como prevé la propia fase.
+
+✻ Sautéed for 12m 55s
+
+❯ Realiza las entradas propuestas en registro-decisiones                        
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 5 lines
+      40  | 2026-07-16 | 5 | Campos desconocidos en el body: strip silenc
+          ioso por `whitelist: true`, sin rechazo | Añadir `forbidNonWhit
+          elisted: true` (400) | La spec no define comportamiento para pr
+          opiedades extra y el pipe global de fase 4 ya hace strip; cambi
+          arlo sería inventar una regla. Un e2e documenta el strip como c
+          ontrato |
+      41  | 2026-07-16 | 5 | Validación de `POST /simulations` sin código
+          s semánticos propios: fallback `VALIDATION_ERROR` en todos los 
+          constraints del DTO | Derivar códigos por campo (`ACTIVE_USERS_
+          RANGE`…) | `contratos-api.md` no cierra códigos para simulacion
+          es; extiende D-fase-4 (`VALIDATION_ERROR` como fallback), confi
+          rmado por Diego en sesión |
+      42  | 2026-07-16 | 5 | `GET /customers/:id/simulations` vive en `Cu
+          stomersController` pero delega en `SimulationsService` (exporta
+          do por `SimulationsModule`, importado en `CustomersModule`) | S
+          ervicio duplicado en customers; controller propio en simulation
+          s con ruta anidada | La ruta pertenece al recurso customers, pe
+          ro la lógica de simulaciones tiene un solo dueño; el import de 
+          módulo es el mecanismo idiomático de Nest para compartirla |
+      43 +| 2026-07-16 | 6 | Añadir `vitest` como devDependency del front
+         +end con `"test": "vitest run"` | Jest (paridad con backend); de
+         +jar el frontend sin runner | El scaffold no traía runner y tant
+         +o la fase como la tabla de comandos de `CLAUDE.md` fijan `pnpm 
+         +test` = vitest; config cero reutilizando `vite.config.ts` |    
+      44 +| 2026-07-16 | 6 | El estado `stale` (error con caché previa) m
+         +antiene el selector de divisa operativo con la última tasa cono
+         +cida y conserva la divisa elegida | Forzar EUR ante cualquier f
+         +allo del proveedor | La tabla de la spec solo fuerza EUR en "er
+         +ror sin caché"; con caché dice "se usa la última tasa conocida"
+         + + banner con fecha |                                          
+      45 +| 2026-07-16 | 6 | `CurrencyProvider` degrada a EUR cuando no h
+         +ay tasa utilizable para la divisa elegida (por tasa, no por sta
+         +tus de la query) | Ramificar por el estado de `useExchangeRates
+         +` | Cubre con una sola regla proveedor caído sin caché y divisa
+         + ausente de la respuesta; imposible mostrar un importe con tasa
+         + indefinida |                                                  
+      46 +| 2026-07-16 | 6 | Contexto y hook `useCurrency` extraídos a `p
+         +roviders/currency-context.ts`, separados del componente `Curren
+         +cyProvider.tsx` | Todo en un archivo (como los shadcn generados
+         +, que dejan warning) | Cumple la regla fast-refresh de oxlint (
+         +`only-export-components`) en el código propio; los warnings res
+         +tantes quedan acotados a los shadcn generados |                
+      47 +| 2026-07-16 | 6 | `formatMoney` con locale fijo `es-ES` | Loca
+         +le del navegador (`undefined`) | Salida determinista y testeabl
+         +e (NBSP incluido en los asserts); JPY sin decimales lo resuelve
+         + `Intl` sin lógica propia. Idioma primario del producto es espa
+         +ñol |                                                          
+      48  
+      49  ## Checklist final contra la rúbrica (completar en fase 9)
+      50  
+
+● 5 entradas de fase 6 añadidas a registro-decisiones.md (vitest, estado stale
+  sin forzar EUR, degradación por tasa, extracción de currency-context.ts,
+  locale fijo en formatMoney).
+
+✻ Brewed for 1m 19s
+
+❯ /auditoria                                                                    
+
+● Auditoría del diff de fase 6 (sin commit previo del frontend). Revisados los
+  19 archivos tocados contra el checklist.
+
+  Hallazgos
+
+  Sev: media
+  Archivo:línea: api/exchange.ts:40-47 (readCachedRates)
+  Descripción: Caché de localStorage parseada con cast (as 
+  ExchangeRatesSnapshot)
+  sin validar shape. Caché corrupta/manipulada → rates no numéricas o updatedAt
+   basura → banner "Tipos de cambio del Invalid Date" y filtrado de divisas
+  impredecible
+  Fix propuesto: Guard mínimo: validar typeof rates === 'object', valores number
+
+  y updatedAt string parseable; si no, devolver null (equivale a "sin caché")
+  ────────────────────────────────────────
+  Sev: media
+  Archivo:línea: domain/pricing/pricing.spec.ts
+  Descripción: La réplica no testea el redondeo half-up de RN-02: los 8 casos
+  dorados + IVA ES dan importes exactos, ninguna media unidad. Una edición
+  futura solo-frontend de applyVat podría divergir del backend sin romper
+  ningún test
+  Fix propuesto: Añadir caso de redondeo (p. ej. applyVat(50, 2100) → 11,
+  applyVat(25, 2100) → 5), espejo del que cubre el backend
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: lib/money.spec.ts:4
+  Descripción: const NBSP = ' ' contiene el carácter U+00A0 literal, invisible
+  en
+  el editor — trampa para quien edite el test
+  Fix propuesto: Sustituir por escape '\u00a0'
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: components/CurrencyPicker.tsx:40-42
+  Descripción: Spinner de carga solo visual (aria-hidden) sin texto accesible;
+  un
+  lector de pantalla no percibe el estado "cargando tasas"
+  Fix propuesto: <span className="sr-only">Cargando tipos de cambio…</span>
+  junto
+  al icono, o aria-label en el contenedor
+  ────────────────────────────────────────
+  Sev: baja
+  Archivo:línea: api/types.ts:38-45 vs domain/pricing/types.ts:1-8
+  Descripción: SimulationTierLine duplica el shape de TierLine
+  Fix propuesto: Aceptar sin cambio: uno transcribe contratos-api.md (regla
+  "tipos de la spec, no inferidos"), el otro es dominio (ADR-08). Unificarlos
+  acoplaría dominio↔API
+
+  Limpio en el resto: capas ✓ (HTTP solo en api/, dominio puro), tamaños ✓ (máx.
+  ~70 líneas), sin any/@ts-ignore ✓, dinero ✓ (float solo en formatMoney,
+  permitido por spec), contrato de error ✓, sin console.log/código muerto ✓, sin
+  secretos ni render sin sanear ✓.
+
+  Entrada propuesta para auditorias.md
+
+  ## Fase 6 — Frontend base y divisas (2026-07-16)
+
+  Alcance: diff completo de la fase (19 archivos en `frontend/`).
+
+  | Sev | Hallazgo | Resolución |
+  |---|---|---|
+  | media | `readCachedRates` confía en el shape de la caché de localStorage
+  (cast sin validar); caché corrupta → "Invalid Date" en el banner | Guard de
+  shape que degrada a `null` (= sin caché) |
+  | media | La réplica del pricing no cubre el redondeo half-up (RN-02): los
+  casos dorados no producen medias unidades y `applyVat` podría divergir del
+  backend sin romper tests | Test espejo de redondeo (`applyVat(50, 2100) → 11`)
+  |
+  | baja | NBSP literal invisible en `money.spec.ts` | Escape `'\u00a0'` |
+  | baja | Spinner de carga del `CurrencyPicker` sin texto accesible | `sr-only`
+  "Cargando tipos de cambio…" |
+
+  ### Propuestas rechazadas
+
+  - Unificar `SimulationTierLine` (api) con `TierLine` (dominio): la duplicación
+  es deliberada — el primero transcribe `contratos-api.md`, el segundo
+  pertenece a la réplica de dominio (ADR-08); unificar acoplaría dominio↔API.
+
+  ¿Aplico los 4 fixes (2 media + 2 baja) y registro la entrada?
+
+✻ Sautéed for 1m 30s
+
+❯ Si                                                                            
+
+● Aplicando. Fix 1+2 con test primero:
+
+● Write(frontend\src\api\exchange.spec.ts)
+  ⎿  Wrote 52 lines to frontend\src\api\exchange.spec.ts
+       1 import { afterEach, beforeEach, describe, expect, it, vi } from 
+         'vitest'
+       2 import { readCachedRates } from './exchange'
+       3 
+       4 const STORAGE_KEY = 'saas-o-matic:exchange-rates'
+       6 
+       7 beforeEach(() => {
+       8   store.clear()
+       9   vi.stubGlobal('localStorage', {
+      10     getItem: (key: string) => store.get(key) ?? null,
+     … +46 lines (ctrl+o to expand)
+
+● Update(frontend\src\domain\pricing\pricing.spec.ts)  ⎿  Added 6 lines
+      41    it('rechaza activeUsers no entero', () => {
+      42      expect(() => computeUserTierLines(2.5)).toThrow('integer')
+      43    })
+      44 +                                                               
+      45 +  // RN-02: half-up — espejo del test del backend para que la r
+         +éplica no diverja.                                             
+      46 +  it('redondea el IVA half-up sobre medias unidades', () => {  
+      47 +    expect(applyVat(50, 2100)).toBe(11)                        
+      48 +    expect(applyVat(25, 2100)).toBe(5)                         
+      49 +  })                                                           
+      50  })
+
+● Update(frontend\src\domain\pricing\pricing.spec.ts)
+  ⎿  Added 1 line, removed 1 line
+      1  import { describe, expect, it } from 'vitest'
+      2 -import { calculateSimulationCost, computeUserTierLines } from '.
+        -/pricing-engine'                                                
+      2 +import { applyVat, calculateSimulationCost, computeUserTierLines
+        + } from './pricing-engine'                                      
+      3  
+      4  // Casos dorados de RN-01: misma tabla que backend/src/domain/pr
+         icing (ADR-08).
+      5  const GOLDEN_BASE_CASES: ReadonlyArray<[activeUsers: number, bas
+         eCents: number]> = [
+
+● Bash(pnpm test 2>&1 | tail -25)
+  ⎿  + Received:
+     {
+       "rates": {
+     … +25 lines (ctrl+o to expand)
+
+● RED ✓ (3 guard cases fail). GREEN — guard:
+
+● Update(frontend\src\api\exchange.ts)
+  ⎿  Added 23 lines, removed 1 line
+      39    return snapshot
+      40  }
+      41  
+      42 +function isSnapshot(value: unknown): value is ExchangeRatesSnap
+         +shot {                                                         
+      43 +  if (typeof value !== 'object' || value === null) {           
+      44 +    return false                                               
+      45 +  }                                                            
+      46 +  const { rates, updatedAt } = value as Record<string, unknown>
+      47 +  if (typeof updatedAt !== 'string' || Number.isNaN(Date.parse(
+         +updatedAt))) {                                                 
+      48 +    return false                                               
+      49 +  }                                                            
+      50 +  if (typeof rates !== 'object' || rates === null) {           
+      51 +    return false                                               
+      52 +  }                                                            
+      53 +  return Object.values(rates as Record<string, unknown>).every(
+      54 +    (rate) => typeof rate === 'number' && Number.isFinite(rate)
+         +,                                                              
+      55 +  )                                                            
+      56 +}                                                              
+      57 +                                                               
+      58 +// Caché escrita por esta app pero fuera de su control (editabl
+         +e a mano):                                                     
+      59 +// un shape inválido degrada a "sin caché" en vez de romper la 
+         +UI.                                                            
+      60  export function readCachedRates(): ExchangeRatesSnapshot | null
+           {
+      61    try {
+      62      const raw = localStorage.getItem(STORAGE_KEY)
+      45 -    return raw ? (JSON.parse(raw) as ExchangeRatesSnapshot) : n
+         -ull                                                            
+      63 +    if (raw === null) {                                        
+      64 +      return null                                              
+      65 +    }                                                          
+      66 +    const parsed: unknown = JSON.parse(raw)                    
+      67 +    return isSnapshot(parsed) ? parsed : null                  
+      68    } catch {
+      69      return null
+      70    }
+
+● Bash(node -e '
+      const fs = require("fs")…)
+  ⎿  const NBSP = '\u00a0'
+
+● Update(frontend\src\components\CurrencyPicker.tsx)
+  ⎿  Added 4 lines, removed 1 line
+      38          </p>
+      39        )}
+      40        {exchange.status === 'loading' && (
+      41 -        <LoaderCircle className="text-muted-foreground size-4 a
+         -nimate-spin" aria-hidden />                                    
+      41 +        <span role="status">                                   
+      42 +          <LoaderCircle className="text-muted-foreground size-4
+         + animate-spin" aria-hidden />                                  
+      43 +          <span className="sr-only">Cargando tipos de cambio…</
+         +span>                                                          
+      44 +        </span>                                                
+      45        )}
+      46        <Select
+      47          value={currency}
+
+● Bash(pnpm lint 2>&1 | tail -4 && pnpm test 2>&1 | tail -4 && pnpm build 2>&1 |
+      tail -2)
+  ⎿  > oxlint
+
+     src/components/ui/button.tsx:67:18: warning react(only-export-componen
+     … +12 lines (ctrl+o to expand)
+
+● Verde — 22/22, lint, build ✓. Registrando en auditorias.md:
+
+  Read 1 file (ctrl+o to expand)
+
+● Bash(grep -n "NBSP" ../ai-workspace/04-proceso/auditorias.md | od -c | tail
+      -4)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     rtk: Failed to resolve 'rg' via PATH, falling back to direct exec: Bin
+     … +7 lines (ctrl+o to expand)
+
+● Bash(node -e '
+      const fs = require("fs")…)
+  ⎿  | baja | lib/money.spec.ts | NBSP literal (U+00A0) invisible en `const
+      NBSP` — trampa de edición | corregido: escape `' '` |
+
+● Bash(node -e '
+      const fs = require("fs")…)
+  ⎿  | baja | lib/money.spec.ts | NBSP literal (U+00A0) invisible en `const
+      NBSP` — trampa de edición | corregido: escape `' '` |
+
+● Bash(node -e '
+      const fs = require("fs")…)
+  ⎿  not found
+     | baja | lib/money.spec.ts | NBSP literal (U+00A0) invisible en `const
+      NBSP` — trampa de edición | corregido: escape `'\u00a0'` |
+
+● Bash(sed -n '147p' ../ai-workspace/04-proceso/auditorias.md | od -c | tail -3)
+  ⎿  0000160       e   s   c   a   p   e       `   '   \   u   0   0   a
+     0
+     0000200   '   `       |  \n
+     0000205
+
+● Auditoría cerrada. 4 hallazgos corregidos + 1 rechazo justificado:
+
+  - readCachedRates con guard de shape (isSnapshot): caché corrupta degrada a
+  null — 6 tests nuevos con stub de localStorage (TDD: 3 en rojo antes del
+  guard).
+  - Test de redondeo half-up RN-02 en la réplica: applyVat(50, 2100) → 11,
+  applyVat(25, 2100) → 5.
+  - NBSP en money.spec.ts ahora escape visible '\u00a0'.
+  - Spinner accesible: role="status" + texto sr-only.
+  - Duplicación SimulationTierLine/TierLine: aceptada sin cambio (registrada
+  como propuesta rechazada).
+
+  Verificación final: lint ✔ · 22/22 tests ✔ · build ✔. Entrada de fase 6
+  añadida a auditorias.md.
+
+  Pendiente solo el commit de la fase:
+  feat(front): base de rutas, cliente API tipado y divisas con degradación
+
+✻ Crunched for 3m 18s
+
+❯ Haz el commit                                                                 
+
+● Bash(cd .. && git status --short && git log --oneline -3)  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+      M ai-workspace/04-proceso/auditorias.md
+     … +28 lines (ctrl+o to expand)
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Bash(printf '.playwright-mcp/\n' >> .gitignore && git add .gitignore
+      ai-workspace/04-proceso/auditorias.md
+      ai-workspace/04-proceso/registro-decisiones.md frontend/ &…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 28 files changed, 989 insertions(+), 5 deletions(-)
+     … +28 lines (ctrl+o to expand)
+
+● Bash(git commit -m "feat(front): base de rutas, cliente API tipado y divisas
+      con degradación…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok
+     … +4 lines (ctrl+o to expand)
+
+● Bash(git log -1 --format="%an <%ae>%n%B")
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     Diego Pastor <dpastorhe@gmail.com>
+     … +7 lines (ctrl+o to expand)
+
+● Commit 0839be3 — 28 archivos, identidad global, sin atribuciones. Incluye los
+  fixes de auditoría, ambos registros de proceso y .playwright-mcp/ añadido a
+  .gitignore.
+
+✻ Baked for 1m 9s
