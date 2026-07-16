@@ -79,3 +79,19 @@ rtk `jest --coverage` re-ejecutado tras los fixes: 23/23 en verde, 100 % ramas s
 
 ### Propuestas de la IA rechazadas o corregidas
 - Ninguna en esta fase: los tres hallazgos se resolvieron según lo propuesto (guard A elegido entre 3 opciones analizadas: guard fail-fast, trunc defensivo, aceptar sin cambio).
+
+## Fase 3 — Validador fiscal  ·  2026-07-16
+
+Alcance: diff de la fase (`domain/tax-id/`: normalize, types, spanish-tax-id, validate-spanish-tax-id + spec con 57 tests). Dominio 100 % puro (cero imports); tabla de fixtures completa de la spec en verde con `kind` correcto; cobertura 100 % de ramas; archivos < 65 líneas; sin `any`/`@ts-ignore`/`console.log`. Dinero/seguridad: N/A (funciones puras sobre strings).
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | validate-spanish-tax-id.ts | Firma `(value: string)` no cumplía la política "basura `null`-safe" de `validaciones.md`: un `null` runtime (bug del servicio antes del DTO) lanzaría `TypeError` en `trim()`, rompiendo el contrato "nunca lanza" | corregido: firma `(value: unknown)` + guard `typeof !== 'string'` → `{ valid: false, reason }` (+5 tests: `null`, `undefined`, `123`, `{}`, array) |
+| baja | types.ts | `kind?` opcional frente a la firma literal de la spec (sin `?`) | aceptado: desviación consciente — la basura no clasificable no tiene tipo asignable |
+| baja | validate-spanish-tax-id.ts | Se devuelve `kind` también con `valid: false` cuando el formato se reconoce pero falla el control | aceptado: la spec no lo prohíbe y alimenta el mensaje del 400 `TAX_ID_INVALID` |
+
+`jest --coverage` re-ejecutado tras el fix: 57/57 en verde, 100 % ramas se mantiene; lint y build en verde. Fixtures extra derivados a mano (K/L/M, políticas de control del CIF) registrados en `registro-decisiones.md`.
+
+### Propuestas de la IA rechazadas o corregidas
+- Ninguna en esta fase: el hallazgo medio se corrigió según lo propuesto; los dos bajos se aceptaron con justificación.
