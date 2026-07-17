@@ -1,0 +1,1865 @@
+ ▐▛███▜▌   Claude Code v2.1.211
+▝▜█████▛▘  Opus 4.8 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:startup says: [saas-o-matic] recent context, 2026-07-16 
+     10:27pm GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (16.506 tokens to read)
+       Work investment: 293.251 tokens spent on research, building, and 
+     decisions
+       Your savings: 94% reduction from reuse
+
+     Jul 16, 2026
+
+     #S453 Phase 04 (nueva-fase 04) — Customers API implementation planning for
+     saas-o-matic NestJS backend (Jul 16, 1:27 PM)
+
+     #S455 Implementar módulo Customers completo (POST/GET/GET:id) con
+     validación fiscal, códigos de error semánticos y VALIDATION_ERROR como 
+     fallback para casos no especificados — registrar esta decisión formalmente 
+     (Jul 16, 1:33 PM)
+
+     #S456 Fase 05: Implement simulations module (POST /simulations + GET
+     /customers/:id/simulations) with pricing engine integration, tests, and 
+     live verification (Jul 16, 1:49 PM)
+
+     #S457 Registrar decisiones propuestas de las fases 0–5 del proyecto
+     saas-o-matic en el registro de decisiones (Jul 16, 4:08 PM)
+
+     #S458 Auditoría de fase 5 (API de simulaciones) del backend saas-o-matic —
+     hallazgos identificados, pendiente confirmación de fixes (Jul 16, 4:10 PM)
+
+     #S459 Phase 5 audit of Simulations API — fix e2e test defects and close the
+     audit (Jul 16, 4:12 PM)
+
+     #S460 saas-o-matic Phase 6: Frontend base infrastructure, typed API layer,
+     currency system with degradation, and pricing domain replica (Jul 16, 4:15 
+     PM)
+
+     #S461 Phase 6 frontend code audit ("auditoria") — review of 19 files in the
+     frontend diff for correctness, architecture, security, and spec compliance
+     (Jul 16, 4:41 PM)
+
+     #S462 Phase 07: Frontend customer management UI — dashboard with search,
+     new customer form with Spanish tax-id validation, customer detail page with
+     simulation history (Jul 16, 4:46 PM)
+
+     General
+       #6246  5:10 PM  🔵  SimulationRow Expanded — Waiting for Breakdown Table
+     Snapshot  
+     .playwright-mcp/page-2026-07-16T15-10-27-885Z.yml
+       #6247           🔵  SimulationRow Breakdown Table Verified — Tier Pricing
+     and VAT Calculation Correct  
+     General
+       #6248           🔵  Currency Switched to USD on Customer Detail Page —
+     Testing Live Currency Conversion  
+     .playwright-mcp/page-2026-07-16T15-10-51-187Z.yml
+       #6249  5:11 PM  🔵  Currency Picker Shows USD After Switch — Breakdown
+     Table Still Expanded  
+     General
+       #6250           🔵  Live Currency Conversion Verified — EUR→USD Updates
+     All Breakdown Amounts Instantly  
+       #6251           🔵  Mobile Viewport Test Started — Resized to 360×740
+     (Small Phone)  
+       #6252           🔵  No Horizontal Overflow on Mobile — Customer Detail
+     Page Fits 360px Viewport  
+       #6253           🔵  Dashboard Page Loaded at Mobile Viewport — Now
+     Includes 4 Customers After Creation  
+       #6254           🔵  Dashboard Page Also Has No Horizontal Overflow at
+     360px Mobile  
+       #6255  5:12 PM  🔵  NewCustomerPage Loaded at Mobile 360px — Mobile Form
+     Layout Check Starting  
+       #6256           🔵  All Three Pages Pass Mobile Overflow Check at 360px
+     .gitignore
+       #6257           🔵  Git Status Shows All Session Changes Ready to Commit
+      
+       #6258           🔵  .playwright-mcp/ Is Already Gitignored — Browser Test
+     Snapshots Won't Be Committed  
+     General
+       #6259           🔵  Final Pre-Commit Check — 79 Tests Still Passing, Lint
+     Warning Count Grep Misfired  
+       #6260  5:14 PM  ✅  Registro de entradas propuestas
+     backend/prisma/prisma.config.ts
+       #6261           ⚖️  Arquitectura Prisma 7 con driver adapter y cliente
+     generado en TypeScript  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #6262           ⚖️  Motor de pricing con CostComponent como función pura
+     y baseCents derivado de líneas  
+       #6263           ⚖️  Clasificación fiscal como tabla declarativa
+     TAX_ID_RULES con fuzz LCG determinista  
+       #6264           ⚖️  Tests e2e con --experimental-vm-modules y --runInBand
+     para Prisma 7 WASM  
+     frontend/src/providers/currency-context.ts
+       #6265           ⚖️  Frontend: vitest sin config, CurrencyProvider con
+     degradación por tasa y formatMoney locale fijo  
+     ai-workspace/04-proceso/registro-decisiones.md
+       #6266           ⚖️  VALIDATION_ERROR como código fallback y strip
+     silencioso de campos desconocidos en la API  
+     frontend/src/features/customers/CustomerDetailPage.tsx
+       #6267  5:16 PM  🔵  Auditoria de diff: módulo de clientes y validación de
+     Tax ID español  
+     frontend/src
+       #6268           🔵  Cero uso de `any`, `@ts-ignore` o `console.*` en
+     frontend/src  
+     General
+       #6269  5:18 PM  🔴  Applied 7 Code Review Fixes
+     frontend/src/lib/money.ts
+       #6270  5:19 PM  🔵  money.ts: Single Conversion Point for Currency
+     Display  
+     frontend/src/lib/dates.ts
+       #6271           🟣  Created dates.ts Date Formatting Utility
+     frontend/src/lib/money.ts
+       #6272           🟣  Added formatVatRate to money.ts for VAT Display
+     frontend/src/components/CurrencyPicker.tsx
+       #6273           🔄  Replaced Inline Date Formatters with Centralized
+     dates.ts in CurrencyPicker and CustomerCard  
+     frontend/src/features/customers/SimulationRow.tsx
+       #6274           🟣  Created SimulationRow Component with Full Billing
+     Breakdown  
+     frontend/src/features/customers/SimulationHistory.tsx
+       #6275  5:20 PM  🔄  Extracted SimulationRow and formatDateTime Out of
+     SimulationHistory.tsx  
+     ai-workspace/04-proceso/sesiones/fase-07.txt
+       #6279  10:14 PM  🔵  Fase 7 Session Continuation Requested
+     frontend/src/domain/tax-id/types.ts
+       #6280            🟣  Phase 7: Dashboard, New Customer Form, and Customer
+     Detail Views Implemented  
+       #6281            🟣  Spanish Tax-ID Domain Module Ported 1:1 from Backend
+     to Frontend  
+     frontend/src/lib/dates.ts
+       #6282            🔴  Phase 7 Audit: 7 Fixes Applied Post-Implementation
+     ai-workspace/04-proceso/registro-decisiones.md
+       #6283            ✅  Phase 7 Architecture Decisions Added to
+     registro-decisiones.md  
+     frontend/src/features/customers/NewCustomerPage.tsx
+       #6284            🔵  Incomplete Audit Fix: aria-describedby Still
+     Hardcoded After Session Limit Hit  
+       #6285  10:15 PM  🔴  ARIA Dangling References Fixed in
+     NewCustomerPage.tsx — All 5 Form Fields Updated  
+     frontend/src/features/customers/customer-form-schema.spec.ts
+       #6286  10:16 PM  🟣  customer-form-schema.spec.ts Created — Full Zod
+     Mirror Schema Test Coverage  
+       #6287            🔵  customer-form-schema.spec.ts: Email Max-Length
+     Boundary Test Fixture Has Off-by-N Error  
+       #6288            🔴  Email Boundary Fixture Fixed in
+     customer-form-schema.spec.ts — 47/47 GREEN  
+     General
+       #6289            ✅  Phase 7 Final Verification Green — 126 Tests, Lint
+     Clean, Build OK  
+       #6290  10:17 PM  ✅  Backend and Frontend Dev Servers Restarted for
+     Post-Audit Live Verification  
+       #6291            🔵  Dev DB Still Contains Phase 7 Test Customer "Prueba
+     Fase Siete SL" (B12345674)  
+       #6292  10:18 PM  🔵  Post-Audit Playwright Verification: Acme Iberia SL
+     Detail Page Loaded Successfully  
+       #6293            🔵  Post-Audit Live Verification: CustomerDetailPage
+     Renders Correctly with Refactored Utilities  
+       #6294            🔵  ARIA Dangling Reference Fix Confirmed in Live
+     Browser: Zero Dangling References on Clean Form State  
+       #6295  10:19 PM  🔵  ARIA Fix Fully Verified: Error State Confirms
+     aria-describedby Resolves to Live Error Elements  
+     ai-workspace/04-proceso/auditorias.md
+       #6296            ✅  Phase 7 Audit Entry Written to auditorias.md — Zero
+     NBSP Literals Confirmed  
+       #6297            ✅  Phase 7 Process Documentation Verified Clean — Both
+     Documents Correct  
+     #S463 Phase 7 saas-o-matic frontend — Dashboard, New Customer Form,
+     Customer Detail with full audit cycle and all 7 fixes applied (Jul 16, 
+     10:19 PM)
+
+     frontend/src/api/client.ts
+       #6298  10:24 PM  🟣  Phase 6 Frontend Infrastructure — Typed API Client,
+     Routing, and Currency System  
+
+
+     Access 293k tokens of past research & decisions for just 16.506t. Use the 
+     claude-mem skill to access memories by ID.
+
+     View Observations Live @ http://localhost:37777
+
+❯ /nueva-fase 08                                                                
+
+● I'll start by reading the phase 08 prompt and its referenced specs.
+
+  Searched for 2 patterns, read 2 files, listed 2 directories (ctrl+o to expand)
+
+● Now the business rules spec.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Now the existing frontend structure to see what phase 6/7 gave me.
+
+● Bash(rtk ls frontend/src)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     (empty)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Slider UI component already exists. Reading the key existing pieces I'll build
+  on.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Pricing engine is ready to reuse as-is. Now the customer detail page,
+  simulation API layer, and money/format helpers.
+
+  Searched for 3 patterns (ctrl+o to expand)
+
+● The breakdown table in SimulationRow is exactly the shape ProjectionPanel
+  needs — likely extractable. Now the API layer, money helpers and slider.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● createSimulation already exists from phase 6. Now the types, money helpers,
+  and client error contract.
+
+  Searched for 3 patterns (ctrl+o to expand)
+
+● Now the slider component and how phase 7 handled forms + toasts, to match
+  conventions.
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● Now the validation spec for simulation fields, and the API contract for POST
+  /simulations.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Now the POST /simulations contract section.
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● One gap to check: the phase requires a Vitest component test, but existing
+  tests are all pure functions.
+
+  Searched for 3 patterns (ctrl+o to expand)
+
+● Read everything I need. Here's the plan.
+
+  Objetivo
+
+  Simulador interactivo en el detalle de cliente: slider + inputs, proyección en
+  vivo con la función pura de pricing (fase 6), persistencia vía POST 
+  /simulations.
+
+  Plan de acción
+
+  1. lib/number-format.ts (nuevo) — helpers puros formatThousands /
+  parseIntegerInput para los inputs con formato de miles. Fuera de los
+  componentes para no meter aritmética en JSX.
+
+  2. features/customers/CostBreakdownTable.tsx (nuevo, refactor DRY) — la tabla
+  de desglose (tramos → base → IVA → total) ya existe inline en
+  SimulationRow.tsx:43-78. La proyección necesita exactamente la misma tabla, y
+  TierLine (dominio) y SimulationTierLine (API) tienen shape idéntico. La
+  extraigo a un componente compartido que consume SimulationRow y
+  ProjectionPanel. Evita duplicar la tabla y garantiza que histórico y
+  proyección se rendericen con el mismo código → la paridad del criterio 2 es
+  estructural, no una coincidencia.
+
+  3. features/simulator/simulator-form-schema.ts (nuevo) — zod espejo de
+  validaciones.md:82-84: activeUsers entero 1–100.000, storageGb 0–1.000.000,
+  apiCallsMonth 0–1.000.000.000.
+
+  4. features/simulator/ProjectionPanel.tsx (nuevo) —
+  calculateSimulationCost({activeUsers}, customer.country.vatRateBps) →
+  CostBreakdownTable en divisa activa. aria-live="polite", nota "Proyección
+  orientativa — el cálculo definitivo lo realiza el servidor al guardar".
+
+  5. features/simulator/SimulatorCard.tsx (nuevo) — slider shadcn 1–500 ↔ input
+  numérico bidireccional (input hasta 100.000; >500 el thumb se fija al máximo
+  visual), inputs storageGb/apiCallsMonth. Submit → useMutation con
+  disabled={isPending}, toast de éxito con el total del servidor,
+  invalidateQueries(['simulations', customerId]), reset suave; error → toast
+  destructivo mapeando ApiError.details.
+
+  6. CustomerDetailPage.tsx (editar) — montar <SimulatorCard> con id="simulador"
+  + tabIndex={-1}. El botón "Ir al simulador" (línea 70) ya apunta a ese ancla
+  y hoy no resuelve — esto lo cierra.
+
+  7. Tests — caso dorado 15 usuarios ES (140,00 € base / 169,40 € total, EUR) +
+  schema zod en los límites.
+
+  Bloqueante: el test del paso 7 necesita dependencias nuevas
+
+  El paso 4 de la fase pide "test Vitest del componente de proyección". El
+  frontend hoy no puede renderizar componentes en test: no hay
+  @testing-library/react ni entorno DOM, y los 126 tests actuales son todos de
+  funciones puras. CLAUDE.md me prohíbe añadir dependencias sin tu confirmación,
+  así que paro aquí.
+● User answered Claude's questions:
+  ⎿  · El test del ProjectionPanel necesita renderizar un componente React. 
+     ¿Añado las devDependencies? → Añadir testing-library + jsdom (Recomendado)
+
+● Approved. Installing the test infra first.
+
+● Bash(cd frontend && rtk pnpm add -D @testing-library/react
+      @testing-library/dom jsdom 2>&1 | tail -20)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     Progress: resolved 0, reused 1, downloaded 0, added 0
+     … +11 lines (ctrl+o to expand)
+
+● Write(frontend\vite.config.ts)
+  ⎿  Error writing file
+
+❯ Ten en cuenta la decision de Añadir el testing-library + jsdom para el        
+  registro de decisiones en registro-decisiones.md                              
+
+● Noted — apuntaré esa decisión para el registro. Continúo.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\vite.config.ts)
+  ⎿  Added 5 lines, removed 1 line
+      1  import path from 'node:path'
+      2  import tailwindcss from '@tailwindcss/vite'
+      3  import react from '@vitejs/plugin-react'
+      4 -import { defineConfig } from 'vite'                             
+      4 +import { defineConfig } from 'vitest/config'                    
+      5  
+      6  // https://vite.dev/config/
+      7  export default defineConfig({
+     ...
+      11        '@': path.resolve(__dirname, './src'),
+      12      },
+      13    },
+      14 +  test: {                                                      
+      15 +    environment: 'jsdom',                                      
+      16 +    setupFiles: ['./src/test/setup.ts'],                       
+      17 +  },                                                           
+      18  })
+
+● Write(frontend\src\test\setup.ts)
+  ⎿  Wrote 6 lines to frontend\src\test\setup.ts
+      1 // Testing Library solo auto-limpia cuando vitest corre con `glob
+        als: true`;
+      2 // aquí los helpers se importan explícitamente, así que el cleanu
+        p es manual.
+      3 import { cleanup } from '@testing-library/react'
+      4 import { afterEach } from 'vitest'
+      5 
+      6 afterEach(cleanup)
+
+● Now the pure number-format helpers (TDD — test first).
+
+● Write(frontend\src\lib\number-format.spec.ts)
+  ⎿  Wrote 28 lines to frontend\src\lib\number-format.spec.ts
+       1 import { describe, expect, it } from 'vitest'
+       2 import { formatThousands, parseIntegerInput } from './number-for
+         mat'
+       3 
+       4 describe('formatThousands', () => {
+       6     expect(formatThousands(1_000_000)).toBe('1.000.000')
+       7     expect(formatThousands(500)).toBe('500')
+       8     expect(formatThousands(0)).toBe('0')
+       9   })
+      10 })
+     … +19 lines (ctrl+o to expand)
+
+● Write(frontend\src\lib\number-format.ts)
+  ⎿  Wrote 15 lines to frontend\src\lib\number-format.ts
+       1 // Formato de miles de los inputs del simulador. Son cantidades 
+       2 // (usuarios, GB, llamadas), no importes: el dinero se formatea 
+         en `money.ts`.
+       3 export function formatThousands(value: number): string {
+       5 }
+       6 
+         os separadores
+       8 // de miles que produce `formatThousands`. Sin dígitos → null (c
+         ampo vacío).
+      10   const digits = raw.replace(/\D/g, '')
+     … +9 lines (ctrl+o to expand)
+
+● Bash(cd frontend && rtk pnpm vitest run src/lib/number-format.spec.ts 2>&1 |
+      tail -15)
+  ⎿  Error: Exit code 1
+     /usr/bin/bash: line 1: cd: frontend: No such file or directory
+
+● Bash(rtk pnpm vitest run src/lib/number-format.spec.ts 2>&1 | tail -15)
+  ⎿       19|     expect(parseIntegerInput('')).toBeNull()
+          20|     expect(parseIntegerInput('abc')).toBeNull()
+          21|     expect(parseIntegerInput('1,5')).toBeNull()
+     … +12 lines (ctrl+o to expand)
+
+● Test caught a real design flaw: stripping all non-digits turns 1,5 into 15 —
+  silently multiplying a decimal by 10. Rejecting instead of coercing.
+
+● Update(frontend\src\lib\number-format.ts)
+  ⎿  Added 5 lines, removed 4 lines
+       5  }
+       6  
+       7  // Lee un entero de lo que el usuario haya tecleado, tolerando 
+          los separadores
+       8 -// de miles que produce `formatThousands`. Sin dígitos → null (
+         -campo vacío).                                                  
+       8 +// de miles que produce `formatThousands`. Todo lo demás → null
+         +: descartar los                                                
+       9 +// caracteres sobrantes convertiría "1,5" en 15 en vez de recha
+         +zarlo.                                                         
+      10  export function parseIntegerInput(raw: string): number | null {
+      10 -  const digits = raw.replace(/\D/g, '')                        
+      11 -  if (digits === '') {                                         
+      11 +  const compacted = raw.replace(/[.\s]/g, '')                  
+      12 +  if (!/^\d+$/.test(compacted)) {                              
+      13      return null
+      14    }
+      14 -  return Number.parseInt(digits, 10)                           
+      15 +  return Number.parseInt(compacted, 10)                        
+      16  }
+
+● Update(frontend\src\lib\number-format.spec.ts)
+  ⎿  Added 4 lines, removed 2 lines
+      22      expect(parseIntegerInput('-')).toBeNull()
+      23    })
+      24  
+      25 -  it('ignora los caracteres no numéricos que el usuario teclee'
+         -, () => {                                                      
+      26 -    expect(parseIntegerInput('1a2')).toBe(12)                  
+      25 +  // Descartar la coma en vez de rechazarla convertiría 1,5 GB 
+         +en 15 GB.                                                      
+      26 +  it('rechaza los decimales y la basura en vez de compactarlos'
+         +, () => {                                                      
+      27 +    expect(parseIntegerInput('1a2')).toBeNull()                
+      28 +    expect(parseIntegerInput('2,5')).toBeNull()                
+      29    })
+      30  })
+
+● Bash(rtk pnpm vitest run src/lib/number-format.spec.ts 2>&1 | tail -8)
+  ⎿   RUN  v4.1.10 C:/Users/dpastorhe/Coding/personal/saas-o-matic/frontend
+     … +5 lines (ctrl+o to expand)
+
+● Green. Now the shared breakdown table, extracted from SimulationRow.
+
+● Write(frontend\src\features\customers\CostBreakdownTable.tsx)
+  ⎿  Wrote 64 lines to
+     frontend\src\features\customers\CostBreakdownTable.tsx
+       1 import { formatMoney, formatVatRate } from '@/lib/money'
+       2 import { useCurrency } from '@/providers/currency-context'
+       3 
+       4 export interface CostBreakdownLine {
+       5   tier: number
+       6   fromUser: number
+       7   toUser: number
+       8   users: number
+       9   unitCents: number
+      10   amountCents: number
+     … +61 lines (ctrl+o to expand)
+
+● Now SimulationRow consumes it instead of its inline copy.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\src\features\customers\SimulationRow.tsx)
+  ⎿  Added 2 lines, removed 1 line
+       2  import { useState } from 'react'
+       3  import type { SimulationResponse } from '@/api/types'
+       4  import { formatDateTime } from '@/lib/dates'
+       5 -import { formatMoney, formatVatRate } from '@/lib/money'       
+       5 +import { formatMoney } from '@/lib/money'                      
+       6  import { useCurrency } from '@/providers/currency-context'
+       7 +import { CostBreakdownTable } from './CostBreakdownTable'      
+       8  
+       9  export function SimulationRow({ simulation }: { simulation: Sim
+          ulationResponse }) {
+      10    const { currency, rate } = useCurrency()
+● Update(frontend\src\features\customers\SimulationRow.tsx)
+  ⎿  Added 8 lines, removed 36 lines
+      41        </button>
+      42        {expanded && (
+      43          <div id={detailId} className="border-t p-4">
+      44 -          <table className="w-full text-sm">                   
+      45 -            <caption className="sr-only">Desglose de la simulac
+         -ión</caption>                                                  
+      46 -            <tbody>                                            
+      47 -              {simulation.breakdown.map((line) => (            
+      48 -                <tr key={line.tier}>                           
+      49 -                  <td className="text-muted-foreground py-1">  
+      50 -                    Tramo {line.tier} (usuarios {line.fromUser}
+         -–{line.toUser}): {line.users} ×{' '}                           
+      51 -                    {formatMoney(line.unitCents, currency, rate
+         -)}                                                             
+      52 -                  </td>                                        
+      53 -                  <td className="py-1 text-right">             
+      54 -                    {formatMoney(line.amountCents, currency, ra
+         -te)}                                                           
+      55 -                  </td>                                        
+      56 -                </tr>                                          
+      57 -              ))}                                              
+      58 -              <tr className="border-t">                        
+      59 -                <td className="py-1 font-medium">Base</td>     
+      60 -                <td className="py-1 text-right font-medium">   
+      61 -                  {formatMoney(simulation.baseCents, currency, 
+         -rate)}                                                         
+      62 -                </td>                                          
+      63 -              </tr>                                            
+      64 -              <tr>                                             
+      65 -                <td className="text-muted-foreground py-1">    
+      66 -                  IVA ({formatVatRate(simulation.vatRateBps)}) 
+      67 -                </td>                                          
+      68 -                <td className="py-1 text-right">               
+      69 -                  {formatMoney(simulation.taxCents, currency, r
+         -ate)}                                                          
+      70 -                </td>                                          
+      71 -              </tr>                                            
+      72 -              <tr className="border-t">                        
+      73 -                <td className="py-1 font-semibold">Total</td>  
+      74 -                <td className="py-1 text-right font-semibold"> 
+      75 -                  {formatMoney(simulation.totalCents, currency,
+         - rate)}                                                        
+      76 -                </td>                                          
+      77 -              </tr>                                            
+      78 -            </tbody>                                           
+      79 -          </table>                                             
+      44 +          <CostBreakdownTable                                  
+      45 +            caption="Desglose de la simulación"                
+      46 +            lines={simulation.breakdown}                       
+      47 +            baseCents={simulation.baseCents}                   
+      48 +            vatRateBps={simulation.vatRateBps}                 
+      49 +            taxCents={simulation.taxCents}                     
+      50 +            totalCents={simulation.totalCents}                 
+      51 +          />                                                   
+      52          </div>
+      53        )}
+      54      </li>
+
+● Now the zod schema mirroring validaciones.md — test first.
+
+● Write(frontend\src\features\simulator\simulator-form-schema.spec.ts)
+  ⎿  Wrote 46 lines to
+     frontend\src\features\simulator\simulator-form-schema.spec.ts
+      1 import { describe, expect, it } from 'vitest'
+      2 import { simulatorFormSchema } from './simulator-form-schema'
+      4 const VALID = { activeUsers: 15, storageGb: 500, apiCallsMonth: 1
+        _000_000 }
+      5 
+        ing | undefined {
+      7   const result = simulatorFormSchema.safeParse({ ...VALID, [field
+        ]: value })
+        sage
+      9 }
+     … +46 lines (ctrl+o to expand)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Write(frontend\src\features\simulator\simulator-form-schema.ts)
+  ⎿  Wrote 13 lines to
+     frontend\src\features\simulator\simulator-form-schema.ts
+       1 import { z } from 'zod'
+       3 // Espejo de las reglas de validaciones.md; el servidor revalida
+          y manda.
+         g) =>
+         x(max, message)
+       6 
+       8   activeUsers: integerInRange(1, 100_000, 'Introduce un entero e
+         ntre 1 y 100.000'),
+         ntre 0 y 1.000.000'),
+         entero entre 0 y 1.000.000.000'),
+     … +10 lines (ctrl+o to expand)
+
+● Bash(rtk pnpm vitest run src/features/simulator/simulator-form-schema.spec.ts
+      2>&1 | tail -10)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +8 lines (ctrl+o to expand)
+
+● Now the ProjectionPanel golden-case test (phase step 4) — written before the
+  component.
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● Write(frontend\src\features\simulator\ProjectionPanel.spec.tsx)
+  ⎿  Wrote 68 lines to
+     frontend\src\features\simulator\ProjectionPanel.spec.tsx
+       1 import { render, screen } from '@testing-library/react'
+       2 import type { ReactNode } from 'react'
+       3 import { describe, expect, it } from 'vitest'
+       4 import type { CurrencyCode } from '@/api/exchange'
+       5 import { CurrencyContext } from '@/providers/currency-context'
+       7 
+       8 const VAT_ES_BPS = 2100
+       9 
+      10 function withCurrency(ui: ReactNode, currency: CurrencyCode = 'E
+         UR', rate = 1) {
+     … +71 lines (ctrl+o to expand)
+
+● Write(frontend\src\features\simulator\ProjectionPanel.tsx)
+  ⎿  Wrote 39 lines to frontend\src\features\simulator\ProjectionPanel.tsx
+       1 import { calculateSimulationCost } from '@/domain/pricing/pricin
+         g-engine'
+         akdownTable'
+       3 
+       4 export interface ProjectionPanelProps {
+       6   vatRateBps: number
+       7 }
+       8 
+         jectionPanelProps) {
+      10   const projection =
+     … +35 lines (ctrl+o to expand)
+
+● Bash(rtk pnpm vitest run src/features/simulator/ProjectionPanel.spec.tsx 2>&1
+      | tail -25)
+  ⎿  ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+      FAIL  src/features/simulator/ProjectionPanel.spec.tsx > ProjectionPan
+     … +25 lines (ctrl+o to expand)
+
+● The golden case passes. Only my USD expectation was wrong — es-ES renders USD
+  as US$, which is correct Intl behavior. Fixing the test, not the code.
+
+● Update(frontend\src\features\simulator\ProjectionPanel.spec.tsx)
+  ⎿  Added 2 lines, removed 1 line
+      49    it('convierte la proyección a la divisa activa', () => {
+      50      withCurrency(<ProjectionPanel activeUsers={15} vatRateBps={
+          VAT_ES_BPS} />, 'USD', 2)
+      51  
+      52 -    expect(cellText('^Total')).toBe('338,80 $')                
+      52 +    // `es-ES` desambigua el dólar como «US$»; es el formato de
+         + `formatMoney`.                                                
+      53 +    expect(cellText('^Total')).toBe('338,80 US$')              
+      54    })
+      55  
+      56    it('anuncia los cambios por aria-live y avisa de que el servi
+          dor es la autoridad', () => {
+
+● Bash(rtk pnpm vitest run src/features/simulator/ProjectionPanel.spec.tsx 2>&1
+      | tail -8)
+  ⎿   RUN  v4.1.10 C:/Users/dpastorhe/Coding/personal/saas-o-matic/frontend
+     … +5 lines (ctrl+o to expand)
+
+● Golden case verified in a real render. Now the SimulatorCard — slider, inputs
+  and persistence.
+
+● Write(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Wrote 202 lines to frontend\src\features\simulator\SimulatorCard.tsx
+       1 import { zodResolver } from '@hookform/resolvers/zod'
+       2 import { useMutation, useQueryClient } from '@tanstack/react-que
+         ry'
+       4 import { Controller, useForm, useWatch } from 'react-hook-form'
+       5 import { toast } from 'sonner'
+       6 import { ApiError } from '@/api/client'
+       7 import { createSimulation } from '@/api/simulations'
+       9 import { Card, CardContent, CardHeader, CardTitle } from '@/comp
+         onents/ui/card'
+      10 import { Input } from '@/components/ui/input'
+     … +224 lines (ctrl+o to expand)
+
+● Two issues to fix before wiring in: duplicate Controllers on one field, and
+  the projection should respect the schema's range rather than re-stating it.
+
+● Update(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Added 15 lines, removed 25 lines
+       92            }}
+       93            className="space-y-6"
+       94          >
+       95 -          <div className="space-y-3">                         
+       96 -            <div className="flex items-end justify-between gap
+          --4">                                                          
+       97 -              <label htmlFor="activeUsers" className="text-sm 
+          -font-medium">                                                 
+       98 -                Usuarios activos                              
+       99 -              </label>                                        
+      100 -              <Controller                                     
+      101 -                control={form.control}                        
+      102 -                name="activeUsers"                            
+      103 -                render={({ field }) => (                      
+       95 +          <Controller                                         
+       96 +            control={form.control}                            
+       97 +            name="activeUsers"                                
+       98 +            render={({ field }) => (                          
+       99 +              <div className="space-y-3">                     
+      100 +                <div className="flex items-end justify-between
+          + gap-4">                                                      
+      101 +                  <label htmlFor="activeUsers" className="text
+          +-sm font-medium">                                             
+      102 +                    Usuarios activos                          
+      103 +                  </label>                                    
+      104                    <Input
+      105                      id="activeUsers"
+      106                      inputMode="numeric"
+     ...
+      113                      }}
+      114                      onBlur={field.onBlur}
+      115                    />
+      116 -                )}                                            
+      117 -              />                                              
+      118 -            </div>                                            
+      119 -            <Controller                                       
+      120 -              control={form.control}                          
+      121 -              name="activeUsers"                              
+      122 -              render={({ field }) => (                        
+      116 +                </div>                                        
+      117                  <Slider
+      118                    aria-label="Usuarios activos"
+      119                    min={SLIDER_MIN}
+      120                    max={SLIDER_MAX}
+      121                    step={1}
+      128 -                  value={[                                    
+      129 -                    Number.isFinite(field.value)              
+      130 -                      ? Math.min(Math.max(field.value, SLIDER_
+          -MIN), SLIDER_MAX)                                             
+      131 -                      : SLIDER_MIN,                           
+      132 -                  ]}                                          
+      122 +                  value={[toSliderPosition(field.value)]}     
+      123                    onValueChange={([value]) => {
+      124                      field.onChange(value)
+      125                    }}
+      126                  />
+      137 -              )}                                              
+      138 -            />                                                
+      139 -            <FieldError id="activeUsers-error" message={errors
+          -.activeUsers?.message} />                                     
+      140 -          </div>                                              
+      127 +                <FieldError id="activeUsers-error" message={er
+          +rors.activeUsers?.message} />                                 
+      128 +              </div>                                          
+      129 +            )}                                                
+      130 +          />                                                  
+      131  
+      132            <div className="grid grid-cols-1 gap-4 sm:grid-cols-
+           2">
+      133              <div className="space-y-1.5">
+
+● Update(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Added 15 lines
+      26    apiCallsMonth: 0,
+      27  }
+      28  
+      29 +// Por encima de SLIDER_MAX el thumb se queda en el tope: el in
+         +put manda.                                                     
+      30 +function toSliderPosition(activeUsers: number): number {       
+      31 +  if (!Number.isFinite(activeUsers)) {                         
+      32 +    return SLIDER_MIN                                          
+      33 +  }                                                            
+      34 +  return Math.min(Math.max(activeUsers, SLIDER_MIN), SLIDER_MAX
+         +)                                                              
+      35 +}                                                              
+      36 +                                                               
+      37 +// La proyección solo se dibuja con un valor que el contrato ac
+         +eptaría; reutiliza                                             
+      38 +// el rango del schema para no duplicar los límites de validaci
+         +ones.md.                                                       
+      39 +function toProjectableUsers(activeUsers: number): number | null
+         + {                                                             
+      40 +  const parsed = simulatorFormSchema.shape.activeUsers.safePars
+         +e(activeUsers)                                                 
+      41 +  return parsed.success ? parsed.data : null                   
+      42 +}                                                              
+      43 +                                                               
+      44  function FieldError({ id, message }: { id: string; message?: st
+          ring }) {
+      45    if (!message) {
+      46      return null
+
+● Update(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Added 1 line, removed 1 line
+      92    }
+      93  
+      94    const { errors } = form.formState
+      95 -  const projectedUsers = Number.isInteger(activeUsers) ? active
+         -Users : null                                                   
+      95 +  const projectedUsers = toProjectableUsers(activeUsers)       
+      96  
+      97    return (
+      98      <Card id="simulador" tabIndex={-1} className="scroll-mt-6">
+
+● Now wire it into the detail page — this also makes the existing "Ir al
+  simulador" button resolve.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\src\features\customers\CustomerDetailPage.tsx)
+  ⎿  Added 2 lines
+      103          </CardContent>
+      104        </Card>
+      105  
+      106 +      <SimulatorCard customerId={customer.id} vatRateBps={cust
+          +omer.country.vatRateBps} />                                   
+      107 +                                                              
+      108        <SimulationHistory customerId={customer.id} />
+      109      </section>
+      110    )
+● Update(frontend\src\features\customers\CustomerDetailPage.tsx)
+  ⎿  Added 1 line
+       6  import { Button } from '@/components/ui/button'
+       7  import { Card, CardContent, CardHeader, CardTitle } from '@/com
+          ponents/ui/card'
+       8  import { Skeleton } from '@/components/ui/skeleton'
+       9 +import { SimulatorCard } from '@/features/simulator/SimulatorCa
+         +rd'                                                            
+      10  import { countryFlag } from '@/lib/countries'
+      11  import { formatVatRate } from '@/lib/money'
+      12  import { SimulationHistory } from './SimulationHistory'
+
+● Now the full verification suite from the phase.
+
+● Bash(rtk pnpm lint 2>&1 | tail -20)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     … +10 lines (ctrl+o to expand)
+
+● Lint clean (those two warnings are pre-existing shadcn files). Full test suite
+  and build:
+
+● Bash(rtk pnpm test 2>&1 | tail -12)
+  ⎿  > frontend@0.0.0 test C:\Users\dpastorhe\Coding\personal\saas-o-matic\
+     frontend
+     > vitest run
+     … +10 lines (ctrl+o to expand)
+
+● Bash(rtk pnpm build 2>&1 | tail -15)
+  ⎿  dist/index.html                                              0.46 kB │
+      gzip:   0.29 kB
+     dist/assets/geist-cyrillic-ext-wght-normal-DjL33-gN.woff2    7.42 kB
+     … +14 lines (ctrl+o to expand)
+
+● Green: lint clean, 152 tests, build OK. Now the manual e2e the phase requires
+  — starting both servers.
+
+● Bash(cd C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend && pnpm
+      start:dev > /tmp/be.log 2>&1 &
+      sleep 1; echo started)
+  ⎿  Running in the background (↓ to manage)
+
+● Bash(cd C:/Users/dpastorhe/Coding/personal/saas-o-matic/frontend && pnpm dev >
+      /tmp/fe.log 2>&1 &
+      sleep 1; echo started)
+  ⎿  Running in the background (↓ to manage)
+
+● Background command "Start backend dev server" completed (exit code 0)
+
+● Bash(curl -s http://localhost:3000/health; echo; curl -s -o /dev/null -w
+      "%{http_code}" http://localhost:5173/)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     {
+     … +6 lines (ctrl+o to expand)
+
+● Background command "Start frontend dev server" completed (exit code 0)
+
+● Both servers up. Driving the e2e flow: existing ES customer → simulate 15
+  users → save → history → currency switch.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Note the currency picker is on USD (persisted from a prior session). I'll open
+  the ES demo customer, set EUR, and verify the golden case.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● The simulator renders and its projection (193,95 US$) already matches the
+  existing 15-user history row exactly. Switching to EUR to check the golden
+  case.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● It's a Radix combobox, not a native select — clicking through instead.
+
+  Called plugin:playwright:playwright 5 times (ctrl+o to expand)
+
+● Golden case confirmed live: 100 € + 40 € = 140 € base, 169,40 € total. Now
+  criterion 1 — slider moves must not hit the network. Baseline first:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Now driving the slider by keyboard (this also verifies the a11y requirement).
+
+  Called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+● Keyboard works: 15→16, input synced, projection recalculated. Confirming no
+  network traffic was triggered:
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Zero new requests — criterion 1 ✓. Now the >500 input behavior and thousands
+  formatting:
+
+  Called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+● Thousands format works, slider pins at 500, projection still correct. Checking
+  the out-of-range guard:
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Out-of-range shows the inline error, marks the field invalid, and withholds
+  the projection. Now the save flow with the golden values.
+
+  Called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+● Now the double-click test (criterion 4) — history currently has 3 rows.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Exactly one POST despite the double-click, followed by the history refetch.
+  Checking the result:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● One row added, showing 169,40 € — identical to the projection. Expanding it to
+  compare the full breakdown, and checking the form reset:
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Byte-identical parity between the client projection and the server-persisted
+  breakdown. Now criterion 3 — currency switch across both panel and history:
+
+  Called plugin:playwright:playwright 4 times (ctrl+o to expand)
+
+● Two things left to verify: the destructive error toast and the loading state.
+  I'll stop the backend to force a real failure.
+
+● PowerShell($conn = Get-NetTCPConnection -LocalPort 3000 -State Listen
+            -ErrorAction SilentlyContinue; if ($conn) { $procId =
+            $conn.OwningProcess; Stop-Process -Id $procId -…)
+  ⎿  killed PID 53820
+
+  Called plugin:playwright:playwright 4 times (ctrl+o to expand)
+
+● The POST fired and was refused, so the mutation ran — the toast likely
+  auto-dismissed before I looked. Retrying with an immediate check:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Error path verified: destructive toast, button disabled and spinner in-flight.
+  Restarting the backend to confirm the success toast carries the server's
+  total.
+
+● Bash(cd C:/Users/dpastorhe/Coding/personal/saas-o-matic/backend && pnpm
+      start:dev > /tmp/be2.log 2>&1 &
+      sleep 1; echo started)
+  ⎿  Running in the background (↓ to manage)
+
+● Bash(for i in $(seq 1 20); do curl -s http://localhost:3000/health && break ||
+      sleep 1; done)
+  ⎿  {
+       "status": "ok"
+     }
+
+● Background command "Restart backend" completed (exit code 0)
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+● Success toast carries the server's total. Last check — the transversal rule of
+  no horizontal scroll at 360px, since this adds new UI:
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● All acceptance criteria verified live. Running the phase's required audit.
+
+● Skill(auditoria)
+  ⎿  Successfully loaded skill
+
+● I'll audit the phase 8 files against the checklist. Reading them fresh.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Bash(for f in src/features/simulator/SimulatorCard.tsx
+      src/features/simulator/ProjectionPanel.tsx
+      src/features/simulator/simulator-form-schema.ts src/features/custom…)
+  ⎿  207 src/features/simulator/SimulatorCard.tsx
+     39 src/features/simulator/ProjectionPanel.tsx
+     13 src/features/simulator/simulator-form-schema.ts
+     … +3 lines (ctrl+o to expand)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Audit complete. Findings below — no changes applied.
+
+  Tabla de hallazgos
+
+  Sev.: Media
+  Archivo:línea: SimulatorCard.tsx:119-130, 156-166, 180-190
+  Descripción: Los tres campos numéricos repiten el mismo bloque
+  Controller+Input+FieldError (misma lógica Number.isFinite ?  formatThousands 
+  : '' y parseIntegerInput(...) ?? NaN) ×3. Duplicación evitable (DRY) y empuja
+   el archivo a 207 líneas con dos responsabilidades (formulario + render de
+  campo).
+  Fix propuesto: Extraer features/simulator/NumericField.tsx con props { 
+  control,
+   name, label, id, className? }. Deja SimulatorCard en ~150 líneas y un solo
+  punto donde vive el formato/parseo.
+  ────────────────────────────────────────
+  Sev.: Media
+  Archivo:línea: SimulatorCard.tsx:44-53 vs NewCustomerPage.tsx:29-38
+  Descripción: FieldError está duplicado literalmente entre los dos archivos. Si
+
+  cambia el estilo o el role de los errores hay que tocar dos sitios.
+  Fix propuesto: Mover a components/FieldError.tsx e importar en ambos.
+  ────────────────────────────────────────
+  Sev.: Baja
+  Archivo:línea: SimulatorCard.tsx:84
+  Descripción: error.details[0]?.message descarta silenciosamente el resto de
+  details[] del contrato. Con >1 error de campo el usuario solo ve el primero.
+  Fix propuesto: Unir los mensajes (details.map(d => d.message).join(' · ')) o
+  mapear a los campos con form.setError como hace NewCustomerPage. Requiere
+  decidir contrato de UX → lo dejo a tu criterio.
+  ────────────────────────────────────────
+  Sev.: Baja
+  Archivo:línea: features/simulator/ (tests)
+  Descripción: No hay test automatizado de SimulatorCard: la sincronía
+  slider↔input, el clamp >500 y el guard de doble submit solo están cubiertos
+  por la verificación manual de esta sesión. La fase solo exigía el test del
+  panel, así que no es un incumplimiento, pero es  la parte no protegida contra
+   regresión.
+  Fix propuesto: Añadir SimulatorCard.spec.tsx (ya hay infra de render): teclado
+
+  en slider → input sincronizado; input 100.001 → sin proyección; submit ×2 →
+  un mutationFn.
+
+  Sin hallazgos en: capas (domain/pricing sigue puro, sin imports de framework),
+  tipado (cero any/@ts-ignore; los shapes cuadran con contratos-api.md), dinero
+  (ninguna aritmética monetaria en componentes; toda conversión pasa por
+  lib/money.ts; toSliderPosition opera sobre usuarios, no importes), validación
+  (simulator-form-schema cuadra 1:1 con validaciones.md:82-84), seguridad (sin
+  secretos ni queries; React escapa el texto del servidor en el toast), higiene
+  (sin console.log ni código muerto).
+
+  Dos apuntes que revisé y descarto como hallazgo: role="status" +
+  aria-live="polite" es redundante técnicamente, pero spec-frontend.md:55 lo
+  exige explícitamente; y CostBreakdownLine repite la forma de
+  SimulationTierLine/TierLine a propósito — es el contrato de props del
+  componente, y acoplarlo a la API o al dominio sería peor.
+
+  Entrada propuesta para auditorias.md
+
+  ## Fase 8 — Simulador interactivo
+
+  **Alcance**: `features/simulator/` (SimulatorCard, ProjectionPanel,
+  simulator-form-schema),
+  `features/customers/CostBreakdownTable.tsx`, `lib/number-format.ts`.
+
+  **Verificación**: `pnpm lint` (limpio salvo 2 warnings preexistentes de
+  shadcn/ui),
+  `pnpm test` (152 ✓), `pnpm build` (✓). E2E manual con navegador: proyección
+  sin red,
+  paridad cliente/servidor, cambio de divisa, doble submit, ruta de error y 360
+  px.
+
+  **Hallazgos**:
+
+  | Sev. | Hallazgo | Estado |
+  |---|---|---|
+  | Media | Tres campos numéricos duplican el bloque Controller+Input+FieldError
+  | *(pendiente de decisión)* |
+  | Media | `FieldError` duplicado literalmente entre `SimulatorCard` y
+  `NewCustomerPage` | *(pendiente de decisión)* |
+  | Baja | `error.details[0]` descarta el resto de errores de campo del contrato
+  | *(pendiente de decisión)* |
+  | Baja | Sin test de `SimulatorCard` (slider↔input, doble submit): solo
+  verificación manual | *(pendiente de decisión)* |
+
+  **Propuestas rechazadas**:
+
+  - *Eliminar `aria-live="polite"` por redundante con `role="status"`*:
+  rechazado — `spec-frontend.md:55`
+    lo exige de forma explícita; la spec manda sobre la optimización.
+  - *Unificar `CostBreakdownLine` con `SimulationTierLine`/`TierLine`*:
+  rechazado — es el contrato
+    de props del componente; acoplarlo a `api/types.ts` o a `domain/` invertiría
+  la dependencia.
+
+  ¿Aplico los cuatro fixes, un subconjunto, o los dejo registrados como deuda?
+  Los dos de severidad media (extraer NumericField y FieldError) son mecánicos y
+  sin riesgo; el de details[] implica una decisión de UX tuya.
+
+✻ Cooked for 13m 17s
+
+❯ Si, aplica los 4 fixes                                                        
+
+● Applying all four. Starting with the shared pieces.
+
+● Write(frontend\src\components\FieldError.tsx)
+  ⎿  Wrote 15 lines to frontend\src\components\FieldError.tsx
+       1 export interface FieldErrorProps {
+       2   id: string
+       3   message?: string
+       4 }
+       5 
+       6 export function FieldError({ id, message }: FieldErrorProps) {
+       7   if (!message) {
+       8     return null
+       9   }
+      10   return (
+     … +5 lines (ctrl+o to expand)
+
+● Now the shared numeric-input wiring, so the three fields stop repeating it:
+
+● Write(frontend\src\features\simulator\numeric-input.ts)
+  ⎿  Wrote 24 lines to frontend\src\features\simulator\numeric-input.ts
+       1 import type { ControllerRenderProps, FieldPath } from 'react-hoo
+       2 import { formatThousands, parseIntegerInput } from '@/lib/number
+       3 import type { SimulatorFormValues } from './simulator-form-schem
+         a'
+       5 // Cableado común de los inputs numéricos del simulador: formato
+       6 // pintar y entero (o NaN, que el schema rechaza) al leer. NaN e
+       7 // "campo vacío" y `number`: react-hook-form exige un valor del 
+         tipo del campo.
+         torFormValues>>(
+      10   id: string,
+     … +22 lines (ctrl+o to expand)
+
+● Write(frontend\src\features\simulator\NumericField.tsx)
+  ⎿  Wrote 29 lines to frontend\src\features\simulator\NumericField.tsx
+       1 import { Controller, type Control, type FieldPath } from 'react-
+         hook-form'
+       2 import { FieldError } from '@/components/FieldError'
+       4 import { numericInputProps } from './numeric-input'
+       5 import type { SimulatorFormValues } from './simulator-form-schem
+         a'
+       6 
+       8   control: Control<SimulatorFormValues>
+       9   name: FieldPath<SimulatorFormValues>
+      10   id: string
+     … +22 lines (ctrl+o to expand)
+
+● The users field needs its own layout (inline label + slider), so it gets its
+  own file rather than an inline flag.
+
+● Write(frontend\src\features\simulator\UsersField.tsx)
+  ⎿  Wrote 56 lines to frontend\src\features\simulator\UsersField.tsx
+       1 import { Controller, type Control } from 'react-hook-form'
+       2 import { FieldError } from '@/components/FieldError'
+       4 import { Slider } from '@/components/ui/slider'
+       5 import { numericInputProps } from './numeric-input'
+       6 import type { SimulatorFormValues } from './simulator-form-schem
+       7 
+       8 // El slider cubre el rango comercial habitual; el input admite 
+         hasta el máximo
+          queda en el tope.
+      10 const SLIDER_MIN = 1
+     … +50 lines (ctrl+o to expand)
+
+● Now SimulatorCard composes those, and the error mapping keeps every detail.
+
+● Write(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Added 27 lines, removed 115 lines
+       1  import { zodResolver } from '@hookform/resolvers/zod'
+       2  import { useMutation, useQueryClient } from '@tanstack/react-qu
+          ery'
+       3  import { LoaderCircle } from 'lucide-react'
+       4 -import { Controller, useForm, useWatch } from 'react-hook-form'
+       4 +import { useForm, useWatch } from 'react-hook-form'            
+       5  import { toast } from 'sonner'
+       6  import { ApiError } from '@/api/client'
+       7  import { createSimulation } from '@/api/simulations'
+       8  import { Button } from '@/components/ui/button'
+       9  import { Card, CardContent, CardHeader, CardTitle } from '@/com
+          ponents/ui/card'
+      10 -import { Input } from '@/components/ui/input'                  
+      11 -import { Slider } from '@/components/ui/slider'                
+      10  import { formatMoney } from '@/lib/money'
+      13 -import { formatThousands, parseIntegerInput } from '@/lib/numbe
+         -r-format'                                                      
+      11  import { useCurrency } from '@/providers/currency-context'
+      12 +import { NumericField } from './NumericField'                  
+      13  import { ProjectionPanel } from './ProjectionPanel'
+      14  import { simulatorFormSchema, type SimulatorFormValues } from '
+          ./simulator-form-schema'
+      15 +import { UsersField } from './UsersField'                      
+      16  
+      18 -// El slider cubre el rango comercial habitual; el input admite
+         - hasta el máximo                                               
+      19 -// del contrato (100.000) y por encima de 500 el thumb se queda
+         - en el tope.                                                   
+      20 -const SLIDER_MIN = 1                                           
+      21 -const SLIDER_MAX = 500                                         
+      22 -                                                               
+      17  const DEFAULT_VALUES: SimulatorFormValues = {
+      18    activeUsers: 15,
+      19    storageGb: 0,
+      20    apiCallsMonth: 0,
+      21  }
+      22  
+      29 -// Por encima de SLIDER_MAX el thumb se queda en el tope: el in
+         -put manda.                                                     
+      30 -function toSliderPosition(activeUsers: number): number {       
+      31 -  if (!Number.isFinite(activeUsers)) {                         
+      32 -    return SLIDER_MIN                                          
+      33 -  }                                                            
+      34 -  return Math.min(Math.max(activeUsers, SLIDER_MIN), SLIDER_MAX
+         -)                                                              
+      35 -}                                                              
+      36 -                                                               
+      23  // La proyección solo se dibuja con un valor que el contrato ac
+          eptaría; reutiliza
+      24  // el rango del schema para no duplicar los límites de validaci
+          ones.md.
+      25  function toProjectableUsers(activeUsers: number): number | null
+           {
+     ...
+      27    return parsed.success ? parsed.data : null
+      28  }
+      29  
+      44 -function FieldError({ id, message }: { id: string; message?: st
+         -ring }) {                                                      
+      45 -  if (!message) {                                              
+      46 -    return null                                                
+      30 +// Un 400 conserva todos los `details` del contrato; un 404 (cl
+         +iente inexistente)                                             
+      31 +// llega sin ellos y solo trae `message`.                      
+      32 +export function toErrorMessage(error: unknown): string {       
+      33 +  if (!(error instanceof ApiError)) {                          
+      34 +    return 'No se pudo guardar la simulación. Inténtalo de nuev
+         +o.'                                                            
+      35    }
+      48 -  return (                                                     
+      49 -    <p id={id} role="alert" className="text-destructive text-sm
+         -">                                                             
+      50 -      {message}                                                
+      51 -    </p>                                                       
+      52 -  )                                                            
+      36 +  const details = error.details.map((detail) => detail.message)
+      37 +  return details.length > 0 ? details.join(' · ') : error.messa
+         +ge                                                             
+      38  }
+      39  
+      40  export interface SimulatorCardProps {
+     ...
+      64        form.reset(DEFAULT_VALUES)
+      65      },
+      66      onError: (error) => {
+      82 -      const message =                                          
+      83 -        error instanceof ApiError                              
+      84 -          ? (error.details[0]?.message ?? error.message)       
+      85 -          : 'No se pudo guardar la simulación. Inténtalo de nue
+         -vo.'                                                           
+      86 -      toast.error(message)                                     
+      67 +      toast.error(toErrorMessage(error))                       
+      68      },
+      69    })
+      70  
+     ...
+      73    }
+      74  
+      75    const { errors } = form.formState
+      95 -  const projectedUsers = toProjectableUsers(activeUsers)       
+      76  
+      77    return (
+      78      <Card id="simulador" tabIndex={-1} className="scroll-mt-6">
+     ...
+       87            }}
+       88            className="space-y-6"
+       89          >
+      110 -          <Controller                                         
+      111 -            control={form.control}                            
+      112 -            name="activeUsers"                                
+      113 -            render={({ field }) => (                          
+      114 -              <div className="space-y-3">                     
+      115 -                <div className="flex items-end justify-between
+          - gap-4">                                                      
+      116 -                  <label htmlFor="activeUsers" className="text
+          --sm font-medium">                                             
+      117 -                    Usuarios activos                          
+      118 -                  </label>                                    
+      119 -                  <Input                                      
+      120 -                    id="activeUsers"                          
+      121 -                    inputMode="numeric"                       
+      122 -                    className="w-32 text-right"               
+      123 -                    aria-invalid={errors.activeUsers !== undef
+          -ined}                                                         
+      124 -                    aria-describedby={errors.activeUsers ? 'ac
+          -tiveUsers-error' : undefined}                                 
+      125 -                    value={Number.isFinite(field.value) ? form
+          -atThousands(field.value) : ''}                                
+      126 -                    onChange={(event) => {                    
+      127 -                      field.onChange(parseIntegerInput(event.t
+          -arget.value) ?? Number.NaN)                                   
+      128 -                    }}                                        
+      129 -                    onBlur={field.onBlur}                     
+      130 -                  />                                          
+      131 -                </div>                                        
+      132 -                <Slider                                       
+      133 -                  aria-label="Usuarios activos"               
+      134 -                  min={SLIDER_MIN}                            
+      135 -                  max={SLIDER_MAX}                            
+      136 -                  step={1}                                    
+      137 -                  value={[toSliderPosition(field.value)]}     
+      138 -                  onValueChange={([value]) => {               
+      139 -                    field.onChange(value)                     
+      140 -                  }}                                          
+      141 -                />                                            
+      142 -                <FieldError id="activeUsers-error" message={er
+          -rors.activeUsers?.message} />                                 
+      143 -              </div>                                          
+      144 -            )}                                                
+      145 -          />                                                  
+       90 +          <UsersField control={form.control} error={errors.act
+          +iveUsers?.message} />                                         
+       91  
+       92            <div className="grid grid-cols-1 gap-4 sm:grid-cols-
+           2">
+      148 -            <div className="space-y-1.5">                     
+      149 -              <label htmlFor="storageGb" className="text-sm fo
+          -nt-medium">                                                   
+      150 -                Almacenamiento (GB)                           
+      151 -              </label>                                        
+      152 -              <Controller                                     
+      153 -                control={form.control}                        
+      154 -                name="storageGb"                              
+      155 -                render={({ field }) => (                      
+      156 -                  <Input                                      
+      157 -                    id="storageGb"                            
+      158 -                    inputMode="numeric"                       
+      159 -                    aria-invalid={errors.storageGb !== undefin
+          -ed}                                                           
+      160 -                    aria-describedby={errors.storageGb ? 'stor
+          -ageGb-error' : undefined}                                     
+      161 -                    value={Number.isFinite(field.value) ? form
+          -atThousands(field.value) : ''}                                
+      162 -                    onChange={(event) => {                    
+      163 -                      field.onChange(parseIntegerInput(event.t
+          -arget.value) ?? Number.NaN)                                   
+      164 -                    }}                                        
+      165 -                    onBlur={field.onBlur}                     
+      166 -                  />                                          
+      167 -                )}                                            
+      168 -              />                                              
+      169 -              <FieldError id="storageGb-error" message={errors
+          -.storageGb?.message} />                                       
+      170 -            </div>                                            
+      171 -                                                              
+      172 -            <div className="space-y-1.5">                     
+      173 -              <label htmlFor="apiCallsMonth" className="text-s
+          -m font-medium">                                               
+      174 -                Llamadas API / mes                            
+      175 -              </label>                                        
+      176 -              <Controller                                     
+      177 -                control={form.control}                        
+      178 -                name="apiCallsMonth"                          
+      179 -                render={({ field }) => (                      
+      180 -                  <Input                                      
+      181 -                    id="apiCallsMonth"                        
+      182 -                    inputMode="numeric"                       
+      183 -                    aria-invalid={errors.apiCallsMonth !== und
+          -efined}                                                       
+      184 -                    aria-describedby={errors.apiCallsMonth ? '
+          -apiCallsMonth-error' : undefined}                             
+      185 -                    value={Number.isFinite(field.value) ? form
+          -atThousands(field.value) : ''}                                
+      186 -                    onChange={(event) => {                    
+      187 -                      field.onChange(parseIntegerInput(event.t
+          -arget.value) ?? Number.NaN)                                   
+      188 -                    }}                                        
+      189 -                    onBlur={field.onBlur}                     
+      190 -                  />                                          
+      191 -                )}                                            
+      192 -              />                                              
+      193 -              <FieldError id="apiCallsMonth-error" message={er
+          -rors.apiCallsMonth?.message} />                               
+      194 -            </div>                                            
+       93 +            <NumericField                                     
+       94 +              control={form.control}                          
+       95 +              name="storageGb"                                
+       96 +              id="storageGb"                                  
+       97 +              label="Almacenamiento (GB)"                     
+       98 +              error={errors.storageGb?.message}               
+       99 +            />                                                
+      100 +            <NumericField                                     
+      101 +              control={form.control}                          
+      102 +              name="apiCallsMonth"                            
+      103 +              id="apiCallsMonth"                              
+      104 +              label="Llamadas API / mes"                      
+      105 +              error={errors.apiCallsMonth?.message}           
+      106 +            />                                                
+      107            </div>
+      108  
+      197 -          <ProjectionPanel activeUsers={projectedUsers} vatRat
+          -eBps={vatRateBps} />                                          
+      109 +          <ProjectionPanel activeUsers={toProjectableUsers(act
+          +iveUsers)} vatRateBps={vatRateBps} />                         
+      110  
+      111            <Button type="submit" disabled={mutation.isPending} 
+           className="w-full">
+      112              {mutation.isPending && <LoaderCircle className="an
+           imate-spin" aria-hidden />}
+
+● Now NewCustomerPage uses the shared FieldError instead of its private copy.
+
+● Update(frontend\src\features\customers\NewCustomerPage.tsx)
+  ⎿  Removed 11 lines
+      26    return (FORM_FIELDS as readonly string[]).includes(field)
+      27  }
+      28  
+      29 -function FieldError({ id, message }: { id: string; message?: st
+         -ring }) {                                                      
+      30 -  if (!message) {                                              
+      31 -    return null                                                
+      32 -  }                                                            
+      33 -  return (                                                     
+      34 -    <p id={id} role="alert" className="text-destructive text-sm
+         -">                                                             
+      35 -      {message}                                                
+      36 -    </p>                                                       
+      37 -  )                                                            
+      38 -}                                                              
+      39 -                                                               
+      29  export function NewCustomerPage() {
+      30    const navigate = useNavigate()
+      31    const queryClient = useQueryClient()
+
+● Update(frontend\src\features\customers\NewCustomerPage.tsx)
+  ⎿  Added 1 line
+       6  import { toast } from 'sonner'
+       7  import { ApiError } from '@/api/client'
+       8  import { createCustomer } from '@/api/customers'
+       9 +import { FieldError } from '@/components/FieldError'           
+      10  import { Button } from '@/components/ui/button'
+      11  import { Input } from '@/components/ui/input'
+      12  import {
+
+● Now fix 4 — the SimulatorCard test covering what only manual verification
+  protected.
+
+● Write(frontend\src\features\simulator\SimulatorCard.spec.tsx)
+  ⎿  Wrote 160 lines to
+     frontend\src\features\simulator\SimulatorCard.spec.tsx
+       1 import { QueryClient, QueryClientProvider } from '@tanstack/reac
+         t-query'
+       2 import { fireEvent, render, screen, waitFor } from '@testing-lib
+       3 import type { ReactNode } from 'react'
+       4 import { beforeEach, describe, expect, it, vi } from 'vitest'
+       5 import { ApiError } from '@/api/client'
+       6 import type { SimulationResponse } from '@/api/types'
+       8 import { SimulatorCard, toErrorMessage } from './SimulatorCard'
+       9 
+      10 const createSimulation = vi.hoisted(() => vi.fn())
+     … +174 lines (ctrl+o to expand)
+● Bash(rtk pnpm vitest run src/features/simulator/SimulatorCard.spec.tsx 2>&1 |
+      tail -30)
+  ⎿       × devuelve el formulario a sus valores por defecto tras guardar 1
+     0ms
+     … +35 lines (ctrl+o to expand)
+
+● jsdom lacks ResizeObserver, which Radix's slider needs. That's an environment
+  gap, not a code bug — polyfilling it in the setup file.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\src\test\setup.ts)
+  ⎿  Added 8 lines
+       4  import { afterEach } from 'vitest'
+       5  
+       6  afterEach(cleanup)
+       7 +                                                               
+       8 +// jsdom no implementa ResizeObserver y el slider de Radix lo e
+         +xige al montar.                                                
+       9 +// El stub basta: los tests afirman sobre valores, no sobre la 
+         +geometría del thumb.                                           
+      10 +globalThis.ResizeObserver ??= class ResizeObserverStub {       
+      11 +  observe(): void {}                                           
+      12 +  unobserve(): void {}                                         
+      13 +  disconnect(): void {}                                        
+      14 +}                                                              
+
+● Bash(rtk pnpm vitest run src/features/simulator/SimulatorCard.spec.tsx 2>&1 |
+      tail -30)
+  ⎿        "apiCallsMonth": 0,
+           "customerId": "cus-1",
+           "storageGb": 0,
+     … +27 lines (ctrl+o to expand)
+
+● The double-submit guard works (1 call). Only my assertion was wrong — TanStack
+  Query passes a context as a second arg to mutationFn.
+
+● Update(frontend\src\features\simulator\SimulatorCard.spec.tsx)
+  ⎿  Added 2 lines, removed 1 line
+       93      fireEvent.click(saveButton())
+       94  
+       95      expect(createSimulation).toHaveBeenCalledTimes(1)
+       96 -    expect(createSimulation).toHaveBeenCalledWith({           
+       96 +    // TanStack Query añade su contexto como segundo argumento
+          +: solo interesa el body.                                      
+       97 +    expect(createSimulation.mock.calls[0]?.[0]).toEqual({     
+       98        customerId: 'cus-1',
+       99        activeUsers: 15,
+      100        storageGb: 0,
+
+● Bash(rtk pnpm vitest run src/features/simulator/SimulatorCard.spec.tsx 2>&1 |
+      tail -8)
+  ⎿   RUN  v4.1.10 C:/Users/dpastorhe/Coding/personal/saas-o-matic/frontend
+     … +5 lines (ctrl+o to expand)
+
+● All nine pass, including the double-submit guard that previously had no
+  automated coverage. Full verification:
+
+● Bash(rtk pnpm lint 2>&1 | tail -6 && echo "=== TEST ===" && rtk pnpm test 2>&1
+      | tail -6 && echo "=== BUILD ===" && rtk pnpm build 2>&1 | grep -E "built
+      in|error" |…)
+  ⎿  > frontend@0.0.0 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\
+     frontend
+     > oxlint
+     … +17 lines (ctrl+o to expand)
+
+● I introduced a new lint warning by exporting toErrorMessage next to the
+  component. Moving it to its own file — it's a pure function anyway.
+
+● Write(frontend\src\features\simulator\error-message.ts)
+  ⎿  Wrote 11 lines to frontend\src\features\simulator\error-message.ts
+       1 import { ApiError } from '@/api/client'
+       2 
+         ente inexistente)
+       4 // llega sin ellos y solo trae `message`.
+       5 export function toErrorMessage(error: unknown): string {
+       7     return 'No se pudo guardar la simulación. Inténtalo de nuevo
+         .'
+       8   }
+      10   return details.length > 0 ? details.join(' · ') : error.messag
+         e
+     … +2 lines (ctrl+o to expand)
+
+● Update(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Removed 10 lines
+      27    return parsed.success ? parsed.data : null
+      28  }
+      29  
+      30 -// Un 400 conserva todos los `details` del contrato; un 404 (cl
+         -iente inexistente)                                             
+      31 -// llega sin ellos y solo trae `message`.                      
+      32 -export function toErrorMessage(error: unknown): string {       
+      33 -  if (!(error instanceof ApiError)) {                          
+      34 -    return 'No se pudo guardar la simulación. Inténtalo de nuev
+         -o.'                                                            
+      35 -  }                                                            
+      36 -  const details = error.details.map((detail) => detail.message)
+      37 -  return details.length > 0 ? details.join(' · ') : error.messa
+         -ge                                                             
+      38 -}                                                              
+      39 -                                                               
+      30  export interface SimulatorCardProps {
+      31    customerId: string
+      32    vatRateBps: number
+
+● Update(frontend\src\features\simulator\SimulatorCard.tsx)
+  ⎿  Added 1 line, removed 1 line
+       3  import { LoaderCircle } from 'lucide-react'
+       4  import { useForm, useWatch } from 'react-hook-form'
+       5  import { toast } from 'sonner'
+       6 -import { ApiError } from '@/api/client'                        
+       6  import { createSimulation } from '@/api/simulations'
+       7  import { Button } from '@/components/ui/button'
+       8  import { Card, CardContent, CardHeader, CardTitle } from '@/com
+          ponents/ui/card'
+       9  import { formatMoney } from '@/lib/money'
+      10  import { useCurrency } from '@/providers/currency-context'
+      11 +import { toErrorMessage } from './error-message'               
+      12  import { NumericField } from './NumericField'
+      13  import { ProjectionPanel } from './ProjectionPanel'
+      14  import { simulatorFormSchema, type SimulatorFormValues } from '
+          ./simulator-form-schema'
+
+● Splitting the test file to match, so the pure toErrorMessage tests live beside
+  their unit.
+
+● Write(frontend\src\features\simulator\error-message.spec.ts)
+  ⎿  Wrote 37 lines to
+     frontend\src\features\simulator\error-message.spec.ts
+       1 import { describe, expect, it } from 'vitest'
+       2 import { ApiError } from '@/api/client'
+       3 import type { ApiErrorDetail } from '@/api/types'
+       4 import { toErrorMessage } from './error-message'
+       5 
+         piError {
+       7   return new ApiError({
+       8     statusCode: 400,
+       9     error: 'Bad Request',
+      10     message,
+     … +36 lines (ctrl+o to expand)
+
+● Update(frontend\src\features\simulator\SimulatorCard.spec.tsx)
+  ⎿  Added 1 line, removed 2 lines
+       2  import { fireEvent, render, screen, waitFor } from '@testing-li
+          brary/react'
+       3  import type { ReactNode } from 'react'
+       4  import { beforeEach, describe, expect, it, vi } from 'vitest'
+       5 -import { ApiError } from '@/api/client'                        
+       5  import type { SimulationResponse } from '@/api/types'
+       6  import { CurrencyContext } from '@/providers/currency-context'
+       8 -import { SimulatorCard, toErrorMessage } from './SimulatorCard'
+       7 +import { SimulatorCard } from './SimulatorCard'                
+       8  
+       9  const createSimulation = vi.hoisted(() => vi.fn())
+      10  vi.mock('@/api/simulations', () => ({ createSimulation }))
+
+● Update(frontend\src\features\simulator\SimulatorCard.spec.tsx)
+  ⎿  Removed 33 lines
+      125      })
+      126    })
+      127  })
+      128 -                                                              
+      129 -describe('toErrorMessage', () => {                            
+      130 -  function apiError(message: string, details: { field: string;
+          - code: string; message: string }[]) {                         
+      131 -    return new ApiError({                                     
+      132 -      statusCode: 400,                                        
+      133 -      error: 'Bad Request',                                   
+      134 -      message,                                                
+      135 -      details,                                                
+      136 -      timestamp: '2026-07-16T10:00:00.000Z',                  
+      137 -      path: '/simulations',                                   
+      138 -    })                                                        
+      139 -  }                                                           
+      140 -                                                              
+      141 -  // El hallazgo de la auditoría: details[0] descartaba el res
+          -to de errores.                                                
+      142 -  it('conserva todos los detalles del contrato, no solo el pri
+          -mero', () => {                                                
+      143 -    const error = apiError('Validación fallida', [            
+      144 -      { field: 'activeUsers', code: 'ACTIVE_USERS_RANGE', mess
+          -age: 'Usuarios fuera de rango' },                             
+      145 -      { field: 'storageGb', code: 'STORAGE_RANGE', message: 'A
+          -lmacenamiento fuera de rango' },                              
+      146 -    ])                                                        
+      147 -                                                              
+      148 -    expect(toErrorMessage(error)).toBe('Usuarios fuera de rang
+          -o · Almacenamiento fuera de rango')                           
+      149 -  })                                                          
+      150 -                                                              
+      151 -  it('usa el mensaje del contrato cuando el error no trae deta
+          -lles (404)', () => {                                          
+      152 -    expect(toErrorMessage(apiError('Cliente no encontrado', []
+          -))).toBe('Cliente no encontrado')                             
+      153 -  })                                                          
+      154 -                                                              
+      155 -  it('degrada a un mensaje genérico si el fallo no es del cont
+          -rato', () => {                                                
+      156 -    expect(toErrorMessage(new TypeError('Failed to fetch'))).t
+          -oBe(                                                          
+      157 -      'No se pudo guardar la simulación. Inténtalo de nuevo.',
+      158 -    )                                                         
+      159 -  })                                                          
+      160 -})                                                            
+
+● Bash(rtk pnpm lint 2>&1 | tail -4 && echo "=== TEST ===" && rtk pnpm test 2>&1
+      | tail -5 && echo "=== BUILD ===" && rtk pnpm build 2>&1 | grep -E "built
+      in|error TS"…)
+  ⎿  > oxlint
+
+     src/components/ui/badge.tsx:49:17: warning react(only-export-component
+     … +14 lines (ctrl+o to expand)
+
+● Back to only the two pre-existing warnings, 161 tests. Checking the refactor
+  hit its size goal, then re-verifying live since the component structure
+  changed.
+
+● Bash(for f in src/features/simulator/*.tsx src/features/simulator/*.ts
+      src/components/FieldError.tsx; do echo "$(wc -l < $f) $f"; done)
+  ⎿  29 src/features/simulator/NumericField.tsx
+     69 src/features/simulator/ProjectionPanel.spec.tsx
+     39 src/features/simulator/ProjectionPanel.tsx
+     … +9 lines (ctrl+o to expand)
+
+● SimulatorCard went 207 → 109 lines; every file is well under the 250 limit.
+  Re-verifying the refactored UI live:
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Golden case intact after the refactor. Verifying NewCustomerPage too, since
+  the FieldError extraction touched it:
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● No regression — the shared FieldError renders inline errors and
+  aria-describedby resolves. Now writing the process docs. Reading the existing
+  formats first.
+
+  Read 1 file (ctrl+o to expand)
+
+● Note: the phase 7 audit explicitly accepted FieldError living inside its page.
+  That acceptance no longer holds once a second copy exists — I'll record the
+  reversal rather than quietly contradict it.
+
+  Read 1 file (ctrl+o to expand)
+
+● I'll add the phase 8 decision rows now.
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 6 lines
+      49  | 2026-07-16 | 7 | Países y planes del alta hardcodeados en `li
+          b/countries.ts` (lista cerrada RN-02 + 3 planes del seed) | End
+          point de catálogo `GET /countries` / `GET /plans` | La fase lo 
+          fija explícitamente; el formulario no depende de una llamada ex
+          tra y el servidor sigue siendo autoridad (`COUNTRY_UNKNOWN`/`PL
+          AN_UNKNOWN` revalidan) |
+      50  | 2026-07-16 | 7 | Mapeo de errores de API en el alta: 409 → me
+          nsaje fijo en `taxId`; `details` de 400 → `setError` campo a ca
+          mpo; resto → toast destructivo genérico | Mostrar siempre `erro
+          r.message` del servidor; banner global de error | La spec exige
+           el 409 en el campo `taxId`; los `details` traen `field` y enca
+          jan 1:1 con el formulario; el toast cubre fallos no mapeables s
+          in dejar estados en blanco |
+      51  | 2026-07-16 | 7 | Botón «Ir al simulador» hace scroll/focus to
+          lerante a `#simulador` (no-op si el ancla no existe todavía) | 
+          Ocultar el botón hasta fase 8; renderizar un placeholder del si
+          mulador | La fase pide el botón ahora y el simulador llega en f
+          ase 8; el no-op evita inventar UI provisional y el cableado que
+          da listo |
+      52 +| 2026-07-16 | 8 | Añadir `@testing-library/react`, `@testing-l
+         +ibrary/dom` y `jsdom` como devDependencies, con `environment: '
+         +jsdom'` y `setupFiles` en `vite.config.ts` | Extraer un view-mo
+         +del puro del panel y testear solo la función (sin deps) | La fa
+         +se exige un «test del componente de proyección» y el frontend n
+         +o podía renderizar nada en test (los 126 tests previos eran de 
+         +funciones puras). El view-model puro no habría verificado el re
+         +nder, el `aria-live` ni el cableado JSX. Propuesto y aprobado p
+         +or Diego antes de tocar archivos |                             
+      53 +| 2026-07-16 | 8 | Stub mínimo de `ResizeObserver` en `src/test
+         +/setup.ts` | `jsdom-testing-mocks` u otra dependencia de polyfi
+         +lls | El slider de Radix exige `ResizeObserver` al montar y jsd
+         +om no lo implementa; los tests afirman sobre valores, no sobre 
+         +la geometría del thumb. Tres métodos vacíos evitan una dependen
+         +cia entera |                                                   
+      54 +| 2026-07-16 | 8 | `parseIntegerInput` **rechaza** lo que no se
+         +a un entero con separadores de miles (`"1,5"` → `null`) en vez 
+         +de descartar los caracteres sobrantes | Compactar con `replace(
+         +/\D/g, '')` (implementación inicial) | Descartar la coma conver
+         +tía «1,5 GB» en «15 GB»: un cambio silencioso de magnitud ×10 e
+         +n un campo que se persiste. Detectado por su propio test antes 
+         +de integrarse |                                                
+      55 +| 2026-07-16 | 8 | La proyección se retira (mensaje en vez de t
+         +abla) cuando `activeUsers` sale del rango del contrato, reutili
+         +zando `simulatorFormSchema.shape.activeUsers` como única fuente
+         + del rango | Proyectar igualmente cualquier entero; repetir los
+         + límites 1–100.000 en el componente | Proyectar un valor que el
+         + servidor rechazaría es engañoso; reusar el schema evita que lo
+         +s límites de `validaciones.md` vivan en dos sitios |           
+      56 +| 2026-07-16 | 8 | Tabla de desglose compartida (`CostBreakdown
+         +Table`) entre el histórico (cálculo del servidor) y la proyecci
+         +ón (réplica ADR-08), con `CostBreakdownLine` como contrato de p
+         +rops propio | Duplicar la tabla en el simulador; tipar las prop
+         +s con `SimulationTierLine` (api) o `TierLine` (dominio) | Mismo
+         + render en ambos lados hace la paridad cliente/servidor estruct
+         +ural y no accidental; un tipo de props propio evita acoplar el 
+         +componente a `api/types.ts` o a `domain/`, que es la misma razó
+         +n por la que la fase 6 rechazó unificar esos dos tipos |       
+      57 +| 2026-07-16 | 8 | El toast de error del simulador concatena **
+         +todos** los `details[]` del contrato (`join(' · ')`) y cae a `e
+         +rror.message` cuando no hay | Mapear `details` a los campos con
+         + `setError` (patrón del alta, fase 7) | La fase 8 exige explíci
+         +tamente «toast destructivo con mensaje del contrato de error»; 
+         +mapear a campos sin toast la incumpliría. Hallazgo de la audito
+         +ría: la versión inicial usaba `details[0]` y descartaba el rest
+         +o en silencio |                                                
+      58  
+      59  ## Checklist final contra la rúbrica (completar en fase 9)
+      60  
+
+● Now the audit entry, including the phase 7 reversal.
+
+  Read 1 file (ctrl+o to expand)
+
+● Final verification before committing, and checking what's staged:
+
+● Bash(rtk pnpm lint 2>&1 | tail -3 && echo "=== TEST ===" && rtk pnpm test 2>&1
+      | tail -4 && echo "=== BUILD ===" && rtk pnpm build 2>&1 | grep -E "built
+      in|error TS"…)
+  ⎿  src/components/ui/badge.tsx:49:17: warning react(only-export-component
+     s): Fast refresh only works when a file only exports components. Use a
+      new file to share constants or functions between components.
+     … +22 lines (ctrl+o to expand)
+
+● All green. Committing the phase.
+
+● Bash(cd C:/Users/dpastorhe/Coding/personal/saas-o-matic && rtk git add
+      ai-workspace frontend && rtk git commit -F- << 'EOF'
+      feat(front): simulador interactivo con pr…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 24 files changed, 1169 insertions(+), 51 deletions(-)
+     … +3 lines (ctrl+o to expand)
+
+● Bash(cd C:/Users/dpastorhe/Coding/personal/saas-o-matic && rtk git log -1
+      --format="%H%n%an <%ae>%n%s" && echo "--- trailers check ---" && git log
+      -1 --format="%B" |…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     43c32cb5f27b27206fdc097209695c9664fb7110
+     … +7 lines (ctrl+o to expand)
+
+● Cleaning up the dev servers I started.
+
+● PowerShell(foreach ($port in 3000, 5173) { $conn = Get-NetTCPConnection
+            -LocalPort $port -State Listen -ErrorAction SilentlyContinue; if
+            ($conn) { Stop-Process -Id $conn.O…)
+  ⎿  stopped :3000
+     stopped :5173
+
+● Fase 8 cerrada y commiteada (43c32cb). Los cuatro criterios de aceptación se
+  cumplen y están verificados en navegador, no solo en tests.
+
+  Criterios de aceptación
+
+  ┌─────────────────────────────────┬───────────────────────────────────────┐
+  │            Criterio             │               Evidencia               │
+  ├─────────────────────────────────┼───────────────────────────────────────┤
+  │                                 │ Lista de requests idéntica antes y    │
+  │ Slider sin peticiones de red    │ después de mover el slider por        │
+  │                                 │ teclado                               │
+  ├─────────────────────────────────┼───────────────────────────────────────┤
+  │ 15 usuarios ES → 140 € base /   │ Proyección y fila persistida byte a   │
+  │ 169,40 €; paridad con el        │ byte idénticas al expandir el         │
+  │ histórico                       │ desglose                              │
+  ├─────────────────────────────────┼───────────────────────────────────────┤
+  │ Cambio de divisa coherente      │ Panel e histórico convierten juntos   │
+  │                                 │ (EUR → GBP → USD)                     │
+  ├─────────────────────────────────┼───────────────────────────────────────┤
+  │ Doble click no duplica          │ Un solo POST tras dblclick; botón     │
+  │                                 │ deshabilitado con spinner en vuelo    │
+  └─────────────────────────────────┴───────────────────────────────────────┘
+
+  Extra verificado: ruta de error con el backend caído de verdad (toast
+  destructivo), 360 px sin scroll horizontal, y el botón «Ir al simulador» de la
+  fase 7 ahora resuelve (su ancla #simulador no existía).
+
+  Archivos
+
+  Nuevos: features/simulator/ (SimulatorCard, ProjectionPanel, UsersField,
+  NumericField, numeric-input.ts, error-message.ts, simulator-form-schema.ts + 4
+  specs), features/customers/CostBreakdownTable.tsx, components/FieldError.tsx,
+  lib/number-format.ts + spec, test/setup.ts.
+  Modificados: CustomerDetailPage, SimulationRow, NewCustomerPage,
+  vite.config.ts, package.json, y los dos docs de proceso.
+
+  Verificación: lint limpio (solo los 2 warnings preexistentes de shadcn), 161 
+  tests, build OK.
+
+  Dos cosas que merecen tu atención
+
+  Un bug real cazado por un test: parseIntegerInput compactaba con
+  replace(/\D/g, ''), convirtiendo "1,5" en 15 — un ×10 silencioso en un campo
+  que se persiste. Ahora rechaza en vez de compactar.
+
+  Reversión consciente de la fase 7: aquella auditoría aceptó FieldError
+  viviendo dentro de su página ("helpers < 15 líneas conviven con su página").
+  Esa excepción se justificaba con un solo uso; con dos copias literales manda
+  DRY. Lo registré como reversión explícita en auditorias.md en vez de
+  contradecirlo en silencio.
+
+  También rechacé dos propuestas por spec: mapear los details[] a campos con
+  setError (la fase exige toast) y unificar CostBreakdownLine con los tipos de
+  API/dominio (invertiría la dependencia). Ambas quedan documentadas con su
+  motivo.
+
+  La decisión de testing-library + jsdom que me pediste registrar está en
+  registro-decisiones.md junto con las otras cinco de la fase, incluida la
+  alternativa descartada (view-model puro) y por qué no bastaba.
+
+✻ Worked for 2m 8s
