@@ -2121,3 +2121,161 @@ code 1
   el criterio del CI?
 
 ✻ Worked for 7m 22s
+
+❯ Acabo de hacer push a main, revisa el ci para ver que pasa correctamente      
+
+● Miro el run de CI.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; git
+            log --oneline -1; Write-Output "=== runs ==="; gh run list --limit
+            5 2>&1)
+  ⎿  1bbf5e0 docs(proceso): transcripción de la sesión de la fase 9
+     === runs ===
+     in_progress                docs(proceso): transcripción de la sesión de la
+     9  CI      mai
+     n  push    29582536523     1m4s    2026-07-17T13:03:53Z
+
+● CI en marcha. Espero a que termine.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; gh
+            run watch 29582536523 --exit-status 2>&1 | Select-Object -Last 20;
+            Write-Output "WATCH_EXIT=$…)
+  ⎿    ✓ Run actions/setup-node@v4
+       ✓ Install
+       ✓ Lint
+     … +21 lines (ctrl+o to expand)
+  ⎿  (timeout 10m)
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; gh
+            run view 29582536523 2>&1 | Select-Object -First 20)
+  ⎿  ✓ main CI · 29582536523
+     Triggered via push about 10 minutes ago
+     … +18 lines (ctrl+o to expand)
+  ⎿  (timeout 2m)
+
+● CI en verde. Ambos jobs pasan: backend (lint · test · e2e) 2m16s, frontend
+  (lint · test · build) 30s.
+
+  Con esto queda cerrado el último criterio de aceptación que tenía declarado
+  como no verificado. Actualizo el checklist de rúbrica, que ahora está
+  desactualizado.
+
+  Sobre los avisos (ninguno rompe nada):
+
+  - Los 2 de oxlint en button.tsx/badge.tsx son los warnings preexistentes de
+  los ficheros generados por shadcn — acotados a propósito desde la fase 6.
+  - Node.js 20 is deprecated: es sobre el runtime de las actions (checkout,
+  setup-node, pnpm/action-setup), que GitHub ya fuerza a Node 24. No afecta al
+  node-version: 20 con el que se ejecutan tus tests, que es lo que el README
+  promete. Se silencia subiendo a @v5, pero eso es cambio de infraestructura, no
+  de la fase.
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)  ⎿  Added 1 line, removed 1 line
+      73  - [x] **Estados carga/error/fallback de la API de divisas demos
+          trables.** Los tres reproducidos en vivo bloqueando el proveedo
+          r: `loading` (spinner), `stale` con caché → banner «Tipos de ca
+          mbio del 17/7/2026 (sin conexión con el proveedor)» manteniendo
+           el selector operativo con la última tasa (captura en `docs/cap
+          turas/divisas-degradacion.png`) y `unavailable` sin caché → «Si
+          n tipos de cambio: importes en EUR», divisa forzada a EUR y sel
+          ector deshabilitado.
+      74  - [x] **README: clon limpio arranca en ≤ 5 comandos (cronometra
+          do).** `git clone` a una carpeta nueva y sólo los comandos del 
+          README: backend `pnpm install` + `pnpm db:setup` = **11 s**, fr
+          ontend `pnpm install` = **4 s**. API con los 3 clientes demo, S
+          wagger en `/docs` (200) y dashboard sirviendo. Sin pasos no esc
+          ritos ni `.env` que rellenar. Alternativa `docker compose up --
+          build` verificada por separado (backend healthy, seed sobre el 
+          volumen, front sirviendo).
+      75  
+      76 -**No verificado:** «CI en verde en GitHub». El workflow está es
+         -crito y sus pasos se han ejecutado uno a uno en local (backend:
+         - `lint:ci` 0 warnings, 106 unit, 30 e2e; frontend: lint, 161 un
+         -it, build), pero **no se ha hecho push**, así que no hay ejecuc
+         -ión real de Actions que lo demuestre.                          
+      76 +- [x] **CI en verde en GitHub.** Run [29582536523](https://gith
+         +ub.com/MrFlackstone/saas-o-matic/actions/runs/29582536523) sobr
+         +e `main`: Backend (lint · test · e2e) ✓ 2m16s · Frontend (lint 
+         +· test · build) ✓ 30s. Los únicos avisos son los 2 warnings pre
+         +existentes de oxlint en los shadcn generados y el de deprecació
+         +n del runtime Node 20 de las propias actions (no afecta al `nod
+         +e-version: 20` con el que corren los tests).                   
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; $c
+            = Get-Content "ai-workspace\04-proceso\registro-decisiones.md"; $i =
+            ($c | Select-String "Che…)
+  ⎿  ## Checklist final contra la rÃºbrica  Â·  verificado 2026-07-17
+
+     - [x] **ValidaciÃ³n fiscal: tabla de fixtures en verde (backend y fron
+     … +14 lines (ctrl+o to expand)
+
+● Hay una línea en blanco suelta antes del ítem de CI. La quito.
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Removed 1 line
+      72  - [x] **Responsive 360 px sin scroll horizontal.** Medido en da
+          shboard, alta y detalle: `scrollWidth === clientWidth` en los t
+          res (360/360, 360/360, 345/345).
+      73  - [x] **Estados carga/error/fallback de la API de divisas demos
+          trables.** Los tres reproducidos en vivo bloqueando el proveedo
+          r: `loading` (spinner), `stale` con caché → banner «Tipos de ca
+          mbio del 17/7/2026 (sin conexión con el proveedor)» manteniendo
+           el selector operativo con la última tasa (captura en `docs/cap
+          turas/divisas-degradacion.png`) y `unavailable` sin caché → «Si
+          n tipos de cambio: importes en EUR», divisa forzada a EUR y sel
+          ector deshabilitado.
+      74  - [x] **README: clon limpio arranca en ≤ 5 comandos (cronometra
+          do).** `git clone` a una carpeta nueva y sólo los comandos del 
+          README: backend `pnpm install` + `pnpm db:setup` = **11 s**, fr
+          ontend `pnpm install` = **4 s**. API con los 3 clientes demo, S
+          wagger en `/docs` (200) y dashboard sirviendo. Sin pasos no esc
+          ritos ni `.env` que rellenar. Alternativa `docker compose up --
+          build` verificada por separado (backend healthy, seed sobre el 
+          volumen, front sirviendo).
+      75 -                                                               
+      75  - [x] **CI en verde en GitHub.** Run [29582536523](https://gith
+          ub.com/MrFlackstone/saas-o-matic/actions/runs/29582536523) sobr
+          e `main`: Backend (lint · test · e2e) ✓ 2m16s · Frontend (lint 
+          · test · build) ✓ 30s. Los únicos avisos son los 2 warnings pre
+          existentes de oxlint en los shadcn generados y el de deprecació
+          n del runtime Node 20 de las propias actions (no afecta al `nod
+          e-version: 20` con el que corren los tests).
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git add
+      ai-workspace/04-proceso/registro-decisiones.md && git commit -q -F -
+      <<'EOF'
+      docs(proceso): cier…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok 1 file changed, 1 insertion(+), 2 deletions(-)
+     … +5 lines (ctrl+o to expand)
+
+● Fase 09 completa: los 4 criterios de aceptación cumplidos y verificados, ya
+  sin salvedades.
+
+  ┌───────────────────────────────────┬─────────────────────────────────────┐
+  │             Criterio              │              Evidencia              │
+  ├───────────────────────────────────┼─────────────────────────────────────┤
+  │ Clon limpio arranca solo con el   │ 11 s backend + 4 s frontend,        │
+  │ README                            │ API/Swagger/dashboard OK            │
+  ├───────────────────────────────────┼─────────────────────────────────────┤
+  │ CI en verde en GitHub             │ Run 29582536523, ambos jobs ✓       │
+  ├───────────────────────────────────┼─────────────────────────────────────┤
+  │ Cero console.log/any/ts-ignore en │ Barrido limpio en ambos proyectos   │
+  │  src/                             │                                     │
+  ├───────────────────────────────────┼─────────────────────────────────────┤
+  │ Checklist de rúbrica con          │ 7/7 en registro-decisiones.md       │
+  │ evidencia enlazada                │                                     │
+  └───────────────────────────────────┴─────────────────────────────────────┘
+
+  Commiteado en e81fa1c (queda sin push, como el resto — dime si lo subo).
+
+  Lo que ha demostrado el CI que no podía demostrar en local: que db:setup
+  reconstruye la BD desde cero en un runner limpio y que los 30 e2e pasan ahí.
+  Era justo el punto donde vivía el bug del seed con DATABASE_URL.
+
+  Único cabo suelto opcional: las actions van con runtime Node 20 deprecado
+  (GitHub ya las fuerza a 24). Subirlas a @v5 silencia el aviso, pero no urge y
+  no es trabajo de esta fase.
+
+✻ Sautéed for 2m 41s
