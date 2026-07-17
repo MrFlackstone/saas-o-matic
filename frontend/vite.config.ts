@@ -14,5 +14,13 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    // e2e/ lo ejecuta Playwright, no vitest.
+    include: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],
+    coverage: {
+      provider: 'v8',
+      // El 100 % exigido aplica al dominio puro (réplica de pricing y fiscal).
+      include: ['src/domain/**/*.ts'],
+      thresholds: { statements: 100, branches: 100, functions: 100, lines: 100 },
+    },
   },
 })

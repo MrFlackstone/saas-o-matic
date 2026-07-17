@@ -3,7 +3,9 @@ import { TierLine } from '../src/domain/pricing/types';
 import { PrismaClient } from '../src/generated/prisma/client';
 
 const prisma = new PrismaClient({
-  adapter: new PrismaBetterSqlite3({ url: 'file:./prisma/dev.db' }),
+  adapter: new PrismaBetterSqlite3({
+    url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db',
+  }),
 });
 
 const countries = [

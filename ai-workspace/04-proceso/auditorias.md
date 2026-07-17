@@ -196,3 +196,24 @@ Verificación re-ejecutada tras los fixes: lint ✔ (solo los 2 warnings preexis
 ### Propuestas de la IA rechazadas o corregidas
 - Unificar `CostBreakdownLine` con `SimulationTierLine` (api) o `TierLine` (dominio): rechazada — es el contrato de props del componente; acoplarlo a cualquiera de los dos invertiría la dependencia y contradiría lo ya decidido en la auditoría de fase 6.
 - Mapear los `details[]` del error a los campos con `setError` (patrón del alta): rechazada — la fase 8 exige "toast destructivo con mensaje del contrato de error"; el mapeo silencioso a campos incumpliría el criterio. Se conserva el toast y se concatenan los detalles.
+
+## Fase 9 — Pulido, README, CI y entrega  ·  2026-07-17
+
+Alcance: artefactos de entrega de la fase (README, CI, Docker, smoke e2e, cobertura) + barrido de calidad de todo el repo. Barrido global limpio: cero console.log/ny/@ts-ignore/eslint-disable en ackend/src y rontend/src; ningún archivo > 250 líneas; ningún controller toca Prisma; domain/ sigue sin imports de framework en ambos lados. Los únicos `Math.round` en dominio son el redondeo half-up de RN-02 sobre enteros (no hay float en cálculo monetario).
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| alta | backend/prisma/seed.ts:5 | El seed hardcodeaba `file:./prisma/dev.db` mientras `prisma.config.ts` y `PrismaService` sí respetan `DATABASE_URL`: con la variable puesta, `db:setup` migraba una BD y sembraba otra (silenciosamente). Bloqueaba el contenedor, que sirve la BD desde `/data` | corregido: el seed lee `process.env.DATABASE_URL` con el mismo fallback que los otros dos puntos |
+| alta | backend/Dockerfile | `corepack enable` sin fijar versión activa la última pnpm (v11), que no arranca en Node 20: `ERR_UNKNOWN_BUILTIN_MODULE` y build roto | corregido: `corepack prepare pnpm@10.31.0 --activate` (la versión del lockfile) en ambos Dockerfiles |
+| alta | backend/Dockerfile | Asumí que `better-sqlite3` resolvería por prebuild en `bookworm-slim`; no lo hace: cae a node-gyp y el build muere sin toolchain. El comentario del Dockerfile afirmaba lo contrario | corregido: `python3 make g++` instalados y comentario reescrito para decir la verdad |
+| media | frontend/Dockerfile | `ARG VITE_API_URL` sin default: Docker expone los ARG al entorno del `RUN`, así que un `--build-arg VITE_API_URL=` vacío llega como `''` y `'' ?? fallback` devuelve `''` (el fallback solo cubre null/undefined) → bundle apuntando a ninguna parte | corregido: default explícito `http://localhost:3000` |
+| media | frontend/vite.config.ts | Sin `include`, vitest recogería `e2e/*.spec.ts` (tests de Playwright) y fallaría | corregido: `include` acotado a `src/**` |
+| baja | frontend/e2e/ | `tsc -b` no cubría `e2e/` ni `playwright.config.ts` (fuera de los include de los tsconfig existentes): código sin typecheck | corregido: `tsconfig.e2e.json` referenciado desde `tsconfig.json` |
+| baja | backend/package.json | `pnpm lint` es `eslint --fix`: como gate de CI auto-arregla en vez de fallar, así que nunca detectaría nada arreglable | corregido: `lint:ci` (sin `--fix`, `--max-warnings 0`) es lo que ejecuta el workflow |
+
+Aceptado sin cambio: el smoke de Playwright depende de la API real de divisas (`open.er-api.com`) en el paso de USD y crea un cliente real en la BD de dev en cada pasada (`reuseExistingServer: true` reutiliza el backend que ya tengas levantado). Es un smoke local de un solo recorrido, no un gate de CI: aislarlo con una BD propia obligaría a `reuseExistingServer: false`, que revienta si ya tienes el backend en el 3000 — justo el escenario del README.
+
+### Propuestas de la IA rechazadas o corregidas
+- Capturas en `ai-workspace/04-proceso/capturas/`: rechazada — ese directorio se eliminó a propósito en la fase 8 (commit `d29c251`). Las capturas viven en `docs/capturas/`.
+- Cobertura del `domain/` del frontend "inferida por paridad" con el backend (port 1:1 con suite espejo): rechazada por Diego — se añade `@vitest/coverage-v8` y se mide de verdad, con umbral al 100 % en config para que no se degrade en silencio.
