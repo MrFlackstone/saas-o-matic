@@ -2,8 +2,9 @@ import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import type { SimulationResponse } from '@/api/types'
 import { formatDateTime } from '@/lib/dates'
-import { formatMoney, formatVatRate } from '@/lib/money'
+import { formatMoney } from '@/lib/money'
 import { useCurrency } from '@/providers/currency-context'
+import { CostBreakdownTable } from './CostBreakdownTable'
 
 export function SimulationRow({ simulation }: { simulation: SimulationResponse }) {
   const { currency, rate } = useCurrency()
@@ -40,42 +41,14 @@ export function SimulationRow({ simulation }: { simulation: SimulationResponse }
       </button>
       {expanded && (
         <div id={detailId} className="border-t p-4">
-          <table className="w-full text-sm">
-            <caption className="sr-only">Desglose de la simulación</caption>
-            <tbody>
-              {simulation.breakdown.map((line) => (
-                <tr key={line.tier}>
-                  <td className="text-muted-foreground py-1">
-                    Tramo {line.tier} (usuarios {line.fromUser}–{line.toUser}): {line.users} ×{' '}
-                    {formatMoney(line.unitCents, currency, rate)}
-                  </td>
-                  <td className="py-1 text-right">
-                    {formatMoney(line.amountCents, currency, rate)}
-                  </td>
-                </tr>
-              ))}
-              <tr className="border-t">
-                <td className="py-1 font-medium">Base</td>
-                <td className="py-1 text-right font-medium">
-                  {formatMoney(simulation.baseCents, currency, rate)}
-                </td>
-              </tr>
-              <tr>
-                <td className="text-muted-foreground py-1">
-                  IVA ({formatVatRate(simulation.vatRateBps)})
-                </td>
-                <td className="py-1 text-right">
-                  {formatMoney(simulation.taxCents, currency, rate)}
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="py-1 font-semibold">Total</td>
-                <td className="py-1 text-right font-semibold">
-                  {formatMoney(simulation.totalCents, currency, rate)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <CostBreakdownTable
+            caption="Desglose de la simulación"
+            lines={simulation.breakdown}
+            baseCents={simulation.baseCents}
+            vatRateBps={simulation.vatRateBps}
+            taxCents={simulation.taxCents}
+            totalCents={simulation.totalCents}
+          />
         </div>
       )}
     </li>

@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { SimulatorCard } from '@/features/simulator/SimulatorCard'
 import { countryFlag } from '@/lib/countries'
 import { formatVatRate } from '@/lib/money'
 import { SimulationHistory } from './SimulationHistory'
@@ -102,6 +103,8 @@ export function CustomerDetailPage() {
           </dl>
         </CardContent>
       </Card>
+
+      <SimulatorCard customerId={customer.id} vatRateBps={customer.country.vatRateBps} />
 
       <SimulationHistory customerId={customer.id} />
     </section>

@@ -173,3 +173,26 @@ Verificación re-ejecutada tras los fixes: lint ✔ (solo los 2 warnings preexis
 
 ### Propuestas de la IA rechazadas o corregidas
 - Ninguna en esta fase: los siete hallazgos accionables se corrigieron según lo propuesto.
+
+## Fase 8 — Simulador interactivo  ·  2026-07-16
+
+Alcance: diff de la fase (`features/simulator/`, `CostBreakdownTable` extraído de `SimulationRow`, `lib/number-format.ts`, infraestructura de test de componentes). Capas correctas (`domain/pricing` sigue puro; HTTP solo en `api/`); sin `any`/`@ts-ignore`/`console.log` ni código muerto; cero aritmética monetaria en componentes (toda conversión via `lib/money.ts`; `toSliderPosition` opera sobre usuarios, no importes); `simulator-form-schema` cuadra 1:1 con `validaciones.md` (líneas 82–84).
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| media | features/simulator/SimulatorCard.tsx | Los tres campos numéricos repetían el mismo bloque `Controller`+`Input`+`FieldError` (formato de miles y parseo idénticos ×3); el archivo llegaba a 207 líneas con dos responsabilidades | corregido: cableado común en `numeric-input.ts` + `NumericField.tsx` (campos simples) y `UsersField.tsx` (layout inline + slider). `SimulatorCard` 207 → 109 líneas |
+| media | features/simulator/SimulatorCard.tsx + features/customers/NewCustomerPage.tsx | `FieldError` duplicado **literalmente** en dos archivos | corregido: `components/FieldError.tsx` compartido. Revierte la excepción aceptada en la auditoría de fase 7 ("helpers presentacionales < 15 líneas conviven con su página"): esa excepción se justificaba con un único uso; con dos copias el criterio que manda es DRY |
+| baja | features/simulator/SimulatorCard.tsx | `error.details[0]?.message` descartaba en silencio el resto de `details[]` del contrato: con >1 error de campo el usuario solo veía el primero | corregido: `error-message.ts` con `toErrorMessage` (concatena todos los detalles; `error.message` como fallback del 404) + 3 tests |
+| baja | features/simulator/ | Sin test automatizado de `SimulatorCard`: sincronía slider↔input, clamp >500 y guard de doble submit solo cubiertos por la verificación manual de la sesión. La fase solo exigía el test del panel, así que no era incumplimiento, pero era la parte sin red de seguridad | corregido: `SimulatorCard.spec.tsx` (6 tests: teclado, clamp a 500, retirada de la proyección fuera de rango, un solo envío con doble click, submit bloqueado si el form es inválido, reset tras guardar) |
+| baja | features/simulator/SimulatorCard.tsx | Exportar `toErrorMessage` junto al componente introdujo un warning nuevo de oxlint (`only-export-components`) — el mismo que la fase 6 decidió mantener acotado a los shadcn generados | corregido: función movida a `error-message.ts`; el lint vuelve a los 2 warnings preexistentes |
+
+Detectado durante la fase (previo a la auditoría): `parseIntegerInput` compactaba con `replace(/\D/g, '')`, lo que convertía `"1,5"` en `15` — cambio silencioso de magnitud en un campo persistido. Su propio test lo cazó antes de integrarse; la función pasa a rechazar en vez de compactar (decisión registrada).
+
+Aceptado sin cambio: `role="status"` + `aria-live="polite"` es técnicamente redundante, pero `spec-frontend.md:55` exige `aria-live` de forma explícita y la spec manda sobre la optimización.
+
+Verificación re-ejecutada tras los fixes: lint ✔ (solo los 2 warnings preexistentes de shadcn) · unit 161/161 ✔ · build ✔. Recorrido live con Playwright contra el backend sembrado, repetido **después** del refactor: caso dorado en EUR (tramo 1: 10 × 10,00 € = 100,00 €; tramo 2: 5 × 8,00 € = 40,00 €; base 140,00 €, IVA (21 %) 29,40 €, total 169,40 €), cero peticiones de red al mover el slider (lista de requests idéntica antes y después), paridad exacta proyección↔fila persistida al expandir el desglose, conversión coherente de panel e histórico a GBP, un único POST con doble click, toast destructivo real con el backend caído (`ERR_CONNECTION_REFUSED`) y botón deshabilitado con spinner en vuelo, y 360 px sin scroll horizontal (`scrollWidth === clientWidth`). Alta de cliente revalidada tras extraer `FieldError`: errores inline y `aria-describedby` resolviendo a elementos reales.
+
+### Propuestas de la IA rechazadas o corregidas
+- Unificar `CostBreakdownLine` con `SimulationTierLine` (api) o `TierLine` (dominio): rechazada — es el contrato de props del componente; acoplarlo a cualquiera de los dos invertiría la dependencia y contradiría lo ya decidido en la auditoría de fase 6.
+- Mapear los `details[]` del error a los campos con `setError` (patrón del alta): rechazada — la fase 8 exige "toast destructivo con mensaje del contrato de error"; el mapeo silencioso a campos incumpliría el criterio. Se conserva el toast y se concatenan los detalles.

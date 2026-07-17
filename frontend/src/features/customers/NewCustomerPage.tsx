@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { ApiError } from '@/api/client'
 import { createCustomer } from '@/api/customers'
+import { FieldError } from '@/components/FieldError'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -24,17 +25,6 @@ type FormField = (typeof FORM_FIELDS)[number]
 
 function isFormField(field: string): field is FormField {
   return (FORM_FIELDS as readonly string[]).includes(field)
-}
-
-function FieldError({ id, message }: { id: string; message?: string }) {
-  if (!message) {
-    return null
-  }
-  return (
-    <p id={id} role="alert" className="text-destructive text-sm">
-      {message}
-    </p>
-  )
 }
 
 export function NewCustomerPage() {
