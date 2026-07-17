@@ -1,0 +1,2123 @@
+ ▐▛███▜▌   Claude Code v2.1.212
+▝▜█████▛▘  Opus 4.8 · Claude Max
+  ▘▘ ▝▝    ~\Coding\personal\saas-o-matic
+
+  ⎿  SessionStart:startup says: [saas-o-matic] recent context, 2026-07-17 9:49am
+      GMT+2
+     ────────────────────────────────────────────────────────────
+
+     Legend: session-request | 🔴 bugfix | 🟣 feature | 🔄 refactor | ✅ change 
+     | 🔵 discovery | ⚖️ decision
+
+     Column Key
+       Read: Tokens to read this observation (cost to learn it now)
+       Work: Tokens spent on work that produced this record ( research, 
+     building, deciding)
+
+     Context Index: This semantic index (titles, types, files, tokens) is 
+     usually sufficient to understand past work.
+
+     When you need implementation details, rationale, or debugging context:
+       - Fetch by ID: get_observations([IDs]) for observations visible in this 
+     index
+       - Search history: Use the mem-search skill for past decisions, bugs, and 
+     deeper research
+       - Trust this index over re-reading code for past decisions and learnings
+
+     Context Economics
+       Loading: 50 observations (17.308 tokens to read)
+       Work investment: 118.588 tokens spent on research, building, and 
+     decisions
+       Your savings: 85% reduction from reuse
+
+     Jul 16, 2026
+
+     #S455 Implementar módulo Customers completo (POST/GET/GET:id) con
+     validación fiscal, códigos de error semánticos y VALIDATION_ERROR como 
+     fallback para casos no especificados — registrar esta decisión formalmente 
+     (Jul 16, 1:33 PM)
+
+     #S456 Fase 05: Implement simulations module (POST /simulations + GET
+     /customers/:id/simulations) with pricing engine integration, tests, and 
+     live verification (Jul 16, 1:49 PM)
+
+     #S457 Registrar decisiones propuestas de las fases 0–5 del proyecto
+     saas-o-matic en el registro de decisiones (Jul 16, 4:08 PM)
+
+     #S458 Auditoría de fase 5 (API de simulaciones) del backend saas-o-matic —
+     hallazgos identificados, pendiente confirmación de fixes (Jul 16, 4:10 PM)
+
+     #S459 Phase 5 audit of Simulations API — fix e2e test defects and close the
+     audit (Jul 16, 4:12 PM)
+
+     #S460 saas-o-matic Phase 6: Frontend base infrastructure, typed API layer,
+     currency system with degradation, and pricing domain replica (Jul 16, 4:15 
+     PM)
+
+     #S461 Phase 6 frontend code audit ("auditoria") — review of 19 files in the
+     frontend diff for correctness, architecture, security, and spec compliance
+     (Jul 16, 4:41 PM)
+
+     #S462 Phase 07: Frontend customer management UI — dashboard with search,
+     new customer form with Spanish tax-id validation, customer detail page with
+     simulation history (Jul 16, 4:46 PM)
+
+     #S463 Phase 7 saas-o-matic frontend — Dashboard, New Customer Form,
+     Customer Detail with full audit cycle and all 7 fixes applied (Jul 16, 5:13
+     PM)
+
+     General
+       #6329  10:44 PM  🟣  Phase 08 Complete — Full Test Suite Green (152
+     Tests)  
+       #6330            🔵  Production Build Succeeds with Single Large Chunk
+     Warning  
+       #6331  10:45 PM  🔵  Full Stack Dev Environment Running for Phase 08
+     Verification  
+       #6332            🟣  SimulatorCard Verified End-to-End in Browser
+       #6333            🟣  Currency Switch Confirmed — Projection Updates Live
+     from USD to EUR  
+       #6334  10:46 PM  🔵  Network Requests Confirm No Server Round-Trip for
+     Live Projection  
+       #6335            🟣  Slider Interaction Updates Projection Instantly with
+     No Network Calls  
+       #6336            🔵  Slider ARIA Attributes Correct — aria-valuenow and
+     aria-valuemax Verified  
+       #6337            🟣  Max Users Boundary Verified — Slider Clamps at 500
+     While Input and Projection Reflect 100,000  
+       #6338            🟣  Out-of-Range Input Validation Verified End-to-End in
+     Browser  
+       #6339  10:47 PM  🟣  Save Simulation Verified — Single POST Despite
+     Double-Click, History Refreshed  
+       #6340            🟣  New Simulation Appears at Top of History After Save
+      
+       #6341            🟣  Simulator-History Parity Confirmed — Identical
+     Breakdown Rows from Shared Component  
+     frontend/src/pages/clientes/[clienteId].tsx
+       #6342  10:53 PM  🔵  Multi-Currency Pricing Simulator Verified with GBP
+     General
+       #6343  10:54 PM  🔵  Save Simulation Fails with Console Error When
+     Backend Is Down  
+       #6344            🔵  Missing User-Facing Error Message When Simulation
+     Save Fails  
+       #6345            🔵  Sonner Toast Library Installed but No Error Toast
+     Fired on Save Failure  
+       #6346            🔵  Simulation Save Posts to
+     http://localhost:3000/simulations — ERR_CONNECTION_REFUSED When Backend 
+     Down  
+       #6347            🟣  Save Simulation Has Full Loading State and Error
+     Toast — Working Correctly  
+       #6348  10:55 PM  🔵  Backend Health Endpoint and Dev Start Command
+     Confirmed  
+       #6349            🟣  Simulation Save Success Toast Shows Calculated Total
+     in Selected Currency  
+       #6350            🔵  Phase 08 Includes Mobile Responsive Testing at
+     360×740 Viewport  
+     frontend/src/features/simulator/SimulatorCard.tsx
+       #6351            🟣  SimulatorCard.tsx — Full Implementation of Phase 08
+     Pricing Simulator  
+     General
+       #6352            🔵  No Horizontal Overflow at 360px Mobile Viewport
+     frontend/src/features/simulator/SimulatorCard.tsx
+       #6353  10:56 PM  🔵  Phase 08 Simulator Feature File Inventory with Line
+     Counts  
+     frontend/tsconfig.app.json
+       #6354            🔵  Frontend TypeScript Config Uses strict +
+     noUnusedLocals but Not noUncheckedIndexedAccess  
+     #S464 Phase 08 (/nueva-fase 08) — Interactive Pricing Simulator: E2E
+     verification, audit, and code review of the completed simulator feature 
+     (Jul 16, 10:56 PM)
+
+     frontend/src/components/FieldError.tsx
+       #6355  11:02 PM  🟣  FieldError reusable form validation component
+     created  
+     frontend/src/features/simulator/numeric-input.ts
+       #6356            🟣  numericInputProps helper extracted for simulator
+     numeric fields  
+     frontend/src/features/simulator/NumericField.tsx
+       #6357            🟣  NumericField compound component composes label +
+     input + error into one unit  
+     frontend/src/features/simulator/UsersField.tsx
+       #6358            🟣  UsersField combines slider + numeric input for
+     activeUsers with clamped sync  
+     frontend/src/features/simulator/SimulatorCard.tsx
+       #6359  11:03 PM  🔄  SimulatorCard refactored to use extracted
+     NumericField, UsersField, and FieldError components  
+     frontend/src/features/customers/NewCustomerPage.tsx
+       #6360            🔄  NewCustomerPage migrated from local FieldError to
+     shared component  
+     frontend/src/features/simulator/SimulatorCard.spec.tsx
+       #6361            🟣  SimulatorCard.spec.tsx created covering UI behavior
+     and toErrorMessage bug fix  
+     frontend/src/test/setup.ts
+       #6362  11:04 PM  🔵  SimulatorCard tests fail in jsdom due to missing
+     ResizeObserver polyfill  
+       #6363            🔴  ResizeObserver stub added to test setup fixes Radix
+     Slider rendering in jsdom  
+     General
+       #6364            🔵  TanStack Query mutationFn receives a second context
+     argument that breaks toHaveBeenCalledWith assertion  
+     frontend/src/features/simulator/SimulatorCard.spec.tsx
+       #6365            🔴  SimulatorCard spec fixed: assert on mock.calls[0][0]
+     to ignore TanStack Query context argument  
+     General
+       #6366            🔵  Full verification passes: 161 tests green, build in
+     372ms, one lint warning about non-component export in SimulatorCard  
+     frontend/src/features/simulator/error-message.ts
+       #6367            🔄  toErrorMessage extracted to error-message.ts to fix
+     Fast Refresh lint warning  
+     frontend/src/features/simulator/SimulatorCard.tsx
+       #6368  11:05 PM  🔄  toErrorMessage extraction completed: SimulatorCard
+     updated and dedicated spec file created  
+     frontend/src/features/simulator/SimulatorCard.spec.tsx
+       #6369            🔄  SimulatorCard.spec.tsx cleaned up: toErrorMessage
+     describe block and stale imports removed  
+     General
+       #6370            🔵  Final verification fully green: lint warnings only
+     in shadcn files, 161 tests pass, build in 364ms  
+       #6371            🔵  Simulator feature module map after refactor: 12
+     files, all small and focused  
+       #6372  11:06 PM  🔵  Browser smoke test confirms SimulatorCard refactor
+     works correctly end-to-end in production dev server  
+       #6373            🔵  NewCustomerPage browser smoke test confirms shared
+     FieldError renders correctly and aria-describedby resolves  
+     ai-workspace/04-proceso/auditorias.md
+       #6374            🔵  saas-o-matic audit log reveals phase-by-phase audit
+     trail through phase 7 with established review conventions  
+
+     Jul 17, 2026
+
+     ai-workspace/04-proceso/registro-decisiones.md
+       #6375  2:35 AM  ⚖️  Phase 8 architectural decisions logged in
+     registro-decisiones.md  
+     ai-workspace/04-proceso/auditorias.md
+       #6376           ✅  Phase 8 audit logged: simulator refactor findings and
+     full verification pass  
+     frontend/package.json
+       #6377           🔵  Phase 8 final state: 161 tests passing, clean build,
+     new files untracked  
+     frontend/src/features/simulator/
+       #6378  2:36 AM  🟣  Phase 8 committed: interactive simulator with live
+     projection and persistence  
+
+
+     Access 119k tokens of past research & decisions for just 17.308t. Use the 
+     claude-mem skill to access memories by ID.
+
+     View Observations Live @ http://localhost:37777
+
+❯ /nueva-fase 09                                                                
+
+● I'll read the phase 09 prompt and its referenced specs first.
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Empty result. Checking the workspace structure.
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && ls -R
+      ai-workspace | head -60)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     (empty)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Found fase-09-pulido-y-entrega.md. Reading it.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now reading the referenced specs and current repo state.
+
+  Read 1 file (ctrl+o to expand)
+
+● Read hook truncated the file and now blocks re-reads. Using another path.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now checking the README template and repo state.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● PowerShell(Get-ChildItem "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            -Force | Select-Object Name, Mode | Format-Table -AutoSize)
+  ⎿  Name               Mode
+     ----               ----
+     .claude            d-----
+     … +10 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● Read hook truncates to line 1. Using PowerShell for the rest.
+
+  Read 2 files (ctrl+o to expand)
+
+● Noted — capturas/ was removed on purpose; won't recreate it. Now gathering the
+  repo state I need for the plan.
+
+  Read 1 file (ctrl+o to expand)
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            Write-Output "=== .github ==="; if (Test-Path ".github") {
+            Get-ChildItem -Recurse .github | Sele…)
+  ⎿  === .github ===
+     NO .github dir
+     === remotes ===
+     … +16 lines (ctrl+o to expand)
+
+● Now the quality sweep across src/ (the phase's acceptance criteria).
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            Write-Output "=== registro-decisiones (last 40 lines) ===";
+            Get-Content "ai-workspace\04-proceso…)
+  ⎿  === registro-decisiones (last 40 lines) ===
+     | 2026-07-16 | 1 | Generator `prisma-client` (canÃ³nico v7) con `modul
+     eFormat="cjs"` e `importFileExtension=""`, emitiendo TS en `src/genera
+     … +177 lines (ctrl+o to expand)
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            Write-Output "=== .gitignore ==="; Get-Content .gitignore -Raw;
+            Write-Output "=== .playwright-mc…)
+  ⎿  === .gitignore ===
+     node_modules/
+     dist/
+     … +100 lines (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend";
+            Get-ChildItem test | Select-Object Name; Write-Output "=== e2e setup
+            files ==="; Get-Con…)
+  ⎿  Name
+     ----
+     app.e2e-spec.ts
+     … +126 lines (ctrl+o to expand)
+
+● Read everything I need. Here's the plan for phase 09 — no files touched yet, 
+  waiting for your OK.
+
+  Objetivo
+
+  Cerrar entrega: README sin fricción, CI en GitHub, barrido de calidad,
+  checklist de rúbrica con evidencia.
+
+  Estado actual (verificado)
+
+  ┌───────────────────────┬─────────────────────────────────────────────────┐
+  │         Check         │                    Resultado                    │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ console.log / any /   │ Ya limpio (0 hits reales; 2 expect.any(String)  │
+  │ ts-ignore en src/     │ son matchers de jest, no el tipo)               │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ .github/              │ No existe → CI a crear                          │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ origin                │ github.com/MrFlackstone/saas-o-matic.git        │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ Lockfiles             │ Dos (backend/, frontend/), sin workspace raíz → │
+  │                       │  dos jobs con working-directory                 │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ README.template.md    │ Completo y en .gitignore (no versionado)        │
+  ├───────────────────────┼─────────────────────────────────────────────────┤
+  │ Checklist de rúbrica  │ Ya esqueletado al final de                      │
+  │                       │ registro-decisiones.md, 6 ítems sin marcar      │
+  └───────────────────────┴─────────────────────────────────────────────────┘
+
+  Plan paso a paso
+
+  1. README.md desde la plantilla: quickstart 2 terminales (4 comandos), tabla
+  de scripts, Swagger /docs, datos demo del seed, arquitectura + enlace a
+  ai-workspace/, sección «Cómo se construyó con IA», capturas.
+  2. .github/workflows/ci.yml: job backend (install → prisma generate/db:setup →
+  lint → test → test:e2e) y job frontend (install → lint → test → build). pnpm
+  + caché. El backend necesita db:setup porque src/generated/prisma/ está
+  gitignored y app.e2e-spec.ts cae al dev.db por defecto.
+  3. Capturas: levanto ambas apps, capturo dashboard · detalle+histórico ·
+  simulador · banner de degradación de divisas con Playwright, en
+  docs/capturas/. Uso dir nuevo: ai-workspace/04-proceso/capturas/ lo borraste a
+  propósito y no lo recreo.
+  4. Barrido: /auditoria global + cobertura de domain/ (backend y frontend) —
+  mido y enseño la salida real.
+  5. Rúbrica: relleno los 6 ítems del checklist con evidencia enlazada.
+  6. Clon limpio en scratchpad siguiendo el README literal, cronometrado; si
+  falla algo, arreglo el README.
+
+  Criterios de aceptación — nota honesta sobre 2
+
+  - ✅ Clon limpio, cero console.log/any/ts-ignore, checklist con evidencia:
+  alcanzables en esta sesión.
+  - ⚠️ «CI en verde en GitHub» no se puede verificar sin hacer push a
+  origin/main. Escribo el workflow, pero el verde real exige que autorices el
+  push; hasta entonces lo dejo declarado como no verificado.
+
+  Dos decisiones que necesito de ti
+
+  1. pnpm lint del backend es eslint ... --fix. En CI auto-arregla en vez de
+  fallar → el gate de lint no detecta nada arreglable. ¿Añado script lint:ci
+  (mismo eslint sin --fix) y lo uso en el workflow, o dejo pnpm lint tal cual
+  como dice la fase?
+
+  2. Punto 5 de la fase (opcional): smoke e2e Playwright + docker-compose.yml.
+  La fase dice «si no sobra tiempo, no se empieza». ¿Los descarto?
+
+  3. Push a GitHub tras el commit, ¿sí o no?
+
+✻ Cogitated for 2m 40s
+
+❯ 1- Si, añade el script lint:ci sin --fix                                      
+  2- No lo descartes                                                            
+  3- No                                                                         
+
+● OK: lint:ci added, opcional (Playwright smoke + docker-compose) incluido, sin
+  push. Empiezo.
+
+  Playwright y @playwright/test son dependencias nuevas — las cuento como
+  aprobadas por tu «no lo descartes».
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Write-Output "=== vite.config.ts ==="; Get-Content vite.config.ts
+            -Raw; Write-Output "=…)
+  ⎿  === vite.config.ts ===
+     import path from 'node:path'
+     import tailwindcss from '@tailwindcss/vite'
+     … +26 lines (ctrl+o to expand)
+
+● Frontend needs no .env (fallback a localhost:3000) — el quickstart se queda en
+  4 comandos. Añado lint:ci.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(backend\package.json)
+  ⎿  Added 1 line
+      23      "start:debug": "nest start --debug --watch",
+      24      "start:prod": "node dist/main",
+      25      "lint": "eslint \"{src,apps,libs,test,prisma}/**/*.ts\" --f
+          ix",
+      26 +    "lint:ci": "eslint \"{src,apps,libs,test,prisma}/**/*.ts\" 
+         +--max-warnings 0",                                             
+      27      "test": "jest",
+      28      "test:watch": "jest --watch",
+      29      "test:cov": "jest --coverage",
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            lint:ci)
+  ⎿  > backend@0.0.1 lint:ci C:\Users\dpastorhe\Coding\personal\saas-o-mati
+     c\backend
+     > eslint "{src,apps,libs,test,prisma}/**/*.ts" --max-warnings 0
+  ⎿  (timeout 3m)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            lint; Write-Output "EXITCODE=$LASTEXITCODE")
+  ⎿  > frontend@0.0.0 lint C:\Users\dpastorhe\Coding\personal\saas-o-matic\
+     frontend
+     > oxlint
+     … +8 lines (ctrl+o to expand)
+
+● Frontend: 2 warnings sólo en ficheros shadcn generados, exit 0 — coherente con
+  la decisión de fase 6. Ahora el README; necesito los datos demo del seed.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend";
+            Get-Content prisma\seed.ts | Select-Object -Skip 28; Write-Output
+            "=== LINES ==="; (Get-…)
+  ⎿    {
+         companyName: 'Acme Iberia SL',
+         taxId: 'B58818501',
+     … +220 lines (ctrl+o to expand)
+
+● Seed: 10 países, 3 planes, 3 clientes demo (ES/PT/US) y 4 simulaciones (3 son
+  casos dorados de RN-01). Escribo el README.
+
+● Write(README.md)
+  ⎿  Error writing file
+
+  Read 1 file (ctrl+o to expand)
+
+● Ya lo tengo leído (es el README provisional). Lo reescribo.
+
+● Write(README.md)
+  ⎿  Added 70 lines, removed 4 lines
+      1 -# SaaS-O-Matic                                                  
+      1 +# SaaS-O-Matic — Dynamic Billing & Subscription Optimizer       
+      2  
+      3 -Herramienta interna para simular, optimizar y presupuestar suscr
+        -ipciones SaaS multi-divisa. Backend NestJS + Prisma + SQLite · F
+        -rontend React + Vite + TypeScript.                              
+      3 +Herramienta interna para simular, optimizar y presupuestar suscr
+        +ipciones SaaS multi-divisa para clientes corporativos. Backend N
+        +estJS + Prisma + SQLite · Frontend React + Vite + TypeScript.   
+      4  
+      5 -> README provisional — se completará al cierre del proyecto (ver
+        - `README.template.md`).                                         
+      5 +![Dashboard de SaaS-O-Matic](docs/capturas/dashboard.png)       
+      6  
+      7  ## Arranque rápido
+      8  
+     ...
+      10  
+      11  ```bash
+      12  # Terminal 1 — API (http://localhost:3000, Swagger en /docs)
+      13 -cd backend && pnpm install && pnpm start:dev                   
+      13 +cd backend && pnpm install && pnpm db:setup && pnpm start:dev  
+      14  
+      15  # Terminal 2 — Dashboard (http://localhost:5173)
+      16  cd frontend && pnpm install && pnpm dev
+      17  ```
+      18 +                                                               
+      19 +No hace falta configurar nada más: no hay `.env` que rellenar (
+         +el frontend apunta a `http://localhost:3000` por defecto, confi
+         +gurable con `VITE_API_URL`) y `pnpm db:setup` genera el cliente
+         + Prisma, aplica las migraciones y siembra la base de datos.    
+      20 +                                                               
+      21 +### Datos demo                                                 
+      22 +                                                               
+      23 +El seed deja la aplicación lista para probar sin dar de alta na
+         +da:                                                            
+      24 +                                                               
+      25 +- **10 países** con su IVA (ES 21 %, PT 23 %, DE 19 %, US 0 %…)
+         + y **3 planes** (Starter, Pro, Enterprise).                    
+      26 +- **3 clientes**: `Acme Iberia SL` (ES, CIF `B58818501`), `Lusi
+         +tania Software LDA` (PT) y `Globex Corporation` (US).          
+      27 +- **4 simulaciones** ya persistidas en su histórico; tres de el
+         +las son casos dorados de la spec de pricing (15 → 140 €, 100 → 
+         +670 €, 200 → 1.170 € de base).                                 
+      28 +                                                               
+      29 +## Scripts                                                     
+      30 +                                                               
+      31 +| App | Script | Descripción |                                 
+      32 +|---|---|---|                                                  
+      33 +| backend | `pnpm start:dev` | API en `:3000` con recarga (Swag
+         +ger en `/docs`) |                                              
+      34 +| backend | `pnpm db:setup` | `prisma generate` + migraciones +
+         + seed |                                                        
+      35 +| backend | `pnpm test` / `pnpm test:e2e` | tests unitarios / e
+         +2e |                                                           
+      36 +| backend | `pnpm lint` / `pnpm lint:ci` | linting (con `--fix`
+         + / en modo gate, sin arreglar) |                               
+      37 +| frontend | `pnpm dev` / `pnpm build` | dashboard en `:5173` /
+         + build de producción |                                         
+      38 +| frontend | `pnpm test` | tests (vitest) |                    
+      39 +| frontend | `pnpm test:e2e` | smoke e2e (Playwright); requiere
+         + la API levantada |                                            
+      40 +| frontend | `pnpm lint` | linting (oxlint) |                  
+      41 +                                                               
+      42 +## Funcionalidad                                               
+      43 +                                                               
+      44 +- **Alta de clientes** con validación algorítmica oficial de DN
+         +I/NIE/CIF cuando el país es España.                            
+      45 +- **Buscador** por nombre de empresa o identificador fiscal.   
+      46 +- **Detalle de cliente** con histórico de simulaciones persisti
+         +das (desglose por tramos e IVA).                               
+      47 +- **Simulador interactivo**: slider con proyección en tiempo re
+         +al (tarificación acumulativa por tramos + IVA del país).       
+      48 +- **Multi-divisa**: conversión de visualización en vivo vía [op
+         +en.er-api.com](https://open.er-api.com), con degradación a la ú
+         +ltima tasa conocida si el proveedor no responde.               
+      49 +                                                               
+      50 +## Arquitectura (resumen)                                      
+      51 +                                                               
+      52 +- Lógica de negocio (pricing por tramos, validación fiscal) en 
+         +**capa de dominio pura** sin framework, con cobertura total y c
+         +asos dorados compartidos entre backend y frontend.             
+      53 +- Capas estrictas en el backend: `controller → service → domain
+         +/prisma`; un controller nunca toca Prisma ni contiene lógica.  
+      54 +- Importes en **céntimos enteros** y tipos en puntos básicos; E
+         +UR es la divisa canónica y la conversión de divisa es solo pres
+         +entación (nunca se persiste un importe convertido).            
+      55 +- Cada simulación persiste una **instantánea** del cálculo, de 
+         +modo que el histórico es inmutable ante cambios de tarifas.    
+      56 +- Validación en el borde con DTOs (`whitelist: true`) y un cont
+         +rato de error global con códigos semánticos.                   
+      57 +                                                               
+      58 +Detalle completo: [`ai-workspace/02-arquitectura/`](ai-workspac
+         +e/02-arquitectura/).                                           
+      59 +                                                               
+      60 +## Cómo se construyó con IA                                    
+      61 +                                                               
+      62 +El diseño, las specs, los planes de fase y el control de calida
+         +d del código generado están documentados en [`ai-workspace/`](a
+         +i-workspace/) — empezar por [**`00-metodologia.md`**](ai-worksp
+         +ace/00-metodologia.md).                                        
+      63 +                                                               
+      64 +| Carpeta | Contenido |                                        
+      65 +|---|---|                                                      
+      66 +| [`01-specs/`](ai-workspace/01-specs/) | Reglas de negocio, co
+         +ntratos de API, validaciones, spec de frontend |               
+      67 +| [`02-arquitectura/`](ai-workspace/02-arquitectura/) | Decisio
+         +nes (ADRs), esquema de BD, estructura de carpetas, directrices 
+         +para la IA |                                                   
+      68 +| [`03-prompts/`](ai-workspace/03-prompts/) | Los 10 planes de 
+         +acción (fases 0–9) usados para guiar a la IA |                 
+      69 +| [`04-proceso/`](ai-workspace/04-proceso/) | Registro de decis
+         +iones y auditorías de cada fase |                              
+      70 +                                                               
+      71 +## Capturas                                                    
+      72 +                                                               
+      73 +**Detalle de cliente con histórico de simulaciones**           
+      74 +                                                               
+      75 +![Detalle de cliente](docs/capturas/detalle-cliente.png)       
+      76 +                                                               
+      77 +**Simulador interactivo con proyección en vivo**               
+      78 +                                                               
+      79 +![Simulador](docs/capturas/simulador.png)                      
+      80 +                                                               
+      81 +**Degradación de la API de divisas: se mantiene la última tasa 
+         +conocida**                                                     
+      82 +                                                               
+      83 +![Degradación de divisas](docs/capturas/divisas-degradacion.png
+         +)                                                              
+
+● Ahora el CI.
+
+● Write(.github\workflows\ci.yml)  ⎿  Wrote 75 lines to .github\workflows\ci.yml
+       1 name: CI
+       2 
+       3 on:
+       4   push:
+       5     branches: [main]
+       6   pull_request:
+       7     branches: [main]
+       8 
+       9 jobs:
+      10   backend:
+     … +67 lines (ctrl+o to expand)
+
+● CI listo. Ahora el smoke e2e de Playwright — instalo la dependencia.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm add
+            -D @playwright/test; Write-Output "EXIT=$LASTEXITCODE")
+  ⎿  Progress: resolved 0, reused 1, downloaded 0, added 0
+     Progress: resolved 483, reused 428, downloaded 1, added 0
+     Packages: +3
+     … +8 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            exec playwright install chromium --with-deps 2>&1 | Select-Object
+            -Last 8; Write-O…)
+  ⎿  EXIT=0
+
+● Configuro Playwright. Necesito los selectores reales — inspecciono la UI.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Get-ChildItem -Recurse src -Include *.tsx,*.ts | Where-Object {
+            $_.FullName -notmatch "…)
+  ⎿  src\api\client.ts
+     src\api\customers.ts
+     src\api\exchange.ts
+     … +43 lines (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; foreach
+            ($f in @("src\router.tsx","src\features\customers\NewCustomerPage.ts
+            x","src\com…)
+  ⎿  ===== src\router.tsx =====
+     import { createBrowserRouter } from 'react-router-dom'
+     import { AppLayout } from '@/components/AppLayout'
+     … +279 lines (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; foreach
+            ($f in @("src\features\simulator\SimulatorCard.tsx","src\features\si
+            mulator\Use…)
+  ⎿  ===== src\features\simulator\SimulatorCard.tsx =====
+     import { zodResolver } from '@hookform/resolvers/zod'
+     import { useMutation, useQueryClient } from '@tanstack/react-query'
+     … +275 lines (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Write-Output "===== validate-spanish-tax-id.ts ====="; Get-Content
+            src\domain\tax-id\va…)
+  ⎿  ===== validate-spanish-tax-id.ts =====
+     import { normalizeTaxId } from './normalize'
+     import {
+     … +127 lines (ctrl+o to expand)
+
+● Escribo la config de Playwright y el smoke. Uso el validador de dominio para
+  derivar un CIF válido (sin duplicar el algoritmo en el test).
+
+● Write(frontend\playwright.config.ts)
+  ⎿  Wrote 36 lines to frontend\playwright.config.ts
+       1 import path from 'node:path'
+       2 import { defineConfig, devices } from '@playwright/test'
+       3 
+       4 const FRONTEND_URL = 'http://localhost:5173'
+       5 const BACKEND_URL = 'http://localhost:3000'
+       6 const backendDir = path.resolve(__dirname, '../backend')
+       7 
+       8 export default defineConfig({
+       9   testDir: './e2e',
+      10   fullyParallel: false,
+     … +29 lines (ctrl+o to expand)
+
+● Write(frontend\e2e\tax-id-factory.ts)
+  ⎿  Wrote 19 lines to frontend\e2e\tax-id-factory.ts
+       1 import { validateSpanishTaxId } from '../src/domain/tax-id/valid
+         ate-spanish-tax-id'
+       3 const CONTROL_CHARS = '0123456789JABCDEFGHI'
+       4 
+       5 /**
+         rechaza duplicados
+       7  * con 409). El carÃ¡cter de control se busca contra el validado
+         r de dominio, que
+       9  */
+      10 export function makeUniqueCif(): string {
+     … +13 lines (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; foreach
+            ($f in @("src\features\simulator\ProjectionPanel.tsx","src\features\
+            customers\S…)
+  ⎿  ===== src\features\simulator\ProjectionPanel.tsx =====
+     import { calculateSimulationCost } from '@/domain/pricing/pricing-engi
+     ne'
+     … +153 lines (ctrl+o to expand)
+
+● Ahora el smoke test.
+
+● Write(frontend\e2e\smoke.spec.ts)
+  ⎿  Wrote 48 lines to frontend\e2e\smoke.spec.ts
+       1 import { expect, test } from '@playwright/test'
+       2 import { makeUniqueCif } from './tax-id-factory'
+       3 
+       5 // alta â†’ simular â†’ guardar â†’ cambiar divisa.
+       6 test('alta de cliente, simulaciÃ³n, guardado y cambio de divisa'
+         , async ({ page }) => {
+       7   const taxId = makeUniqueCif()
+       9 
+      10   await test.step('alta de cliente con CIF vÃ¡lido', async () =>
+          {
+     … +51 lines (ctrl+o to expand)
+
+● Añado el script test:e2e y excluyo e2e/ de vitest (si no, vitest intentaría
+  ejecutar los tests de Playwright).
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\package.json)
+  ⎿  Added 1 line
+       8      "build": "tsc -b && vite build",
+       9      "lint": "oxlint",
+      10      "test": "vitest run",
+      11 +    "test:e2e": "playwright test",                             
+      12      "preview": "vite preview"
+      13    },
+      14    "dependencies": {
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(frontend\vite.config.ts)
+  ⎿  Added 2 lines
+      14    test: {
+      15      environment: 'jsdom',
+      16      setupFiles: ['./src/test/setup.ts'],
+      17 +    // e2e/ lo ejecuta Playwright, no vitest.                  
+      18 +    include: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],        
+      19    },
+      20  })
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Get-ChildItem -Filter "tsconfig*.json" | ForEach-Object {
+            Write-Output "===== $($_.Name…)
+  ⎿  ===== tsconfig.app.json =====
+     {
+       "compilerOptions": {
+     … +96 lines (ctrl+o to expand)
+● package.json tiene "type": "module" → playwright.config.ts es ESM y __dirname
+  no existe ahí. Lo corrijo antes de que falle.
+
+● Write(frontend\playwright.config.ts)
+  ⎿  Added 2 lines, removed 2 lines
+      1 -import path from 'node:path'                                    
+      1 +import { fileURLToPath } from 'node:url'                        
+      2  import { defineConfig, devices } from '@playwright/test'
+      3  
+      4  const FRONTEND_URL = 'http://localhost:5173'
+      5  const BACKEND_URL = 'http://localhost:3000'
+      6 -const backendDir = path.resolve(__dirname, '../backend')        
+      6 +const backendDir = fileURLToPath(new URL('../backend', import.me
+        +ta.url))                                                        
+      7  
+      8  export default defineConfig({
+      9    testDir: './e2e',
+
+● Añado un proyecto TS para e2e/ para que pnpm build lo typecheque (los demás
+  tsconfig no lo cubren).
+
+● Write(frontend\tsconfig.e2e.json)
+  ⎿  Wrote 25 lines to frontend\tsconfig.e2e.json
+       1 {
+       2   "compilerOptions": {
+       3     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.e2e.tsbuild
+         info",
+       4     "target": "es2023",
+       6     "types": ["node"],
+       7     "skipLibCheck": true,
+       8     "strict": true,
+       9 
+      10     /* Bundler mode */
+     … +16 lines (ctrl+o to expand)
+
+● Update(frontend\tsconfig.json)
+  ⎿  Added 2 lines, removed 1 line
+      2    "files": [],
+      3    "references": [
+      4      { "path": "./tsconfig.app.json" },
+      5 -    { "path": "./tsconfig.node.json" }                          
+      5 +    { "path": "./tsconfig.node.json" },                         
+      6 +    { "path": "./tsconfig.e2e.json" }                           
+      7    ],
+      8    "compilerOptions": {
+      9      "paths": {
+
+● Añado artefactos de Playwright al .gitignore y compruebo que build y tests
+  siguen verdes.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(.gitignore)
+  ⎿  Added 2 lines
+      12  README.template.md
+      13  .DS_Store
+      14  .playwright-mcp/
+      15 +playwright-report/                                             
+      16 +test-results/                                                  
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Write-Output "=== build ==="; pnpm build; Write-Output
+            "BUILD_EXIT=$LASTEXITCODE"; Writ…)
+  ⎿  === build ===
+
+     > frontend@0.0.0 build C:\Users\dpastorhe\Coding\personal\saas-o-matic
+     … +36 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Frontend verde: build OK (e2e ya typechequeado), 161 tests, y vitest no recoge
+  e2e/. Ahora docker-compose — miro cómo se resuelve DATABASE_URL.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend";
+            Write-Output "===== prisma.config.ts ====="; Get-Content
+            prisma.config.ts -Raw -ErrorAct…)
+  ⎿  ===== prisma.config.ts =====
+     import { defineConfig } from 'prisma/config';
+     … +46 lines (ctrl+o to expand)
+
+● Confirmado un bug real: prisma.config.ts y PrismaService respetan
+  DATABASE_URL, pero seed.ts la ignora y escribe siempre en ./prisma/dev.db. Con
+  DATABASE_URL puesta, db:setup migra una BD y siembra otra. Lo alineo.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(backend\prisma\seed.ts)
+  ⎿  Added 3 lines, removed 1 line
+       3  import { PrismaClient } from '../src/generated/prisma/client';
+       4  
+       5  const prisma = new PrismaClient({
+       6 -  adapter: new PrismaBetterSqlite3({ url: 'file:./prisma/dev.db
+         -' }),                                                          
+       6 +  adapter: new PrismaBetterSqlite3({                           
+       7 +    url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db',   
+       8 +  }),                                                          
+       9  });
+      10  
+      11  const countries = [
+
+● Ahora los Dockerfiles y el compose. Uso bookworm-slim (no alpine):
+  better-sqlite3 tiene prebuilds para glibc, así evito toolchain de compilación.
+
+● Write(backend\Dockerfile)
+  ⎿  Wrote 19 lines to backend\Dockerfile
+       1 # better-sqlite3 publica prebuilds para glibc: bookworm-slim evi
+         ta compilar
+       2 # nativo (alpine/musl obligarÃa a instalar toolchain).
+       3 FROM node:20-bookworm-slim
+       4 
+       6 
+       7 WORKDIR /app
+       8 
+       9 COPY package.json pnpm-lock.yaml ./
+      10 RUN pnpm install --frozen-lockfile
+     … +12 lines (ctrl+o to expand)
+
+● Write(backend\.dockerignore)
+  ⎿  Wrote 7 lines to backend\.dockerignore
+      1 node_modules
+      2 dist
+      3 coverage
+      4 src/generated
+      5 prisma/dev.db
+      6 prisma/dev.db-journal
+      7 test
+
+● Write(frontend\Dockerfile)
+  ⎿  Wrote 18 lines to frontend\Dockerfile
+       1 FROM node:20-bookworm-slim
+       2 
+       3 RUN corepack enable
+       4 
+       5 WORKDIR /app
+       6 
+       7 COPY package.json pnpm-lock.yaml ./
+       8 RUN pnpm install --frozen-lockfile
+       9 
+      10 COPY . .
+     … +10 lines (ctrl+o to expand)
+
+● Write(frontend\.dockerignore)
+  ⎿  Wrote 5 lines to frontend\.dockerignore
+      1 node_modules
+      2 dist
+      3 e2e
+      4 playwright-report
+      5 test-results
+
+● pnpm build corre tsc -b, que ahora incluye tsconfig.e2e.json; si el
+  .dockerignore excluye e2e/ el build del contenedor falla por "no inputs
+  found". Lo quito.
+
+● Write(frontend\.dockerignore)
+  ⎿  Removed 1 line
+      1  node_modules
+      2  dist
+      3 -e2e                                                             
+      3  playwright-report
+      4  test-results
+
+● Write(docker-compose.yml)
+  ⎿  Wrote 30 lines to docker-compose.yml
+       1 services:
+       2   backend:
+       3     build: ./backend
+       4     ports:
+       5       - '3000:3000'
+       6     volumes:
+       7       - backend-db:/data
+       8     healthcheck:
+       9       test:
+      10         [
+     … +22 lines (ctrl+o to expand)
+● Ahora ejecuto el smoke e2e de verdad. Primero levanto el backend con la BD
+  sembrada.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            db:setup 2>&1 | Select-Object -Last 6; Write-Output
+            "EXIT=$LASTEXITCODE")
+  ⎿  No pending migrations to apply.
+     Loaded Prisma config from prisma.config.ts.
+     Running seed command `ts-node prisma/seed.ts` ...
+     … +3 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+  ⎿  Found 2 new diagnostic issues in 1 file (ctrl+o to expand)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            test:e2e 2>&1 | Select-Object -Last 30; Write-Output
+            "EXIT=$LASTEXITCODE")
+  ⎿  Error: Exit code 1
+       1) [chromium] › e2e\smoke.spec.ts:6:1 › alta de cliente, simulaciÃ³n, 
+     guardado y cambio de divisa › la proyecciÃ³n responde en vivo al nÃºmero de
+     usuarios 
+
+         Error: expect(locator).toContainText(expected) failed
+
+         Locator: getByRole('status').filter({ hasText: 'ProyecciÃ³n' })
+         Expected substring: "169,40"
+         Timeout: 5000ms
+         Error: element(s) not found
+
+
+     … +21 lines (ctrl+o to expand)
+
+● El alta pasó; falla el localizador de la proyección. Miro el snapshot real en
+  vez de adivinar.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Get-Content "test-results\smoke-alta-de-cliente-simu-881b8-guardado-
+            y-cambio-de-divisa-…)
+  ⎿  # Instructions
+
+     - Following Playwright test failed.
+     … +129 lines (ctrl+o to expand)
+
+● El snapshot revela el fallo real: el DOM tiene «Proyección» correcto, pero mi 
+  fichero de test contiene los acentos corrompidos (doble codificación).
+  Compruebo si afecta a todo lo que he escrito.
+
+● PowerShell($files = @("README.md","frontend\e2e\smoke.spec.ts","frontend\vite.
+            config.ts","backend\prisma\seed.ts","frontend\src\features\simulator
+            \ProjectionPanel.tsx")
+            fo…)
+  ⎿  README.md  -> mojibake_seqs=0
+     frontend\e2e\smoke.spec.ts  -> mojibake_seqs=13
+     frontend\vite.config.ts  -> mojibake_seqs=0
+     … +3 lines (ctrl+o to expand)
+
+● Solo smoke.spec.ts — copié los literales desde la salida mojibake del
+  terminal. Escaneo todo lo que he tocado.
+
+● PowerShell($files = @("README.md","docker-compose.yml",".github\workflows\ci.y
+            ml","backend\Dockerfile","backend\.dockerignore","backend\package.js
+            on","backend\prisma\seed.…)
+  ⎿  backend\Dockerfile -> 2 : Ã Ã
+     frontend\Dockerfile -> 1 : Ã
+     frontend\playwright.config.ts -> 1 : Ã¡
+     … +3 lines (ctrl+o to expand)
+
+● Cinco ficheros afectados. Los reescribo con los acentos correctos.
+
+● Write(frontend\e2e\smoke.spec.ts)
+  ⎿  Added 13 lines, removed 13 lines
+       2  import { makeUniqueCif } from './tax-id-factory'
+       3  
+       4  // Recorrido completo de la herramienta contra la API real:
+       5 -// alta â†’ simular â†’ guardar â†’ cambiar divisa.            
+       6 -test('alta de cliente, simulaciÃ³n, guardado y cambio de divisa
+         -', async ({ page }) => {                                       
+       5 +// alta → simular → guardar → cambiar divisa.                  
+       6 +test('alta de cliente, simulación, guardado y cambio de divisa'
+         +, async ({ page }) => {                                        
+       7    const taxId = makeUniqueCif()
+       8    const companyName = `Smoke Test ${taxId}`
+       9  
+      10 -  await test.step('alta de cliente con CIF vÃ¡lido', async () =
+         -> {                                                            
+      10 +  await test.step('alta de cliente con CIF válido', async () =>
+         + {                                                             
+      11      await page.goto('/clientes/nuevo')
+      12      await page.getByLabel('Nombre de la empresa').fill(companyN
+          ame)
+      13      await page.getByLabel('Email').fill(`smoke-${taxId.toLowerC
+          ase()}@example.com`)
+     ...
+      16      await page.getByRole('option', { name: 'Pro' }).click()
+      17      await page.getByRole('button', { name: 'Dar de alta' }).cli
+          ck()
+      18  
+      19 -    // El alta redirige al detalle del cliente reciÃ©n creado. 
+      19 +    // El alta redirige al detalle del cliente recién creado.  
+      20      await expect(page).toHaveURL(/\/clientes\/[^/]+$/)
+      21      await expect(page.getByRole('heading', { name: companyName 
+          })).toBeVisible()
+      22    })
+      23  
+      24 -  const projection = page.getByRole('status').filter({ hasText:
+         - 'ProyecciÃ³n' })                                              
+      24 +  const projection = page.getByRole('status').filter({ hasText:
+         + 'Proyección' })                                               
+      25  
+      26 -  await test.step('la proyecciÃ³n responde en vivo al nÃºmero d
+         -e usuarios', async () => {                                     
+      26 +  await test.step('la proyección responde en vivo al número de 
+         +usuarios', async () => {                                       
+      27      await page.getByRole('textbox', { name: 'Usuarios activos' 
+          }).fill('15')
+      28 -    // Caso dorado RN-01: 15 usuarios â†’ 140 â‚¬ base, 21 % IV
+         -A â†’ 169,40 â‚¬.                                              
+      28 +    // Caso dorado RN-01: 15 usuarios → 140 € base, 21 % IVA → 
+         +169,40 €.                                                      
+      29      await expect(projection).toContainText('169,40')
+      30    })
+      31  
+      32 -  await test.step('guardar persiste la simulaciÃ³n en el histÃ³
+         -rico', async () => {                                           
+      33 -    await page.getByRole('button', { name: 'Guardar simulaciÃ³n
+         -' }).click()                                                   
+      34 -    await expect(page.getByText('SimulaciÃ³n guardada')).toBeVi
+         -sible()                                                        
+      32 +  await test.step('guardar persiste la simulación en el históri
+         +co', async () => {                                             
+      33 +    await page.getByRole('button', { name: 'Guardar simulación'
+         + }).click()                                                    
+      34 +    await expect(page.getByText('Simulación guardada')).toBeVis
+         +ible()                                                         
+      35  
+      36      const history = page.getByRole('list').filter({ hasText: '1
+          5 usuarios' })
+      37 -    await expect(history.getByText('169,40 â‚¬')).toBeVisible()
+      37 +    await expect(history.getByText('169,40 €')).toBeVisible()  
+      38    })
+      39  
+      40    await test.step('el cambio de divisa reexpresa los importes y
+          a guardados', async () => {
+      41      await page.getByLabel('Divisa').click()
+      42      await page.getByRole('option', { name: 'USD' }).click()
+      43  
+      44 -    // La conversiÃ³n es de presentaciÃ³n: cambia el sÃmbolo, n
+         -o se reescribe nada.                                           
+      45 -    await expect(page.getByText('169,40 â‚¬')).toHaveCount(0)  
+      44 +    // La conversión es de presentación: cambia el símbolo, no 
+         +se reescribe nada.                                             
+      45 +    await expect(page.getByText('169,40 €')).toHaveCount(0)    
+      46      await expect(page.getByText(/US\$\s?\d/).first()).toBeVisib
+          le()
+      47    })
+      48  })
+
+● Write(frontend\e2e\tax-id-factory.ts)
+  ⎿  Added 4 lines, removed 4 lines
+       3  const CONTROL_CHARS = '0123456789JABCDEFGHI'
+       4  
+       5  /**
+       6 - * Deriva un CIF vÃ¡lido y distinto en cada ejecuciÃ³n (el alta
+         - rechaza duplicados                                            
+       7 - * con 409). El carÃ¡cter de control se busca contra el validad
+         -or de dominio, que                                             
+       8 - * es la fuente de verdad: el algoritmo no se replica aquÃ.    
+       6 + * Deriva un CIF válido y distinto en cada ejecución (el alta r
+         +echaza duplicados                                              
+       7 + * con 409). El carácter de control se busca contra el validado
+         +r de dominio, que                                              
+       8 + * es la fuente de verdad: el algoritmo no se replica aquí.    
+       9   */
+      10  export function makeUniqueCif(): string {
+      11    const body = String(Date.now()).slice(-7)
+     ...
+      15        return candidate
+      16      }
+      17    }
+      18 -  throw new Error(`Sin carÃ¡cter de control vÃ¡lido para el CIF
+         - B${body}`)                                                    
+      18 +  throw new Error(`Sin carácter de control válido para el CIF B
+         +${body}`)                                                      
+      19  }
+
+● Update(frontend\playwright.config.ts)
+  ⎿  Error editing file
+
+● Write(frontend\playwright.config.ts)
+  ⎿  Added 1 line, removed 1 line
+      16      trace: 'on-first-retry',
+      17    },
+      18    projects: [{ name: 'chromium', use: { ...devices['Desktop Chr
+          ome'] } }],
+      19 -  // Reutiliza las apps ya levantadas; si no lo estÃ¡n, las arr
+         -anca. El backend                                               
+      19 +  // Reutiliza las apps ya levantadas; si no lo están, las arra
+         +nca. El backend                                                
+      20    // necesita `pnpm db:setup` hecho al menos una vez (crea y si
+          embra la BD).
+      21    webServer: [
+      22      {
+
+● Write(backend\Dockerfile)
+  ⎿  Added 2 lines, removed 2 lines
+      1  # better-sqlite3 publica prebuilds para glibc: bookworm-slim evi
+         ta compilar
+      2 -# nativo (alpine/musl obligarÃa a instalar toolchain).          
+      2 +# nativo (alpine/musl obligaría a instalar toolchain).          
+      3  FROM node:20-bookworm-slim
+      4  
+      5  RUN corepack enable
+     ...
+      15  ENV DATABASE_URL=file:/data/dev.db
+      16  EXPOSE 3000
+      17  
+      18 -# La BD vive en el volumen, asÃ que migraciones y seed se aplic
+         -an al arrancar.                                                
+      18 +# La BD vive en el volumen, así que migraciones y seed se aplic
+         +an al arrancar.                                                
+      19  CMD ["sh", "-c", "pnpm exec prisma migrate deploy && pnpm exec 
+          prisma db seed && node dist/main"]
+
+● Write(frontend\Dockerfile)
+  ⎿  Added 1 line, removed 1 line
+       9  
+      10  COPY . .
+      11  
+      12 -# El navegador (no el contenedor) es quien llama a la API, asÃ 
+         -que la URL por                                                 
+      12 +# El navegador (no el contenedor) es quien llama a la API, así 
+         +que la URL por                                                 
+      13  # defecto http://localhost:3000 del host es la correcta. Se hor
+          nea en el build.
+      14  ARG VITE_API_URL
+      15  RUN pnpm build
+
+● Reescritos. Verifico que no queda mojibake y relanzo el smoke.
+
+● PowerShell($files = @("README.md","docker-compose.yml",".github\workflows\ci.y
+            ml","backend\Dockerfile","backend\prisma\seed.ts","frontend\Dockerfi
+            le","frontend\playwright.…)
+  ⎿  --- scan clean ---
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            test:e2e 2>&1 | Select-Object -Last 25; Write-Output
+            "EXIT=$LASTEXITCODE")
+  ⎿  > frontend@0.0.0 test:e2e C:\Users\dpastorhe\Coding\personal\saas-o-ma
+     tic\frontend
+     > playwright test
+     … +9 lines (ctrl+o to expand)
+  ⎿  (timeout 7m)
+
+● Smoke verde. Ahora las capturas: levanto ambas apps en segundo plano.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            start:dev)  ⎿  Running in the background (↓ to manage)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            dev)
+  ⎿  Running in the background (↓ to manage)
+
+● PowerShell($ok=$false; foreach ($i in 1..30) { try { $r = Invoke-WebRequest
+            "http://localhost:3000/health" -UseBasicParsing -TimeoutSec 2; if
+            ($r.StatusCode -eq 200) { Wri…)
+  ⎿  backend OK: {"status":"ok"}
+     frontend OK
+
+● Ambas arriba. Capturo el dashboard.
+
+  Called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+● La BD de dev está contaminada con clientes de pruebas (el smoke crea uno real
+  en cada pasada). La reseteo al seed antes de capturar.
+
+● Stop Task
+  ⎿  Set-Location
+     "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+     start:dev · stopped
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend";
+            Get-Process -Name node -ErrorAction SilentlyContinue | Where-Object
+            { $_.Path -like "*no…)
+  ⎿  dev.db removed
+     Running seed command `ts-node prisma/seed.ts` ...
+     … +2 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            start:dev)
+  ⎿  Running in the background (↓ to manage)
+
+● PowerShell($ok=$false; foreach ($i in 1..40) { try { $r = Invoke-WebRequest
+            "http://localhost:3000/customers" -UseBasicParsing -TimeoutSec 2; if
+            ($r.StatusCode -eq 200) {…)
+  ⎿  backend OK - customers total=3
+
+● 3 clientes demo, BD limpia. Capturo el dashboard.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● PowerShell(New-Item -ItemType Directory -Force
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\docs\capturas" |
+            Select-Object FullName)
+  ⎿  FullName
+     --------
+     C:\Users\dpastorhe\Coding\personal\saas-o-matic\docs\capturas
+
+  Read 1 file, called plugin:playwright:playwright (ctrl+o to expand)
+
+● Demasiado espacio muerto. Ajusto la altura para un hero más compacto.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Ahora el detalle de cliente con histórico. Abro Acme Iberia (tiene 2
+  simulaciones) y expando el desglose.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Expando una fila del histórico para que la captura enseñe el desglose por
+  tramos.
+
+  Called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+❯ Pero haz las capturas en 1200x800 o mas grandes, no tan pequeñas              
+
+● Vale — todas a 1440×900 o más grandes. Rehago el dashboard.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Ahora el simulador. Muevo el slider para que la captura muestre una proyección
+  más rica.
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● 3 tramos en vivo. Capturo el simulador.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● PowerShell(Add-Type -AssemblyName System.Drawing
+            Get-ChildItem "C:\Users\dpastorhe\Coding\personal\saas-o-matic\docs\
+            capturas\*.png" | ForEach-Object {…)
+  ⎿  dashboard.png: 1440x560  (35 KB)
+     detalle-cliente.png: 1425x1346  (101 KB)
+     simulador.png: 977x538  (40 KB)
+
+● dashboard.png seguía siendo la antigua (1440×560) y simulador.png salió a
+  977×538 por ser captura de elemento. Rehago ambas a 1440×900.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● Ahora el simulador a viewport completo, desplazado a la tarjeta.
+
+  Read 1 file, called plugin:playwright:playwright 3 times (ctrl+o to expand)
+
+● Falta la captura de degradación de divisas. Miro cómo se persiste la última
+  tasa conocida.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend";
+            Write-Output "===== useExchangeRates.ts ====="; Get-Content
+            src\hooks\useExchangeRates.…)
+  ⎿  ===== useExchangeRates.ts =====
+     import { useQuery } from '@tanstack/react-query'
+     import { fetchExchangeRates, readCachedRates } from '@/api/exchange'
+     … +117 lines (ctrl+o to expand)
+
+● Para la degradación necesito caché presente + proveedor caído. Bloqueo la ruta
+  del proveedor y recargo.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Caché presente; la query reintenta 2 veces con backoff. Espero a que agote los
+  reintentos.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Estado stale reproducido. Lo capturo en el detalle, con USD activo, para que
+  se vea que el selector sigue operativo con la última tasa conocida.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Importes en US$ con el proveedor caído, usando la última tasa conocida.
+  Capturo.
+
+  Read 1 file, called plugin:playwright:playwright (ctrl+o to expand)
+
+● PowerShell(Add-Type -AssemblyName System.Drawing
+            Get-ChildItem "C:\Users\dpastorhe\Coding\personal\saas-o-matic\docs\
+            capturas\*.png" | ForEach-Object {…)
+  ⎿  dashboard.png: 1440x900  (38 KB)
+     detalle-cliente.png: 1425x1346  (101 KB)
+     divisas-degradacion.png: 1440x900  (69 KB)
+     simulador.png: 1440x900  (66 KB)
+
+● Todas ≥1200×800. Verifico el ítem «responsive 360 px» de la rúbrica ahora que
+  tengo el navegador abierto.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Sin overflow horizontal a 360 px en las tres rutas. Ahora la cobertura de
+  domain/ en backend.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm exec
+            jest --coverage --collectCoverageFrom="src/domain/**/*.ts"
+            --collectCoverageFr…)
+  ⎿  ----------|---------|----------|---------|---------|------------------
+     -
+     File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+     … +22 lines (ctrl+o to expand)
+
+● rootDir es src, así que los globs deben ser relativos a él. Repito.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm exec
+            jest --coverage --collectCoverageFrom="domain/**/*.ts"
+            --collectCoverageFrom="…)  ⎿  -----------------------------|---------|----------|---------|---------
+     |-------------------
+     File                         | % Stmts | % Branch | % Funcs | % Lines
+     … +22 lines (ctrl+o to expand)
+
+● Backend domain/: 100 % en stmts, ramas, funcs y líneas (6 ficheros, 80 tests).
+  Lanzo la verificación completa del backend.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend";
+            Write-Output "=== lint:ci ==="; pnpm lint:ci 2>&1 | Select-Object
+            -Last 3; Write-Output…)
+  ⎿  === lint:ci ===
+     > backend@0.0.1 lint:ci C:\Users\dpastorhe\Coding\personal\saas-o-mati
+     c\backend
+     … +20 lines (ctrl+o to expand)
+  ⎿  (timeout 6m 40s)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            test:e2e 2>&1 | Select-Object -Last 8; Write-Output
+            "E2E=$LASTEXITCODE")
+  ⎿  node.exe : (node:32508) ExperimentalWarning: VM Modules is an experime
+     ntal
+     feature and might change at any time
+     … +18 lines (ctrl+o to expand)
+  ⎿  (timeout 6m 40s)
+
+● Backend verde: lint 0 warnings, 106 unit, 30 e2e. Una decisión pendiente antes
+  de cerrar la rúbrica.
+
+● User answered Claude's questions:
+  ⎿  · La cobertura de `domain/` del backend ya está medida al 100 % (jest trae 
+     cobertura de serie). El frontend no puede medirla: vitest necesita 
+     `@vitest/coverage-v8`, que es una dependencia nueva. ¿Qué hago? → Añadir 
+     @vitest/coverage-v8, anotalo para incluirlo en el registro-decisiones.md
+
+● Añado @vitest/coverage-v8 y lo registro como decisión.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm add
+            -D @vitest/coverage-v8 2>&1 | Select-Object -Last 5; Write-Output
+            "EXIT=$LASTE…)
+  ⎿  devDependencies:
+     + @vitest/coverage-v8 4.1.10
+     … +2 lines (ctrl+o to expand)
+
+● Configuro cobertura acotada a domain/ (que es donde CLAUDE.md la exige) y
+  añado el script.
+
+● Update(frontend\vite.config.ts)
+  ⎿  Added 6 lines
+      16      setupFiles: ['./src/test/setup.ts'],
+      17      // e2e/ lo ejecuta Playwright, no vitest.
+      18      include: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],
+      19 +    coverage: {                                                
+      20 +      provider: 'v8',                                          
+      21 +      // El 100 % exigido aplica al dominio puro (rÃ©plica de p
+         +ricing y fiscal).                                              
+      22 +      include: ['src/domain/**/*.ts'],                         
+      23 +      thresholds: { statements: 100, branches: 100, functions: 
+         +100, lines: 100 },                                             
+      24 +    },                                                         
+      25    },
+      26  })
+
+● Se me ha colado un acento corrupto otra vez. Lo arreglo.
+
+● Update(frontend\vite.config.ts)
+  ⎿  Added 1 line, removed 1 line
+      18      include: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],
+      19      coverage: {
+      20        provider: 'v8',
+      21 -      // El 100 % exigido aplica al dominio puro (rÃ©plica de p
+         -ricing y fiscal).                                              
+      21 +      // El 100 % exigido aplica al dominio puro (réplica de pr
+         +icing y fiscal).                                               
+      22        include: ['src/domain/**/*.ts'],
+      23        thresholds: { statements: 100, branches: 100, functions: 
+          100, lines: 100 },
+      24      },
+
+● Update(frontend\package.json)
+  ⎿  Added 1 line
+       8      "build": "tsc -b && vite build",
+       9      "lint": "oxlint",
+      10      "test": "vitest run",
+      11 +    "test:cov": "vitest run --coverage",                       
+      12      "test:e2e": "playwright test",
+      13      "preview": "vite preview"
+      14    },
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            test:cov 2>&1 | Select-Object -Last 20; Write-Output
+            "EXIT=$LASTEXITCODE")
+  ⎿        Coverage enabled with v8
+     … +23 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Tabla de ficheros vacía con 100 % — señal de alarma: si el glob no casara
+  nada, el umbral pasaría trivialmente. Lo verifico.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm
+            exec vitest run --coverage --coverage.reporter=json-summary
+            --coverage.reporter=te…)
+  ⎿  Branches     : 100% ( 23/23 )
+     Functions    : 100% ( 14/14 )
+     Lines        : 100% ( 67/67 )
+     … +12 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Cobertura real confirmada: los 7 ficheros de domain/ al 100 % (la tabla vacía
+  era un artefacto del reporter). Ahora la auditoría global.
+
+● Skill(auditoria)
+  ⎿  Successfully loaded skill
+
+● Ejecuto el checklist de auditoría sobre la fase 9. Empiezo por el barrido
+  global de higiene y tipado.
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● Barrido limpio. Ahora capas, dinero y tamaño de archivo.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            Write-Output "=== Archivos > 250 lineas (src/, e2e/, prisma/) ==="…)
+  ⎿  === Archivos > 250 lineas (src/, e2e/, prisma/) ===
+     --- fin ---
+     === Prisma fuera de services (capas) ===
+     … +16 lines (ctrl+o to expand)
+
+● Sin archivos >250 líneas, sin Prisma en controllers. Los Math.round de
+  pricing-engine son el redondeo half-up de RN-02 sobre enteros, no floats.
+
+  Reviso mis propios ficheros de la fase. Un punto me huele mal:
+  Read 1 file (ctrl+o to expand)
+
+● ARG sin default es un riesgo real: Docker expone los ARG al entorno del RUN,
+  así que si se pasa vacío, import.meta.env.VITE_API_URL sería '' — y '' ?? 
+  default devuelve '' (el fallback solo cubre null/undefined), rompiendo la app.
+  Compruebo si tengo Docker para verificarlo de verdad.
+
+● PowerShell(docker --version 2>&1; Write-Output "DOCKER_EXIT=$LASTEXITCODE";
+            docker compose version 2>&1; Write-Output
+            "COMPOSE_EXIT=$LASTEXITCODE"; docker info --format "{…)
+  ⎿  Docker version 29.6.1, build 8900f1d
+     DOCKER_EXIT=0
+     Docker Compose version v5.3.0
+     … +2 lines (ctrl+o to expand)
+
+● Docker está disponible. Arreglo el ARG con default explícito y valido el
+  compose.
+
+● Update(frontend\Dockerfile)
+  ⎿  Added 4 lines, removed 3 lines
+       9  
+      10  COPY . .
+      11  
+      12 -# El navegador (no el contenedor) es quien llama a la API, así 
+         -que la URL por                                                 
+      13 -# defecto http://localhost:3000 del host es la correcta. Se hor
+         -nea en el build.                                               
+      14 -ARG VITE_API_URL                                               
+      12 +# El navegador (no el contenedor) es quien llama a la API, así 
+         +que la URL del                                                 
+      13 +# host es la correcta. Vite la hornea en el bundle durante el b
+         +uild. El default                                               
+      14 +# es explícito: un ARG vacío llegaría como '' y `'' ?? fallback
+         +` devuelve ''.                                                 
+      15 +ARG VITE_API_URL=http://localhost:3000                         
+      16  RUN pnpm build
+      17  
+      18  EXPOSE 5173
+
+● Ahora levanto el stack de Docker de verdad. Un compose que no se ha ejecutado
+  nunca no es entregable.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose config --quiet 2>&1; Write-Output
+            "CONFIG_VALID_EXIT=$LASTEXITCODE")
+  ⎿  CONFIG_VALID_EXIT=0
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose build 2>&1 | Select-Object -Last 25; Write-Output
+            "BUILD_EXIT=$LASTEXITCODE")
+  ⎿  Running in the background (↓ to manage)
+
+● Mientras compila, preparo la entrada del registro de decisiones.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            Write-Output "=== auditorias.md (estructura) ==="; Select-String
+            -Path "ai-workspace\04-proceso\…)
+  ⎿  === auditorias.md (estructura) ===
+     # Auditorías de código generado por IA
+     ## Fase N — <nombre>  ·  <fecha>
+     … +84 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● Background command "Build docker images" failed with exit code 1
+
+● Build de Docker roto, y es un fallo real: corepack enable sin pin instala pnpm
+  11, que no arranca en Node 20 (ERR_UNKNOWN_BUILTIN_MODULE). Fijo la versión a
+  la del lockfile.
+
+● Update(backend\Dockerfile)
+  ⎿  Added 2 lines, removed 1 line
+      2  # nativo (alpine/musl obligaría a instalar toolchain).
+      3  FROM node:20-bookworm-slim
+      4  
+      5 -RUN corepack enable                                             
+      5 +# pnpm fijado: corepack sin pin activa la Ãºltima (v11), que no 
+        +arranca en Node 20.                                             
+      6 +RUN corepack enable && corepack prepare pnpm@10.31.0 --activate 
+      7  
+      8  WORKDIR /app
+      9  
+
+● Update(backend\Dockerfile)
+  ⎿  Added 1 line, removed 1 line
+      2  # nativo (alpine/musl obligaría a instalar toolchain).
+      3  FROM node:20-bookworm-slim
+      4  
+      5 -# pnpm fijado: corepack sin pin activa la Ãºltima (v11), que no 
+        -arranca en Node 20.                                             
+      5 +# pnpm fijado: corepack sin pin activa la última (v11), que no a
+        +rranca en Node 20.                                              
+      6  RUN corepack enable && corepack prepare pnpm@10.31.0 --activate
+      7  
+      8  WORKDIR /app
+
+● Update(frontend\Dockerfile)
+  ⎿  Added 2 lines, removed 1 line
+      1  FROM node:20-bookworm-slim
+      2  
+      3 -RUN corepack enable                                             
+      3 +# pnpm fijado: corepack sin pin activa la última (v11), que no a
+        +rranca en Node 20.                                              
+      4 +RUN corepack enable && corepack prepare pnpm@10.31.0 --activate 
+      5  
+      6  WORKDIR /app
+      7  
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose build 2>&1 | Select-Object -Last 30; Write-Output
+            "BUILD_EXIT=$LASTEXITCODE")
+  ⎿  Running in the background (↓ to manage)
+
+● Mientras compila, redacto las entradas de proceso.
+
+  Read 1 file (ctrl+o to expand)
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; $c
+            = Get-Content "ai-workspace\04-proceso\registro-decisiones.md";
+            Write-Output "TOTAL_LINES=$($…)
+  ⎿  TOTAL_LINES=66
+     === header (1-12) ===
+     # Registro de decisiones
+     … +18 lines (ctrl+o to expand)
+
+● Background command "Rebuild docker images with pinned pnpm" failed with exit
+code 1
+
+  Read 1 file (ctrl+o to expand)
+
+● better-sqlite3 no encuentra prebuild y cae a compilar con node-gyp, que falla:
+  bookworm-slim no trae toolchain. Mi comentario del Dockerfile daba por hecho
+  lo contrario — lo corrijo e instalo el toolchain.
+
+● Write(backend\Dockerfile)
+  ⎿  Added 6 lines, removed 2 lines
+       1 -# better-sqlite3 publica prebuilds para glibc: bookworm-slim ev
+         -ita compilar                                                   
+       2 -# nativo (alpine/musl obligaría a instalar toolchain).         
+       1  FROM node:20-bookworm-slim
+       2  
+       3 +# better-sqlite3 compila con node-gyp al instalar (no hay prebu
+         +ild para esta                                                  
+       4 +# combinación), así que el toolchain es obligatorio, no opciona
+         +l.                                                             
+       5 +RUN apt-get update \                                           
+       6 +  && apt-get install -y --no-install-recommends python3 make g+
+         ++ \                                                            
+       7 +  && rm -rf /var/lib/apt/lists/*                               
+       8 +                                                               
+       9  # pnpm fijado: corepack sin pin activa la última (v11), que no 
+          arranca en Node 20.
+      10  RUN corepack enable && corepack prepare pnpm@10.31.0 --activate
+      11  
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose build 2>&1 | Select-Object -Last 20; Write-Output
+            "BUILD_EXIT=$LASTEXITCODE")
+  ⎿  Running in the background (↓ to manage)
+● Mientras compila, escribo la entrada de auditoría.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; $t
+            = @"…)
+  ⎿  auditorias.md actualizado
+
+● Background command "Rebuild docker images with toolchain" completed (exit code
+0)
+
+● Build de Docker en verde. Levanto el stack para comprobar que arranca de
+  verdad.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose images 2>&1 | Select-Object -First 6)
+  ⎿  CONTAINER           REPOSITORY          TAG                 PLATFORM
+               IMAGE ID            SIZE                CREATED                                                                  
+
+● Los servidores de dev ocupan 3000/5173. Los paro antes de levantar el stack de
+  Docker.
+
+● Stop Task
+  ⎿  Set-Location
+     "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+     start:dev · stopped
+
+● Stop Task
+  ⎿  Set-Location
+     "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"; pnpm dev ·
+     stopped
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            foreach ($p in 3000,5173) {…)
+  ⎿  puerto 3000 libre
+     puerto 5173 libre
+      Container saas-o-matic-frontend-1 Creating
+     … +8 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Backend healthy y frontend arrancado. Verifico que el stack sirve de verdad,
+  no solo que los contenedores estén "up".
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            Write-Output "=== ps ==="; docker compose ps --format "{{.Service}}
+            {{.Status}}"…)
+  ⎿  === ps ===
+     backend Up 30 seconds (healthy)
+     frontend Up 24 seconds
+     … +8 lines (ctrl+o to expand)
+
+● El seed corrió sobre /data/dev.db del volumen — eso valida el fix del
+  DATABASE_URL. Compruebo el front en el navegador.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Stack de Docker verificado extremo a extremo. Lo bajo y documento el arranque
+  alternativo en el README.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic";
+            docker compose down -v 2>&1 | Select-Object -Last 4; Write-Output
+            "DOWN_EXIT=$LASTEXITCODE")
+  ⎿   Volume saas-o-matic_backend-db Removing
+      Network saas-o-matic_default Removing
+      Volume saas-o-matic_backend-db Removed
+     … +2 lines (ctrl+o to expand)
+  ⎿  (timeout 2m)
+
+● Update(README.md)
+  ⎿  Added 11 lines
+      18  
+      19  No hace falta configurar nada más: no hay `.env` que rellenar (
+          el frontend apunta a `http://localhost:3000` por defecto, confi
+          gurable con `VITE_API_URL`) y `pnpm db:setup` genera el cliente
+           Prisma, aplica las migraciones y siembra la base de datos.
+      20  
+      21 +<details>                                                      
+      22 +<summary>Alternativa con Docker (un solo comando, sin Node ni p
+         +npm)</summary>                                                 
+      23 +                                                               
+      24 +```bash                                                        
+      25 +docker compose up --build                                      
+      26 +```                                                            
+      27 +                                                               
+      28 +Levanta la API en `:3000` (con migraciones y seed aplicados sob
+         +re un volumen) y el dashboard en `:5173`.                      
+      29 +                                                               
+      30 +</details>                                                     
+      31 +                                                               
+      32  ### Datos demo
+      33  
+      34  El seed deja la aplicación lista para probar sin dar de alta na
+          da:
+
+● Ahora la prueba decisiva: clon limpio siguiendo el README al pie de la letra,
+  cronometrado. Primero commiteo para que el clon incluya la fase.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; git
+            status --porcelain; Write-Output "=== untracked dirs ==="; git
+            status --porcelain --untracke…)
+  ⎿   M .gitignore
+      M README.md
+      M ai-workspace/04-proceso/auditorias.md
+     … +28 lines (ctrl+o to expand)
+
+● Antes de commitear, cierro el checklist de rúbrica con la evidencia real que
+  he ido recogiendo.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; $c
+            = Get-Content "ai-workspace\04-proceso\registro-decisiones.md";
+            $c[58..65])
+  ⎿  ## Checklist final contra la rÃºbrica (completar en fase 9)
+
+     - [ ] ValidaciÃ³n fiscal: tabla de fixtures en verde (backend y fronte
+     … +6 lines (ctrl+o to expand)
+
+  Searched for 1 pattern (ctrl+o to expand)
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            Write-Output "=== backend goldenCases ==="; (Get-Content
+            "backend\src\domain\pricing\pricing-engi…)
+  ⎿  === backend goldenCases ===
+       const goldenCases: Array<[activeUsers: number, baseCents: number]> =
+      [
+     … +25 lines (ctrl+o to expand)
+
+● 8 casos dorados, tabla idéntica en ambos lados. Verifico los estados de
+  divisas antes de marcar ese ítem.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Los estados stale/unavailable no tienen test unitario propio; hoy solo he
+  demostrado stale en vivo. Verificaré unavailable contra el clon limpio, así
+  una sola arrancada cubre ambas cosas.
+
+  Commiteo para poder clonar.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; git
+            add -A; git status --short | Select-Object -First 25; Write-Output
+            "=== identidad ==="; git…)
+  ⎿  warning: in the working copy of '.gitignore', LF will be replaced by C
+     RLF the next time Git touches it
+     warning: in the working copy of 'README.md', LF will be replaced by CR
+     … +41 lines (ctrl+o to expand)
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git commit -q -F
+      - <<'EOF'
+      docs(readme): guía de arranque, capturas y CI…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok
+     83b9548 docs(readme): guía de arranque, capturas y CI
+
+● Ahora el clon limpio, siguiendo el README literalmente y cronometrando.
+
+● PowerShell($dest = "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-dpast
+            orhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb27bed
+            34\scratchpad\prueba-clon…)
+  ⎿  CLONE_EXIT=0
+
+     Name
+     … +13 lines (ctrl+o to expand)
+
+● Ejecuto el comando 1 del README tal cual, cronometrado.
+
+● PowerShell($dest = "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-dpast
+            orhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb27bed
+            34\scratchpad\prueba-clon…)
+  ⎿  --- pnpm install ---
+     │
+              │
+     … +9 lines (ctrl+o to expand)
+  ⎿  
+     Shell cwd was reset to C:\Users\dpastorhe\Coding\personal\saas-o-matic
+  ⎿  (timeout 10m)
+
+● Backend del clon: install + db:setup en 11 s. Ahora el frontend y ambos
+  servidores.
+
+● PowerShell($dest = "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-dpast
+            orhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb27bed
+            34\scratchpad\prueba-clon…)
+  ⎿  Done in 3.9s using pnpm v10.31.0
+     INSTALL_EXIT=0 t=4s
+  ⎿  
+     Shell cwd was reset to C:\Users\dpastorhe\Coding\personal\saas-o-matic
+  ⎿  (timeout 10m)
+
+● PowerShell(Set-Location "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-
+            dpastorhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb
+            27bed34\scratchpad\prueba…)
+  ⎿  Running in the background (↓ to manage)
+
+● PowerShell(Set-Location "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-
+            dpastorhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb
+            27bed34\scratchpad\prueba…)
+  ⎿  Running in the background (↓ to manage)
+
+● PowerShell($ok=$false; foreach ($i in 1..40) { try { $r = Invoke-WebRequest
+            "http://localhost:3000/customers" -UseBasicParsing -TimeoutSec 2; if
+            ($r.StatusCode -eq 200) {…)
+  ⎿  API OK - clientes=3
+     DASHBOARD OK
+     === Swagger /docs ===
+     docs status=200
+
+● El clon arranca siguiendo solo el README: API con 3 clientes demo, Swagger y
+  dashboard. Verifico en el navegador y de paso el estado unavailable de
+  divisas, que me faltaba.
+
+  Called plugin:playwright:playwright 2 times (ctrl+o to expand)
+
+● La caché se repobló: la petición de la primera carga terminó después de mi
+  localStorage.clear(). Bloqueo primero, limpio después.
+
+  Called plugin:playwright:playwright (ctrl+o to expand)
+
+● Los tres estados de divisas verificados hoy: stale (capturado), unavailable
+  (fuerza EUR, selector deshabilitado) y loading. Paro el clon y cierro el
+  proceso documental.
+
+● Stop Task
+  ⎿  Set-Location "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-dpa
+     storhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb27bed
+     34\scratchpad\prueba… · stopped
+
+● Stop Task
+  ⎿  Set-Location "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-dpa
+     storhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb27bed
+     34\scratchpad\prueba… · stopped
+
+● Actualizo el checklist de rúbrica con la evidencia real.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"
+            $path = "ai-workspace\04-proceso\registro-decisiones.md"…)
+  ⎿  Error: Exit code 1
+     ERROR: bloque no encontrado
+● Desajuste de saltos de línea. Uso Edit.
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 9 lines, removed 7 lines
+      56  | 2026-07-16 | 8 | Tabla de desglose compartida (`CostBreakdown
+          Table`) entre el histórico (cálculo del servidor) y la proyecci
+          ón (réplica ADR-08), con `CostBreakdownLine` como contrato de p
+          rops propio | Duplicar la tabla en el simulador; tipar las prop
+          s con `SimulationTierLine` (api) o `TierLine` (dominio) | Mismo
+           render en ambos lados hace la paridad cliente/servidor estruct
+          ural y no accidental; un tipo de props propio evita acoplar el 
+          componente a `api/types.ts` o a `domain/`, que es la misma razó
+          n por la que la fase 6 rechazó unificar esos dos tipos |
+      57  | 2026-07-16 | 8 | El toast de error del simulador concatena **
+          todos** los `details[]` del contrato (`join(' · ')`) y cae a `e
+          rror.message` cuando no hay | Mapear `details` a los campos con
+           `setError` (patrón del alta, fase 7) | La fase 8 exige explíci
+          tamente «toast destructivo con mensaje del contrato de error»; 
+          mapear a campos sin toast la incumpliría. Hallazgo de la audito
+          ría: la versión inicial usaba `details[0]` y descartaba el rest
+          o en silencio |
+      58  
+      59 -## Checklist final contra la rúbrica (completar en fase 9)     
+      59 +## Checklist final contra la rúbrica  ·  verificado 2026-07-17 
+      60  
+      61 -- [ ] Validación fiscal: tabla de fixtures en verde (backend y 
+         -frontend)                                                      
+      62 -- [ ] Tramos: 8 casos dorados en verde en ambos lados          
+      63 -- [ ] Persistencia con snapshot verificada releyendo histórico 
+      64 -- [ ] Responsive 360 px sin scroll horizontal                  
+      65 -- [ ] Estados carga/error/fallback de la API de divisas demostr
+         -ables                                                          
+      66 -- [ ] README: clon limpio arranca en ≤ 5 comandos (cronometrado
+         -)                                                              
+      61 +- [x] **Validación fiscal: tabla de fixtures en verde (backend 
+         +y frontend).** Backend: 80 tests de `domain/` (57 fiscales, inc
+         +luidos los 17 fixtures de la spec y los derivados para K/L/M y 
+         +las tres políticas de control del CIF). Frontend: suite espejo 
+         +dentro de los 161 tests. Cobertura de `domain/` medida al **100
+         + % de ramas en ambos lados** (backend: `jest --coverage`; front
+         +end: `pnpm test:cov`, 7 archivos, umbral 100 % fijado en `vite.
+         +config.ts`).                                                   
+      62 +- [x] **Tramos: 8 casos dorados en verde en ambos lados.** Tabl
+         +a idéntica `[1, 10, 11, 15, 50, 51, 100, 200]` en `backend/src/
+         +domain/pricing/pricing-engine.spec.ts` y `frontend/src/domain/p
+         +ricing/pricing.spec.ts` (ADR-08).                              
+      63 +- [x] **Persistencia con snapshot verificada releyendo históric
+         +o.** 30 e2e de backend + smoke de Playwright (`frontend/e2e/smo
+         +ke.spec.ts`): guarda una simulación y la relee en el histórico 
+         +con el mismo desglose (15 usuarios → 169,40 €).                
+      64 +- [x] **Responsive 360 px sin scroll horizontal.** Medido en da
+         +shboard, alta y detalle: `scrollWidth === clientWidth` en los t
+         +res (360/360, 360/360, 345/345).                               
+      65 +- [x] **Estados carga/error/fallback de la API de divisas demos
+         +trables.** Los tres reproducidos en vivo bloqueando el proveedo
+         +r: `loading` (spinner), `stale` con caché → banner «Tipos de ca
+         +mbio del 17/7/2026 (sin conexión con el proveedor)» manteniendo
+         + el selector operativo con la última tasa (captura en `docs/cap
+         +turas/divisas-degradacion.png`) y `unavailable` sin caché → «Si
+         +n tipos de cambio: importes en EUR», divisa forzada a EUR y sel
+         +ector deshabilitado.                                           
+      66 +- [x] **README: clon limpio arranca en ≤ 5 comandos (cronometra
+         +do).** `git clone` a una carpeta nueva y sólo los comandos del 
+         +README: backend `pnpm install` + `pnpm db:setup` = **11 s**, fr
+         +ontend `pnpm install` = **4 s**. API con los 3 clientes demo, S
+         +wagger en `/docs` (200) y dashboard sirviendo. Sin pasos no esc
+         +ritos ni `.env` que rellenar. Alternativa `docker compose up --
+         +build` verificada por separado (backend healthy, seed sobre el 
+         +volumen, front sirviendo).                                     
+      67 +                                                               
+      68 +**No verificado:** «CI en verde en GitHub». El workflow está es
+         +crito y sus pasos se han ejecutado uno a uno en local (backend:
+         + `lint:ci` 0 warnings, 106 unit, 30 e2e; frontend: lint, 161 un
+         +it, build), pero **no se ha hecho push**, así que no hay ejecuc
+         +ión real de Actions que lo demuestre.                          
+
+● Añado las decisiones de la fase a la tabla del registro.
+
+● Update(ai-workspace\04-proceso\registro-decisiones.md)
+  ⎿  Added 8 lines
+      55  | 2026-07-16 | 8 | La proyección se retira (mensaje en vez de t
+          abla) cuando `activeUsers` sale del rango del contrato, reutili
+          zando `simulatorFormSchema.shape.activeUsers` como única fuente
+           del rango | Proyectar igualmente cualquier entero; repetir los
+           límites 1–100.000 en el componente | Proyectar un valor que el
+           servidor rechazaría es engañoso; reusar el schema evita que lo
+          s límites de `validaciones.md` vivan en dos sitios |
+      56  | 2026-07-16 | 8 | Tabla de desglose compartida (`CostBreakdown
+          Table`) entre el histórico (cálculo del servidor) y la proyecci
+          ón (réplica ADR-08), con `CostBreakdownLine` como contrato de p
+          rops propio | Duplicar la tabla en el simulador; tipar las prop
+          s con `SimulationTierLine` (api) o `TierLine` (dominio) | Mismo
+           render en ambos lados hace la paridad cliente/servidor estruct
+          ural y no accidental; un tipo de props propio evita acoplar el 
+          componente a `api/types.ts` o a `domain/`, que es la misma razó
+          n por la que la fase 6 rechazó unificar esos dos tipos |
+      57  | 2026-07-16 | 8 | El toast de error del simulador concatena **
+          todos** los `details[]` del contrato (`join(' · ')`) y cae a `e
+          rror.message` cuando no hay | Mapear `details` a los campos con
+           `setError` (patrón del alta, fase 7) | La fase 8 exige explíci
+          tamente «toast destructivo con mensaje del contrato de error»; 
+          mapear a campos sin toast la incumpliría. Hallazgo de la audito
+          ría: la versión inicial usaba `details[0]` y descartaba el rest
+          o en silencio |
+      58 +| 2026-07-17 | 9 | `seed.ts` lee `DATABASE_URL` con el mismo fa
+         +llback que `prisma.config.ts` y `PrismaService` | Dejar la URL 
+         +hardcodeada (estado previo) | Los otros dos puntos ya la respet
+         +aban: con la variable puesta, `db:setup` migraba una BD y sembr
+         +aba **otra**, en silencio. Bloqueaba el contenedor, que sirve l
+         +a BD desde `/data`. Hallazgo de la auditoría de fase 9 |       
+      59 +| 2026-07-17 | 9 | Script `lint:ci` (eslint sin `--fix`, `--max
+         +-warnings 0`) es lo que ejecuta el workflow; `pnpm lint` conser
+         +va `--fix` para el día a día | Usar `pnpm lint` en CI, como ind
+         +icaba la fase | Un gate que auto-arregla nunca falla por lo arr
+         +eglable: no es un gate. Aprobado por Diego antes de tocar archi
+         +vos |                                                          
+      60 +| 2026-07-17 | 9 | `@playwright/test` como devDependency del fr
+         +ontend + smoke de un solo recorrido (alta → simular → guardar →
+         + cambiar divisa) contra la API real | No hacer el opcional de l
+         +a fase; e2e con más recorridos | Diego pidió no descartar el op
+         +cional. Un recorrido cubre el cableado de todo el stack; más re
+         +corridos duplicarían lo que ya cubren los 30 e2e de backend y l
+         +os 161 unit del frontend |                                     
+      61 +| 2026-07-17 | 9 | El CIF del smoke se deriva buscando el carác
+         +ter de control contra `validateSpanishTaxId` (fuente de verdad)
+         + | Fijar un CIF constante; reimplementar el algoritmo del CIF e
+         +n el test | El alta rechaza duplicados con 409, así que el iden
+         +tificador debe ser único por ejecución; reimplementar el algori
+         +tmo en el test duplicaría una regla de negocio cerrada en la sp
+         +ec |                                                           
+      62 +| 2026-07-17 | 9 | El smoke usa `reuseExistingServer: true` y e
+         +scribe en la BD de dev (crea un cliente real por pasada) | BD a
+         +islada para e2e con `reuseExistingServer: false` | Con `false`,
+         + Playwright revienta si ya tienes el backend en el 3000 — que e
+         +s justo lo que el README te dice que hagas. Es un smoke local, 
+         +no un gate de CI; la BD de dev se regenera con `pnpm db:setup` 
+         +|                                                              
+      63 +| 2026-07-17 | 9 | `@vitest/coverage-v8` + umbral 100 % en `vit
+         +e.config.ts`, acotado a `src/domain/**` | Inferir la cobertura 
+         +del frontend por paridad con el backend (port 1:1 con suite esp
+         +ejo) | Decidido por Diego: la rúbrica pide cobertura de `domain
+         +/`, y «se infiere» no es una medida. El umbral en config impide
+         + que se degrade en silencio |                                  
+      64 +| 2026-07-17 | 9 | Contenedores sobre `node:20-bookworm-slim` c
+         +on toolchain (`python3 make g++`) y pnpm fijado a `10.31.0` vía
+         + `corepack prepare` | `node:20-alpine`; `corepack enable` a sec
+         +as | `corepack enable` sin pin activa pnpm v11, que no arranca 
+         +en Node 20 (`ERR_UNKNOWN_BUILTIN_MODULE`); y `better-sqlite3` n
+         +o resuelve por prebuild aquí, cae a node-gyp y necesita toolcha
+         +in. Ambas cosas se descubrieron ejecutando el build, no razonan
+         +do sobre él |                                                  
+      65 +| 2026-07-17 | 9 | Capturas del README en `docs/capturas/` | `a
+         +i-workspace/04-proceso/capturas/` | Ese directorio se eliminó a
+         + propósito (commit `d29c251`); las capturas son material del RE
+         +ADME, no del workspace de proceso |                            
+      66  
+      67  ## Checklist final contra la rúbrica  ·  verificado 2026-07-17
+      68  
+
+● Verificación final completa sobre el repo, para no dar nada por bueno de
+  memoria.
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"
+            Write-Output "===== BACKEND lint:ci ====="; pnpm lint:ci 2>&1 |
+            Select-Object -Last 2; Wr…)
+  ⎿  ===== BACKEND lint:ci =====
+     > eslint "{src,apps,libs,test,prisma}/**/*.ts" --max-warnings 0
+     … +10 lines (ctrl+o to expand)
+  ⎿  (timeout 6m 40s)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\backend"; pnpm
+            test:e2e 2>&1 | Select-String "Tests:|Suites:"; Write-Output
+            "E2E=$LASTEXITCODE")
+  ⎿  Test Suites: 3 passed, 3 total
+     Tests:       30 passed, 30 total
+     E2E=0
+  ⎿  (timeout 6m 40s)
+
+● PowerShell(Set-Location
+            "C:\Users\dpastorhe\Coding\personal\saas-o-matic\frontend"
+            Write-Output "===== FRONTEND lint ====="; pnpm lint 2>&1 |
+            Select-Object -Last 4; Write-…)
+  ⎿  ===== FRONTEND lint =====
+     > oxlint
+     … +20 lines (ctrl+o to expand)
+  ⎿  (timeout 6m 40s)
+
+● Todo verde. Amplío el commit con la documentación de proceso.
+
+● PowerShell(Set-Location "C:\Users\dpastorhe\Coding\personal\saas-o-matic"; git
+            add -A; git status --short)
+  ⎿  M  ai-workspace/04-proceso/registro-decisiones.md
+
+● Bash(cd "C:/Users/dpastorhe/Coding/personal/saas-o-matic" && git commit -q
+      --amend -F - <<'EOF'
+      docs(readme): guía de arranque, capturas y CI…)
+  ⎿  [rtk] /!\ No hook installed — run `rtk init -g` for automatic token sa
+     vings
+     ok
+     … +27 lines (ctrl+o to expand)
+
+● Fase 09 cerrada. Limpio el clon de prueba.
+
+● PowerShell(Remove-Item "C:\Users\DPASTO~1\AppData\Local\Temp\claude\C--Users-d
+            pastorhe-Coding-personal-saas-o-matic\f994431b-fad3-4bd3-9859-755cb2
+            7bed34\scratchpad\prueba-…)
+  ⎿  working tree limpio si no hay salida arriba
+
+● Fase 09 cerrada y commiteada (d7bd8b6, sin push como pediste). Verificación
+  completa en verde: backend lint:ci 0 warnings · 106 unit · 30 e2e · build;
+  frontend lint (solo los 2 warnings preexistentes de shadcn) · 161 unit · build
+  · cobertura de domain/ 100 % (70/70 stmts, 23/23 ramas).
+
+  Lo que más importa
+
+  El clon limpio funciona. git clone a carpeta nueva y solo los comandos del
+  README: backend install + db:setup = 11 s, frontend install = 4 s. API con los
+  3 clientes demo, Swagger 200, dashboard sirviendo, cero pasos no escritos.
+
+  Un criterio NO se cumple: «CI en verde en GitHub». Escribí el workflow y
+  ejecuté sus pasos uno a uno en local, pero sin push no hay ejecución real de
+  Actions. Queda declarado como no verificado en el checklist, no dado por
+  bueno.
+
+  Tres bugs reales que salieron al ejecutar (no al razonar)
+
+  1. seed.ts ignoraba DATABASE_URL mientras prisma.config.ts y PrismaService sí
+  la respetan → con la variable puesta, db:setup migraba una BD y sembraba otra,
+  en silencio. Corregido; el contenedor lo demostró sembrando sobre /data.
+  2. Docker: corepack enable sin pin activa pnpm v11, que no arranca en Node 20
+  (ERR_UNKNOWN_BUILTIN_MODULE). Y better-sqlite3 no resuelve por prebuild aquí:
+  cae a node-gyp y muere sin toolchain — mi comentario del Dockerfile afirmaba
+  lo contrario y lo reescribí.
+  3. Mis propios ficheros salieron con acentos corruptos por copiar literales
+  desde la salida mojibake del terminal. El smoke falló por eso; escaneé todo lo
+  tocado y lo corregí.
+
+  También arreglé el ARG VITE_API_URL sin default (un build-arg vacío llega como
+  '', y '' ?? fallback devuelve '').
+
+  Opcionales (los incluí, como pediste)
+
+  - Smoke Playwright verde: alta → simular → guardar → cambiar divisa contra la
+  API real. El CIF se deriva contra validateSpanishTaxId para no duplicar el
+  algoritmo en el test.
+  - docker-compose levantado de verdad, no solo escrito: backend healthy, seed
+  en volumen, front sirviendo. Documentado en el README.
+
+  Decisiones registradas
+
+  8 entradas nuevas en registro-decisiones.md + auditoría de cierre en
+  auditorias.md (7 hallazgos, todos corregidos; 2 propuestas rechazadas).
+  Checklist de rúbrica: 6/6 con evidencia, más la nota explícita del CI.
+
+  Dos cosas que quizá quieras decidir: el smoke crea un cliente real en tu BD de
+  dev en cada pasada (reuseExistingServer: true, aislarlo rompería el flujo del
+  README) y depende de open.er-api.com en el paso de USD. Ambas están
+  justificadas en el registro, pero son deuda consciente. ¿Hago push para cerrar
+  el criterio del CI?
+
+✻ Worked for 7m 22s
