@@ -6,7 +6,7 @@ Herramienta interna para simular, optimizar y presupuestar suscripciones SaaS mu
 
 ## Arranque rápido
 
-Requisitos: **Node ≥ 20** y **pnpm** (`npm i -g pnpm`).
+Requisitos: **Node 26** (el que usan CI y Docker) y **pnpm** (`npm i -g pnpm`).
 
 ```bash
 # Terminal 1 — API (http://localhost:3000, Swagger en /docs)

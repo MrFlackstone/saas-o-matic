@@ -217,3 +217,20 @@ Aceptado sin cambio: el smoke de Playwright depende de la API real de divisas (`
 ### Propuestas de la IA rechazadas o corregidas
 - Capturas en `ai-workspace/04-proceso/capturas/`: rechazada — ese directorio se eliminó a propósito en la fase 8 (commit `d29c251`). Las capturas viven en `docs/capturas/`.
 - Cobertura del `domain/` del frontend "inferida por paridad" con el backend (port 1:1 con suite espejo): rechazada por Diego — se añade `@vitest/coverage-v8` y se mide de verdad, con umbral al 100 % en config para que no se degrade en silencio.
+
+## Actualización de seguridad de dependencias y runtime  ·  2026-10-23
+
+Alcance: `pnpm audit` de backend y frontend, imágenes Docker y CI. Antes: backend 3 críticas / 30 altas / 21 moderadas / 2 bajas; frontend 1 crítica / 26 altas / 40 moderadas / 5 bajas. Después: **0 en ambos**. Sin saltos de versión mayor. Backend: lint:ci, 106 unit y 30 e2e en verde; frontend: lint, 161 unit, build y smoke de Playwright en verde; ambas imágenes construyen y `/health` responde.
+
+### Hallazgos
+| Severidad | Archivo | Hallazgo | Acción |
+|---|---|---|---|
+| crítica | backend/pnpm-lock.yaml | `proxy-addr` < 2.0.8 (CVE-2026-90711, suplantación de IP) vía `@nestjs/platform-express` → express, y `handlebars` ≤ 4.7.9 (CVE-2026-106445/106446, inyección de JS) vía ts-jest | corregido: `pnpm update` (`@nestjs/*` 11.2.8, ts-jest 29.4.15, prisma 7.10.1) |
+| crítica | frontend/pnpm-lock.yaml | `proxy-addr` < 2.0.8 vía `shadcn` → `@modelcontextprotocol/sdk` → express | corregido: `shadcn` 4.22.1 arrastra el SDK y express parcheados |
+| alta | backend/pnpm-lock.yaml | multer, mysql2, js-yaml, fast-uri, brace-expansion, deepmerge-ts, hono vulnerables (transitivas) | corregido: `pnpm update` + override acotado `js-yaml@>=5.0.0 <=5.4.0 → ^5.4.1` (`@nestjs/swagger` 11.4.7 fija 5.3.0 exacta y no hay 11.x posterior) |
+| alta | frontend/pnpm-lock.yaml | vite ≤ 8.1.5, undici < 7.29.1, react-router < 7.18.2, nanoid, postcss, source-map-js | corregido: `pnpm update` (vite 8.3.5, react-router-dom 7.18.4) |
+| alta | backend/Dockerfile · frontend/Dockerfile | Base `node:20-bookworm-slim`: Node 20 fuera de soporte, sin parches de seguridad | corregido: `node:26.12.1-bookworm-slim`; pnpm vía `npm install -g pnpm@10.31.0` (Node 25+ no trae corepack) |
+| media | .github/workflows/ci.yml | CI en `node-version: 20`, distinto del runtime de las imágenes | corregido: `node-version: 26` en ambos jobs |
+| baja | frontend/src/features/simulator/ProjectionPanel.spec.tsx:26 | oxlint 1.89 añade `no-irregular-whitespace` y avisa de un NBSP literal en un comentario | aceptado: es un aviso, no rompe el lint |
+
+Aceptado sin cambio: `pnpm install` en backend avisa de que ignora el build script de `@parcel/watcher` (nueva dependencia opcional de `jest-haste-map` 30.5). Solo afecta al modo watch de jest; los tests no lo usan.
