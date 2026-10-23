@@ -1,7 +1,7 @@
-FROM node:20-bookworm-slim
+FROM node:26.12.1-bookworm-slim
 
-# pnpm fijado: corepack sin pin activa la última (v11), que no arranca en Node 20.
-RUN corepack enable && corepack prepare pnpm@10.31.0 --activate
+# Node 25+ ya no incluye corepack: pnpm se instala con npm, fijado a la versión del lockfile.
+RUN npm install -g pnpm@10.31.0
 
 WORKDIR /app
 
